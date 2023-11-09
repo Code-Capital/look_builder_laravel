@@ -1,0 +1,96 @@
+img.logoImage {
+    width: 40px !important;
+    height: 40px !important;
+    object-fit: contain !important;
+}
+
+.page-title-box .page-title {
+    font-size: 24px !important;
+}
+
+.button-close-fullsidebar {
+    line-height: 2.5 !important;
+}
+
+.navbar-custom {
+    min-height: unset !important;
+}
+
+.min-height {
+    min-height: 370px;
+}
+
+.attributesTable img {
+    width: 40px;
+    height: 35px;
+    object-fit: contain;
+}
+
+
+.panel-default > .panel-heading {
+    color: #333;
+    background-color: #fff;
+    border-color: #e4e5e7;
+    padding: 0;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.panel-default .panel-collapse .panel-body .table-sm > :not(caption) > * > * {
+    padding: 0.2rem 0.5rem !important;
+}
+
+.panel-default > .panel-heading a {
+    display: block;
+    padding: 15px 15px;
+    color: #000000;
+}
+
+.panel-default > .panel-heading a:after {
+    content: "";
+    position: relative;
+    top: 3px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    font-size: 24px !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    float: right;
+    transition: transform .25s linear;
+    -webkit-transition: -webkit-transform .25s linear;
+}
+
+.panel-default > .panel-heading , .panel-default > .panel-heading [aria-expanded="true"] {
+    background-color: #eee;
+    color: #000000 !important;
+    border-radius: 12px;
+}
+.heightSideBar{
+    min-height: calc( 100vh - 40px);
+}
+@media only screen and (max-width: 992px){
+    .heightSideBar{
+        min-height:unset !important;
+    }
+}
+
+/*.panel-default > .panel-heading a[aria-expanded="true"]:after {*/
+/*    content: "\2212";*/
+/*    -webkit-transform: rotate(180deg);*/
+/*    transform: rotate(180deg);*/
+/*    font-size: 24px !important;*/
+/*    color: #000000 !important;*/
+/*}*/
+
+/*.panel-default > .panel-heading a[aria-expanded="false"]:after {*/
+/*    content: "\002b";*/
+/*    -webkit-transform: rotate(90deg);*/
+/*    transform: rotate(90deg);*/
+/*    font-size: 18px;*/
+/*    color: #000000 !important;*/
+/*}*/
