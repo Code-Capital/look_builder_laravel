@@ -155,6 +155,7 @@
                         <li>
                             <a href="{{ route('allProducts') }}">All Product</a>
                         </li>
+
                         <li>
                             <a href="fabrics">Fabrics</a>
                         </li>

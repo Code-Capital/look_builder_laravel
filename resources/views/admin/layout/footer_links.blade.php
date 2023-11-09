@@ -37,6 +37,7 @@
 </script>
 
 <!-- Dashboard App js -->
+
 <script src="{{ asset('assets/js/pages/demo.dashboard.js') }}"></script>
 
 <!-- App js -->
