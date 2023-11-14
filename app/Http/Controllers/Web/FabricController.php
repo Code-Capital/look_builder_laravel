@@ -87,13 +87,7 @@ class FabricController extends Controller
     {
         try {
             $fabrics = Fabric::all();
-            if ($fabrics->count() > 0) {
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'Fabric List',
-                ]);
-            }
-            return response()->json(['status' => 204, 'message' => 'No Products Found']);
+            return view('admin.pages.fabricList', compact('fabrics'));
         } catch (\Throwable $th) {
             return response()->json(['status' => 500, 'message' => 'something went wrong']);
         }

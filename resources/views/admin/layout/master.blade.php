@@ -29,8 +29,9 @@
         href="{{ asset('assets/vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css') }}">
 
     <!-- Toastr css-->
-    <link rel="stylesheet" href="{{ asset('assets/css/toastr.css') }}">
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css"
+        integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Theme Config Js -->
     <script src="{{ asset('assets/js/hyper-config.js') }}"></script>
 
@@ -61,6 +62,10 @@
     @include('admin.layout.footer_links')
 
     <script src="{{ asset('assets/js/jquery-3.6.0.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+        integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 
     @stack('scripts')
     @if (Session::has('message'))

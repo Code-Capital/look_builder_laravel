@@ -13,8 +13,15 @@ return new class extends Migration
     {
         Schema::create('fabrics', function (Blueprint $table) {
             $table->id();
-            $table->string('uuid')->nullable();
+            $table->uuid('uuid')->unique();
             $table->string('name');
+            $table->string('image');
+            $table->float('price');
+            $table->text('composition');
+            $table->text('weight');
+            $table->text('season');
+            $table->text('woven_by');
+            $table->text('fabric_code');
             $table->timestamps();
         });
     }

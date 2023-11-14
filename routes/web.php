@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Web\FabricController;
 use App\Http\Controllers\Web\LookBuilderProductController;
 use Illuminate\Support\Facades\Route;
 
@@ -32,10 +33,11 @@ Route::get('custom_product_attribute', function () {
 Route::get('wedding_planner', function () {
     return view('admin.pages.wedding_planner');
 })->name('wedding_planner');
-Route::get('shirts', function () {
-    return view('admin.pages.look_builder.shirts');
-})->name('shirts');
+
 
 Route::prefix('look_builder_products')->group(function () {
     Route::post('add', [LookBuilderProductController::class, 'store'])->name('lookBuilder.product.store');
+    Route::get('by_category/{uuid}', [LookBuilderProductController::class, 'byCategory'])->name('productByCategory');
 });
+
+Route::get('fabrics', [FabricController::class, 'all'])->name('fabrics');

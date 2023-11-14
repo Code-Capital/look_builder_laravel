@@ -1,5 +1,6 @@
 $(function () {
     $("#addLookBuilderProduct").on("submit", function (event) {
+        console.log("hi");
         event.preventDefault();
         var formData = new FormData(this);
         $.ajax({
@@ -28,7 +29,6 @@ $(function () {
                 const errorMessages = Object.values(
                     errors?.responseJSON?.errors
                 ).flat();
-
                 toastr.options = {
                     progressBar: true,
                     closeButton: true,
@@ -38,5 +38,13 @@ $(function () {
                 }
             },
         });
+    });
+    $("#hello").on("click", function () {
+        toastr.options = {
+            progressBar: true,
+            closeButton: true,
+            backgroundColor: "#4CAF50 !important", // Set your desired background color here
+        };
+        toastr.success("Hello, toastr!", "Greetings");
     });
 });

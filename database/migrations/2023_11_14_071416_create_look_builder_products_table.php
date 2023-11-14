@@ -13,12 +13,17 @@ return new class extends Migration
     {
         Schema::create('look_builder_products', function (Blueprint $table) {
             $table->id();
+            $table->uuid('uuid')->unique();
             $table->string('title');
             $table->string('product_image');
             $table->string('layer_image');
             $table->string('color');
             $table->string('size');
             $table->float('price');
+            $table->text('description')->nullable();
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+
             $table->timestamps();
         });
     }

@@ -1,3 +1,6 @@
+@php
+    $categories = App\Models\Category::all();
+@endphp
 <div class="leftside-menu">
 
     <!-- Brand Logo Light -->
@@ -99,10 +102,13 @@
                 </a>
                 <div class="collapse" id="sidebarEcommerce">
                     <ul class="side-nav-second-level">
-                        <li>
-                            <a href="{{ route('shirts') }}"> Shirts</a>
-                        </li>
-                        <li>
+                        @foreach ($categories as $category)
+                            <li>
+                                <a href="{{ route('productByCategory', $category->uuid) }}"> {{ $category->name }}</a>
+                            </li>
+                        @endforeach
+
+                        {{-- <li>
                             <a href="{{ route('shirts') }}"> Trousers</a>
                         </li>
                         <li>
@@ -116,7 +122,7 @@
                         </li>
                         <li>
                             <a href="{{ route('shirts') }}"> Suit</a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </li>
@@ -162,7 +168,7 @@
                         </li>
 
                         <li>
-                            <a href="fabrics">Fabrics</a>
+                            <a href="{{ route('fabrics') }}">Fabrics</a>
                         </li>
                         <li>
                             <a href="apps-tasks-details">LB Models</a>
