@@ -28,6 +28,9 @@
     <link rel="stylesheet"
         href="{{ asset('assets/vendor/admin-resources/jquery.vectormap/jquery-jvectormap-1.2.2.css') }}">
 
+    <!-- Toastr css-->
+    <link rel="stylesheet" href="{{ asset('assets/css/toastr.css') }}">
+
     <!-- Theme Config Js -->
     <script src="{{ asset('assets/js/hyper-config.js') }}"></script>
 
@@ -39,6 +42,10 @@
 
     <!-- Custom CSS-->
     <link rel="stylesheet" href="{{ asset('assets/css/custom.css') }}">
+
+    <!-- Toastr js-->
+    <script src="{{ asset('assets/js/toastr.js') }}"></script>
+
 </head>
 
 <body>
@@ -52,7 +59,27 @@
         @include('admin.layout.theme')
     </div>
     @include('admin.layout.footer_links')
+
+    <script src="{{ asset('assets/js/jquery-3.6.0.js') }}"></script>
+
     @stack('scripts')
+    @if (Session::has('message'))
+        <script>
+            toastr.options = {
+                "progressBar": true,
+                "closeButton": true,
+                "timeOut": 3000 // Moved timeOut option to the common options
+            };
+
+            var status = {{ json_encode(Session::get('status')) }}; // Convert PHP boolean to JavaScript boolean
+
+            if (status == 'true') {
+                toastr.success("{{ Session::get('message') }}");
+            } else {
+                toastr.error("{{ Session::get('message') }}"); // Changed toastr.success to toastr.error for status === false
+            }
+        </script>
+    @endif
 </body>
 
 </html>

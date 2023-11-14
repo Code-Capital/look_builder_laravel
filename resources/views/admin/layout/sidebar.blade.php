@@ -83,6 +83,14 @@
 
             </li>
             <li class="side-nav-item">
+                <a href="{{ route('wedding_planner') }}" aria-expanded="false" aria-controls="sidebarDashboards"
+                    class="side-nav-link">
+                    <i class="uil-users-alt"></i>
+                    <span> Wedding Planner </span>
+                </a>
+
+            </li>
+            <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
                     aria-controls="sidebarEcommerce" class="side-nav-link">
                     <i class="uil-store"></i>
@@ -92,22 +100,22 @@
                 <div class="collapse" id="sidebarEcommerce">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="look-builder"> Shirts</a>
+                            <a href="{{ route('shirts') }}"> Shirts</a>
                         </li>
                         <li>
-                            <a href="look-builder"> Trousers</a>
+                            <a href="{{ route('shirts') }}"> Trousers</a>
                         </li>
                         <li>
-                            <a href="look-builder"> Shoes</a>
+                            <a href="{{ route('shirts') }}"> Shoes</a>
                         </li>
                         <li>
-                            <a href="look-builder"> Jackets</a>
+                            <a href="{{ route('shirts') }}"> Jackets</a>
                         </li>
                         <li>
-                            <a href="look-builder"> Overcoat</a>
+                            <a href="{{ route('shirts') }}"> Overcoat</a>
                         </li>
                         <li>
-                            <a href="look-builder"> Suit</a>
+                            <a href="{{ route('shirts') }}"> Suit</a>
                         </li>
                     </ul>
                 </div>
@@ -138,10 +146,7 @@
                     </ul>
                 </div>
             </li>
-
             <li class="side-nav-title">Settings</li>
-
-
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks"
                     class="side-nav-link">
