@@ -39,12 +39,4 @@ $(function () {
             },
         });
     });
-    $("#hello").on("click", function () {
-        toastr.options = {
-            progressBar: true,
-            closeButton: true,
-            backgroundColor: "#4CAF50 !important", // Set your desired background color here
-        };
-        toastr.success("Hello, toastr!", "Greetings");
-    });
 });

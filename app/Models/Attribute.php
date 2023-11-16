@@ -11,10 +11,15 @@ class Attribute extends Model
     protected $fillable = [
         'uuid',
         'name',
-        'product_id'
+        'product_id',
+        'look_builder_product_id',
     ];
     public function product()
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'product_id');
+    }
+    public function lookBuilderProducts()
+    {
+        return $this->belongsTo(LookBuilderProduct::class);
     }
 }

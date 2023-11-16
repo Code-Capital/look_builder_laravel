@@ -35,57 +35,65 @@
                     </div>
                     <div class="collapse bg-light p-3 rounded-3 my-3" id="collapseLook" style="">
                         <div class=" bg-transparent">
-                            <div class="row mx-0">
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label for="">Title</label>
-                                        <input type="text" class="form-control" placeholder="">
+                            <form id="addFabricFrom" method="POST">
+                                @csrf
+                                <div class="row mx-0">
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="">Title</label>
+                                            <input type="text" class="form-control" placeholder="" name="title">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label for="">Product Image</label>
-                                        <input type="file" class="form-control">
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="">Product Image</label>
+                                            <input type="file" class="form-control" name="image">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label for="">Price</label>
-                                        <input type="text" class="form-control" placeholder="">
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="">Price</label>
+                                            <input type="numeric" class="form-control" placeholder="" name="price">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label for="">Composition</label>
-                                        <input type="text" class="form-control" placeholder="">
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="">Composition</label>
+                                            <input type="text" class="form-control" placeholder="" name="composition">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label for="">Weight</label>
-                                        <input type="text" class="form-control" placeholder="">
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="">Weight</label>
+                                            <input type="text" class="form-control" placeholder="" name="weight">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label for="">Season</label>
-                                        <input type="text" class="form-control" placeholder="">
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="">Season</label>
+                                            <input type="text" class="form-control" placeholder="" name="season">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label for="">Woven By</label>
-                                        <input type="text" class="form-control" placeholder="">
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="">Woven By</label>
+                                            <input type="text" class="form-control" placeholder="" name="woven_by">
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-4">
-                                    <div class="mb-3">
-                                        <label for="">Fabric Code</label>
-                                        <input type="text" class="form-control" placeholder="">
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <label for="">Fabric Code</label>
+                                            <input type="text" class="form-control" placeholder="" name="code">
+                                        </div>
                                     </div>
-                                </div>
 
-                            </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="mb-3 text-center">
+                                        <button type="submit" class="btn btn-primary ">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="card">
@@ -123,10 +131,12 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div> <!-- end card -->
-                </div><!-- end col-->
-            </div> <!-- end row-->
-        </div> <!-- container -->
-
-    </div> <!-- content -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
+@push('scripts')
+    <script src="{{ asset('assets/js/custom/fabric.js') }}"></script>
+@endpush

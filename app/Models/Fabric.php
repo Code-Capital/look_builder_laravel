@@ -11,6 +11,13 @@ class Fabric extends Model
     protected $fillable = [
         'uuid',
         'name',
+        'image',
+        'price',
+        'composition',
+        'weight',
+        'season',
+        'woven_by',
+        'fabric_code',
     ];
     public function products()
     {

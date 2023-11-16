@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Fabric\AddRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Fabric;
@@ -10,22 +11,34 @@ use Illuminate\Support\Str;
 
 class FabricController extends Controller
 {
-    public function store(Request $request)
+    public function store(AddRequest $request)
     {
         try {
             DB::beginTransaction();
-            $fabric = Fabric::create([
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '_' . Str::random(15) . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('images/fabrics', $imageName);
+            }
+            Fabric::create([
                 'uuid' => Str::uuid(),
-                'name' => $request->name,
+                'name' => $request->title,
+                'image' => $imageName,
+                'price' => $request->price,
+                'composition' => $request->composition,
+                'weight' => $request->weight,
+                'season' => $request->season,
+                'woven_by' => $request->woven_by,
+                'fabric_code' => $request->code,
             ]);
             DB::commit();
             return response()->json([
-                'status' => 201,
+                'status' => true,
                 'message' => 'Fabric Created Successfully',
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['status' => 500, 'message' => 'something went wrong']);
+            return response()->json(['status' => false, 'message' => 'something went wrong']);
         }
     }
     public function delete($uuid)

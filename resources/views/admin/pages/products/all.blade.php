@@ -1,10 +1,7 @@
 @extends('admin.layout.master')
 @section('content')
     <div class="content">
-        <!-- Start Content-->
         <div class="container-fluid">
-
-            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box">
@@ -14,8 +11,6 @@
                     </div>
                 </div>
             </div>
-            <!-- end page title -->
-
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -27,100 +22,94 @@
                                         Add Products and product attributes for the entire system.
                                     </p>
                                 </div>
-                                <div class="col-lg-6 mb-3">
+                                {{-- <div class="col-lg-6 mb-3">
                                     <select class="form-select mb-3">
                                         <option selected>Select Fabric</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
+                                        @foreach ($fabrics as $fabric)
+                                            <option value="{{ $fabric->id }}">{{ $fabric->name }}</option>
+                                        @endforeach
+
                                     </select>
-                                </div>
+                                </div> --}}
                             </div>
-
-
-
                             <table class="table table-sm table-striped table-centered mb-0">
                                 <thead>
                                     <tr>
                                         <th>Product Name</th>
-                                        <th>Type</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="table-user">
-                                            Shirts
-                                        </td>
-                                        <td>Look Builder</td>
-                                        <td class="table-action">
-                                            <a href="{{ route('custom_product_attribute') }}" class="action-icon"> <i
-                                                    class="mdi mdi-pencil"></i></a>
-                                            <a href="#" class="action-icon"> <i class="mdi mdi-delete"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-user">
-                                            Trousers
-                                        </td>
-                                        <td>Look Builder</td>
-                                        <td class="table-action">
-                                            <a href="custom-product-attribute" class="action-icon"> <i
-                                                    class="mdi mdi-pencil"></i></a>
-                                            <a href="#" class="action-icon"> <i class="mdi mdi-delete"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-user">
-                                            Jackets
-                                        </td>
-                                        <td>Look Builder</td>
-                                        <td class="table-action">
-                                            <a href="custom-product-attribute" class="action-icon"> <i
-                                                    class="mdi mdi-pencil"></i></a>
-                                            <a href="#" class="action-icon"> <i class="mdi mdi-delete"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-user">
-                                            Shoes
-                                        </td>
-                                        <td>Look Builder</td>
-                                        <td class="table-action">
-                                            <a href="custom-product-attribute" class="action-icon"> <i
-                                                    class="mdi mdi-pencil"></i></a>
-                                            <a href="#" class="action-icon"> <i class="mdi mdi-delete"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-user">
-                                            Suits
-                                        </td>
-                                        <td>Custom Made</td>
-                                        <td class="table-action">
-                                            <a href="custom-product-attribute" class="action-icon"> <i
-                                                    class="mdi mdi-pencil"></i></a>
-                                            <a href="#" class="action-icon"> <i class="mdi mdi-delete"></i></a>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="table-user">
-                                            Shirts
-                                        </td>
-                                        <td>Custom Made</td>
-                                        <td class="table-action">
-                                            <a href="custom-product-attribute" class="action-icon"> <i
-                                                    class="mdi mdi-pencil"></i></a>
-                                            <a href="#" class="action-icon"> <i class="mdi mdi-delete"></i></a>
-                                        </td>
-                                    </tr>
-
+                                    @foreach ($products as $product)
+                                        <tr>
+                                            <td class="table-user">
+                                                {{ $product->title }}
+                                            </td>
+                                            <td class="table-action">
+                                                <a href="{{ route('attributesByProduct', $product->uuid) }}"
+                                                    class="action-icon">
+                                                    <i class="mdi mdi-pencil"></i>
+                                                </a>
+                                                <a href="#" class="action-icon delete-product"
+                                                    data-product-id="{{ $product->uuid }}">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
-                        </div> <!-- end card-body -->
-                    </div> <!-- end card -->
-                </div><!-- end col -->
-            </div><!-- end row -->
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.delete-product').click(function(e) {
+                e.preventDefault();
+
+                var productId = $(this).data('product-id');
+
+                $.ajax({
+                    type: 'DELETE',
+                    url: '/all_products/delete/' + productId,
+                    data: {
+                        "_token": "{{ csrf_token() }}",
+                        "product_id": productId
+                    },
+                    success: function(response) {
+                        toastr.options = {
+                            progressBar: true,
+                            closeButton: true,
+                            timeOut: 2000,
+                        };
+                        if (response.status == true) {
+                            toastr.success(response.message, "Success");
+                            setTimeout(function() {
+                                location.reload();
+                            }, 2000);
+                        } else {
+                            toastr.error(response.message, "Error");
+                        }
+                    },
+                    error: function(data) {
+                        const errorMessages = Object.values(
+                            errors?.responseJSON?.errors
+                        ).flat();
+                        toastr.options = {
+                            progressBar: true,
+                            closeButton: true,
+                        };
+                        for (let i = 0; i < errorMessages.length; i++) {
+                            toastr.error(errorMessages[i], "Error");
+                        }
+                    }
+                });
+            });
+        });
+    </script>
+@endpush

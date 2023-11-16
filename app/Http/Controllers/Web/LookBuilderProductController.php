@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Fabric;
 use App\Models\LookBuilderProduct;
 use App\Models\Product;
 use Illuminate\Http\Request;
@@ -38,6 +39,7 @@ class LookBuilderProductController extends Controller
                 'price' => $request->price,
                 'description' => $request->description,
                 'category_id' => $request->category_id,
+                'fabric_id' => $request->fabric_id,
             ]);
             DB::commit();
             return response()->json(['status' => true, 'message' => 'Product added successfully']);
@@ -50,19 +52,20 @@ class LookBuilderProductController extends Controller
     public function byCategory($category_uuid)
     {
         try {
+            $fabrics = Fabric::all();
             $categories = Category::all();
             $tabCategory = Category::where('uuid', $category_uuid)->first();
             $products = $tabCategory->lookBuilderProducts;
-            return view('admin.pages.look_builder.shirts', compact('products', 'categories', 'tabCategory'));
+            return view('admin.pages.look_builder.shirts', compact('products', 'categories', 'tabCategory', 'fabrics'));
         } catch (\Throwable $th) {
             //throw $th;
         }
     }
-    public function delete($uuid)
+    public function delete($product_uuid)
     {
         try {
             DB::beginTransaction();
-            $lookBuilderProduct = LookBuilderProduct::where('uuid', $uuid)->first();
+            $lookBuilderProduct = LookBuilderProduct::where('uuid', $product_uuid)->first();
             $layer_image_name = $lookBuilderProduct->layer_image;
             $product_image_name = $lookBuilderProduct->product_image;
 
@@ -85,7 +88,28 @@ class LookBuilderProductController extends Controller
             return response()->json(['status' => true, 'message' => 'Deleted Successfully']);
         } catch (\Throwable $th) {
             DB::rollBack();
+            dd($th->getMessage());
             return response()->json(['status' => false, 'message' => 'Something went wrong']);
+        }
+    }
+    public function allProducts()
+    {
+        try {
+            $products = LookBuilderProduct::all();
+            $fabrics = Fabric::all();
+            return view('admin.pages.products.all', compact('products', 'fabrics'));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+    public function productsByFabric($fabric_uuid)
+    {
+        try {
+            $fabric = Fabric::where('uuid', $fabric_uuid)->first();
+            $products = $fabric->products;
+            return view('admin.pages.products.all', compact('products'));
+        } catch (\Throwable $th) {
+            return response()->json(['status' => false, 'message' => 'something went wrong']);
         }
     }
 }

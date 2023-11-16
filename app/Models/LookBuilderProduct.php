@@ -18,5 +18,10 @@ class LookBuilderProduct extends Model
         'price',
         'description',
         'category_id',
+        'fabric_id',
     ];
+    public function attributes()
+    {
+        return $this->hasMany(Attribute::class);
+    }
 }

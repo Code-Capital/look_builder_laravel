@@ -36,6 +36,16 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="mb-3">
+                                            <select class="form-select" name="fabric_id">
+                                                <option selected>Select Fabric</option>
+                                                @foreach ($fabrics as $fabric)
+                                                    <option value="{{ $fabric->id }}">{{ $fabric->name }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
                                             <input name="product_image" type="file" class="form-control">
                                         </div>
                                     </div>

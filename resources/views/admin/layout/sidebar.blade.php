@@ -171,7 +171,7 @@
                             <a href="{{ route('fabrics') }}">Fabrics</a>
                         </li>
                         <li>
-                            <a href="apps-tasks-details">LB Models</a>
+                            <a href="{{ route('look_builder_models.list') }}">LB Models</a>
                         </li>
 
                     </ul>
@@ -188,7 +188,7 @@
                 <div class="collapse" id="sidebarTasks2">
                     <ul class="side-nav-second-level">
                         <li>
-                            <a href="my-account">My Account</a>
+                            <a href="{{ route('profile') }}">My Account</a>
                         </li>
                     </ul>
                 </div>

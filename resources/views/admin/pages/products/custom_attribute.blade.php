@@ -1,10 +1,7 @@
 @extends('admin.layout.master')
 @section('content')
     <div class="content">
-        <!-- Start Content-->
         <div class="container-fluid">
-
-            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box">
@@ -14,8 +11,6 @@
                     </div>
                 </div>
             </div>
-            <!-- end page title -->
-
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -24,18 +19,17 @@
                                 <li class="nav-item">
                                     <a href="#input-types-code" data-bs-toggle="tab" aria-expanded="true"
                                         class="nav-link active">
-                                        Shirt Attributes
+
+                                        {{ $product->title }} attributes
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#input-types-preview" data-bs-toggle="tab" aria-expanded="false"
                                         class="nav-link ">
-                                        New Shirt Attributes
+                                        New {{ $product->title }} attributes
                                     </a>
                                 </li>
-
-                            </ul> <!-- end nav-->
-
+                            </ul>
                             <div class="tab-content">
                                 <div class="tab-pane show active" id="input-types-code">
                                     <table class="table table-sm table-striped table-centered mb-0">
@@ -46,27 +40,12 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            <tr>
-                                                <td class="table-user">
-                                                    Collar
-                                                </td>
-                                                <td>Look Builder</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="table-user">
-                                                    Sleeve
-                                                </td>
-                                                <td>Look Builder</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="table-user">
-                                                    Buttons
-                                                </td>
-                                                <td>Look Builder</td>
-                                            </tr>
-
-
-
+                                            @foreach ($attributes as $attribute)
+                                                <tr>
+                                                    <td>{{ $attribute->name }}</td>
+                                                    <td>Type</td>
+                                                </tr>
+                                            @endforeach
                                         </tbody>
                                     </table>
                                 </div> <!-- end preview code-->
@@ -86,41 +65,30 @@
                                                     d="M228 128a12 12 0 0 1-12 12H40a12 12 0 0 1 0-24h176a12 12 0 0 1 12 12Z" />
                                             </svg>
                                         </button>
+                                    </div>
+                                    <form id="addAttributeForm" method="POST">
+                                        @csrf
+                                        <input type="hidden" name="look_builder_product_id" value="{{ $product->id }}">
+                                        <div class="row ">
+                                            <div class="col-lg-4 appendCol">
 
-                                    </div>
-                                    <div class="row ">
-                                        <div class="col-lg-4 appendCol">
-                                            <input type="text" placeholder="Color" class="form-control disabled mb-3"
-                                                disabled readonly>
-                                            <input type="text" placeholder="Seleve" class="form-control disabled mb-3"
-                                                disabled readonly>
-                                            <input type="text" placeholder="Buttons" class="form-control disabled mb-3"
-                                                disabled readonly>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="text-start">
-                                        <a href="custom-product" class="btn btn-primary btn-sm py-1 px-2">
-                                            Submit
-                                        </a>
-                                    </div>
-                                    <!-- end row-->
-                                </div> <!-- end preview-->
-                            </div> <!-- end tab-content-->
-                        </div> <!-- end card-body -->
-                    </div> <!-- end card -->
-                </div><!-- end col -->
-            </div><!-- end row -->
+                                        <div class="text-start">
+                                            <button type="submit" class="btn btn-primary btn-sm py-1 px-2">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
 @push('scripts')
-    <script>
-        $("#addBtn").click(function() {
-            $(".appendCol").append("<input type='text' class='form-control mb-3'>");
-        });
-
-        $("#removeBtn").click(function() {
-            $(".appendCol input:last").remove();
-        });
-    </script>
+    <script src="{{ asset('assets/js/custom/attribute.js') }}"></script>
 @endpush
