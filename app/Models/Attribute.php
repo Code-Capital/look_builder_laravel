@@ -18,6 +18,10 @@ class Attribute extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+    public function options()
+    {
+        return $this->hasMany(Option::class);
+    }
     public function lookBuilderProducts()
     {
         return $this->belongsTo(LookBuilderProduct::class);

@@ -19,7 +19,6 @@
                                 <li class="nav-item">
                                     <a href="#input-types-code" data-bs-toggle="tab" aria-expanded="true"
                                         class="nav-link active">
-
                                         {{ $product->title }} attributes
                                     </a>
                                 </li>
@@ -37,6 +36,8 @@
                                             <tr>
                                                 <th>Attribute Name</th>
                                                 <th>Type</th>
+                                                <th>Action</th>
+                                                <th>Options</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -44,6 +45,24 @@
                                                 <tr>
                                                     <td>{{ $attribute->name }}</td>
                                                     <td>Type</td>
+                                                    <td class="table-action">
+                                                        <a href="#" class="action-icon">
+                                                            <i class="mdi mdi-pencil"></i>
+                                                        </a>
+                                                        <a href="#" class="action-icon delete-product"
+                                                            data-product-id="">
+                                                            <i class="mdi mdi-delete"></i>
+                                                        </a>
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary btn-sm addOption"
+                                                            data-bs-attribute="{{ $attribute->uuid }}">Add
+                                                            Option</button>
+
+                                                        <a href="{{ route('option.by.attr', $attribute->uuid) }}"
+                                                            class="btn btn-primary btn-sm ">View
+                                                            Option</a>
+                                                    </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
@@ -88,7 +107,10 @@
             </div>
         </div>
     </div>
+    @include('admin.modals.addOption')
 @endsection
+
 @push('scripts')
     <script src="{{ asset('assets/js/custom/attribute.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/option.js') }}"></script>
 @endpush

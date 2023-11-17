@@ -8,4 +8,15 @@ use Illuminate\Database\Eloquent\Model;
 class Option extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'uuid',
+        'name',
+        'description',
+        'image',
+        'attribute_id'
+    ];
+    public function attribute()
+    {
+        return $this->belongsTo(Attribute::class);
+    }
 }

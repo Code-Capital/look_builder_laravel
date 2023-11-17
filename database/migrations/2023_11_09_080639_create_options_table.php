@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('name');
+            $table->string('description');
+            $table->string('image');
             $table->unsignedBigInteger('attribute_id')->nullable();
             $table->foreign('attribute_id')->references('id')->on('attributes')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();

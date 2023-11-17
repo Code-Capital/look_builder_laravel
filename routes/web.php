@@ -4,6 +4,7 @@ use App\Http\Controllers\Web\AttributeController;
 use App\Http\Controllers\Web\FabricController;
 use App\Http\Controllers\Web\LookBuilderModelController;
 use App\Http\Controllers\Web\LookBuilderProductController;
+use App\Http\Controllers\Web\OptionController;
 use App\Http\Controllers\Web\UserController;
 use App\Models\LookBuilderModel;
 use Illuminate\Support\Facades\Route;
@@ -66,6 +67,13 @@ Route::delete('all_products/delete/{product_uuid}', [LookBuilderProductControlle
 
 Route::prefix('attributes')->group(function () {
     Route::post('add', [AttributeController::class, 'store'])->name('attribute.store');
+});
+Route::prefix('options')->group(function () {
+    Route::post('add/{attribute_uuid}', [OptionController::class, 'store'])->name('option.store');
+    Route::get('/{attribute_uuid}', [OptionController::class, 'optionsByAttribute'])->name('option.by.attr');
+    Route::get('edit/{option_uuid}', [OptionController::class, 'optionById'])->name('option.by.id');
+    Route::post('update/{option_uuid}', [OptionController::class, 'update'])->name('option.update');
+    Route::delete('delete/{option_uuid}', [OptionController::class, 'delete'])->name('option.delete');
 });
 
 Route::prefix('look_builder_models')->group(function () {
