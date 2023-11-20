@@ -112,4 +112,48 @@ class LookBuilderProductController extends Controller
             return response()->json(['status' => false, 'message' => 'something went wrong']);
         }
     }
+    public function edit($product_uuid)
+    {
+        try {
+            $lookBuilderProduct = LookBuilderProduct::where('uuid', $product_uuid)->first();
+            return $lookBuilderProduct;
+        } catch (\Throwable $th) {
+            return response()->json(['status' => false, 'message' => 'Something went wrong']);
+        }
+    }
+    public function update($product_uuid, Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $lookBuilderProduct = LookBuilderProduct::where('uuid', $product_uuid)->first();
+            $product_image_name = $lookBuilderProduct->product_image;
+            $layer_image_name = $lookBuilderProduct->layer_image;
+
+            if ($request->hasFile('product_image')) {
+                $product_image = $request->file('product_image');
+                $product_image_name = time() . '_' . Str::random(15) . '.' . $product_image->getClientOriginalExtension();
+                $product_image->storeAs('images/look_builder_products/product_images', $product_image_name);
+            }
+            if ($request->hasFile('layer_image')) {
+                $layer_image = $request->file('layer_image');
+                $layer_image_name = time() . '_' . Str::random(15) . '.' . $layer_image->getClientOriginalExtension();
+                $layer_image->storeAs('images/look_builder_products/layer_images', $layer_image_name);
+            }
+
+            $lookBuilderProduct->update([
+                'title' => $request->title,
+                'color' => $request->color,
+                'size' => $request->size,
+                'price' => $request->price,
+                'description' => $request->description,
+                'product_image' => $product_image_name,
+                'layer_image' => $layer_image_name,
+            ]);
+            DB::commit();
+            return response()->json(['status' => true, 'message' => 'Product updated successfully']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['status' => false, 'message' => 'Something went wrong']);
+        }
+    }
 }

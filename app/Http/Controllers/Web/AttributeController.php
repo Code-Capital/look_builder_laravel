@@ -26,19 +26,66 @@ class AttributeController extends Controller
     {
         try {
             DB::beginTransaction();
-            $attributes = $request->input('attributes');
+            $productId = $request->input('look_builder_product_id');
+            $nameArray = $request->input('name', []);
+            $descriptionArray = $request->input('description', []);
 
-            foreach ($attributes as $attribute) {
+            if (count($nameArray) !== count($descriptionArray)) {
+                DB::rollBack();
+                return redirect()->back()->with('error', 'Mismatched data');
+            }
+            for ($i = 0; $i < count($nameArray); $i++) {
                 Attribute::create([
                     'uuid' => Str::uuid(),
-                    'name' => $attribute,
-                    'look_builder_product_id' => $request->look_builder_product_id
+                    'name' => $nameArray[$i],
+                    'description' => $descriptionArray[$i],
+                    'look_builder_product_id' => $productId
                 ]);
-                DB::commit();
             }
 
+            DB::commit();
             return response()->json(['status' => true, 'message' => 'Attribute added successfully']);
         } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['status' => false, 'message' => 'Something went wrong']);
+        }
+    }
+    public function edit($attribute_uuid)
+    {
+        try {
+            $attribute = Attribute::where('uuid', $attribute_uuid)->first();
+            return $attribute;
+        } catch (\Throwable $th) {
+            return response()->json(['status' => false, 'message' => 'something went wrong']);
+        }
+    }
+    public function update($attribute_uuid, Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $attribute = Attribute::where('uuid', $attribute_uuid)->first();
+            $attribute->update([
+                'id' => $attribute->id,
+                'name' => $request->name,
+                'description' => $request->description,
+            ]);
+            DB::commit();
+            return response()->json(['status' => true, 'message' => 'Attribute Updated successfully']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['status' => false, 'message' => 'something went wrong']);
+        }
+    }
+    public function delete($attribute_uuid)
+    {
+        try {
+            DB::beginTransaction();
+            $attribute = Attribute::where('uuid', $attribute_uuid)->first();
+            $attribute->delete();
+            DB::commit();
+            return response()->json(['status' => true, 'message' => 'Attribute Deleted successfully']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
             return response()->json(['status' => false, 'message' => 'Something went wrong']);
         }
     }

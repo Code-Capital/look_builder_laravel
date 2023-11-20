@@ -36,6 +36,7 @@
                                 <thead>
                                     <tr>
                                         <th>Product Name</th>
+                                        <th>Attributes</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -45,9 +46,12 @@
                                             <td class="table-user">
                                                 {{ $product->title }}
                                             </td>
-                                            <td class="table-action">
+                                            <td>
                                                 <a href="{{ route('attributesByProduct', $product->uuid) }}"
-                                                    class="action-icon">
+                                                    class="btn btn-primary btn-sm">Attributes</a>
+                                            </td>
+                                            <td class="table-action">
+                                                <a class="action-icon editProduct" data-product-id="{{ $product->uuid }}">
                                                     <i class="mdi mdi-pencil"></i>
                                                 </a>
                                                 <a href="#" class="action-icon delete-product"
@@ -65,51 +69,9 @@
             </div>
         </div>
     </div>
+    @include('admin.modals.deleteProduct')
+    @include('admin.modals.editProduct')
 @endsection
 @push('scripts')
-    <script>
-        $(document).ready(function() {
-            $('.delete-product').click(function(e) {
-                e.preventDefault();
-
-                var productId = $(this).data('product-id');
-
-                $.ajax({
-                    type: 'DELETE',
-                    url: '/all_products/delete/' + productId,
-                    data: {
-                        "_token": "{{ csrf_token() }}",
-                        "product_id": productId
-                    },
-                    success: function(response) {
-                        toastr.options = {
-                            progressBar: true,
-                            closeButton: true,
-                            timeOut: 2000,
-                        };
-                        if (response.status == true) {
-                            toastr.success(response.message, "Success");
-                            setTimeout(function() {
-                                location.reload();
-                            }, 2000);
-                        } else {
-                            toastr.error(response.message, "Error");
-                        }
-                    },
-                    error: function(data) {
-                        const errorMessages = Object.values(
-                            errors?.responseJSON?.errors
-                        ).flat();
-                        toastr.options = {
-                            progressBar: true,
-                            closeButton: true,
-                        };
-                        for (let i = 0; i < errorMessages.length; i++) {
-                            toastr.error(errorMessages[i], "Error");
-                        }
-                    }
-                });
-            });
-        });
-    </script>
+    <script src="{{ asset('assets/js/custom/product.js') }}"></script>
 @endpush

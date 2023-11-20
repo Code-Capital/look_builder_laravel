@@ -57,6 +57,7 @@
                                     <tr>
                                         <th>Title</th>
                                         <th>Image</th>
+                                        <th>Action</th>
 
                                     </tr>
                                 </thead>
@@ -69,10 +70,16 @@
                                                     src="{{ asset('images/look_builder_models/' . $model->image) }}"
                                                     alt="no-image">
                                             </td>
+                                            <td class="table-action">
+                                                <a class="action-icon editModel" data-mny-id="{{ $model->id }}">
+                                                    <i class="mdi mdi-pencil"></i>
+                                                </a>
+                                                <a class="action-icon delete-model" data-mny-id="{{ $model->id }}">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
-
-
                                 </tbody>
                             </table>
                         </div>
@@ -82,6 +89,8 @@
         </div>
     </div>
 @endsection
+@include('admin.modals.editModel')
+@include('admin.modals.deleteModel')
 @push('scripts')
     <script src="{{ asset('assets/js/custom/look_builder_model.js') }}"></script>
 @endpush

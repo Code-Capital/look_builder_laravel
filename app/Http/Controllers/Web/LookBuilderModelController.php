@@ -40,4 +40,64 @@ class LookBuilderModelController extends Controller
             return response()->json(['status' => false, 'message' => 'Something went wrong']);
         }
     }
+    public function delete($uuid)
+    {
+        try {
+            DB::beginTransaction();
+            $lookBuilderModel = LookBuilderModel::where('id', $uuid)->first();
+            if ($lookBuilderModel != null) {
+                $lookBuilderModel->delete();
+                DB::commit();
+                return response()->json([
+                    'status' => true,
+                    'message' => 'LookBuilderModel Deleted Successfully',
+                ]);
+            }
+            return response()->json(['status' => false, 'message' => 'LookBuilderModel Not Found']);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json(['status' => false, 'message' => 'something went wrong']);
+        }
+    }
+    public function edit($uuid)
+    {
+        try {
+            $lookBuilderModel = LookBuilderModel::where('id', $uuid)->first();
+            if ($lookBuilderModel != null) {
+                return $lookBuilderModel;
+            }
+            return response()->json(['status' => false, 'message' => 'LookBuilderModel Not Found']);
+        } catch (\Throwable $th) {
+            return response()->json(['status' => false, 'message' => 'something went wrong']);
+        }
+    }
+    public function update($uuid, Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $lookBuilderModel = LookBuilderModel::where('id', $uuid)->first();
+            $imageName = $lookBuilderModel->image;
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '_' . Str::random(15) . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('images/look_builder_models', $imageName);
+            }
+            if ($lookBuilderModel != null) {
+                $lookBuilderModel->update([
+                    'title' => $request->title,
+                    'image' => $imageName,
+                ]);
+                DB::commit();
+                return response()->json([
+                    'status' => true,
+                    'message' => 'LookBuilderModel Updated successfully',
+                ]);
+            }
+            return response()->json(['status' => false, 'message' => 'LookBuilderModel Not Found']);
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+            return response()->json(['status' => false, 'message' => ' went wrong']);
+        }
+    }
 }

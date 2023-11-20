@@ -26,7 +26,7 @@
                             placeholder="">
                     </div>
                     <div class="text-center">
-                        <button class="btn btn-primary" type="submit">Submit</button>
+                        <button class="btn btn-primary" type="submit">Save</button>
                     </div>
                 </form>
 

@@ -15,10 +15,7 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('name');
-
-            $table->unsignedBigInteger('product_id')->nullable();
-            $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
-
+            $table->text('description');
             $table->unsignedBigInteger('look_builder_product_id')->nullable();
             $table->foreign('look_builder_product_id')->references('id')->on('look_builder_products')->onUpdate('cascade')->onDelete('cascade');
 

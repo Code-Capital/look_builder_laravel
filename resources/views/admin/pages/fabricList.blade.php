@@ -106,6 +106,7 @@
                                         <th>Season</th>
                                         <th>Woven By</th>
                                         <th>Fabric Code</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -122,6 +123,14 @@
                                             <td>{{ $fabric->season }}</td>
                                             <td>{{ $fabric->woven_by }}</td>
                                             <td>{{ $fabric->fabric_code }}</td>
+                                            <td class="table-action">
+                                                <a class="action-icon editFabric" data-fabric-id="{{ $fabric->uuid }}">
+                                                    <i class="mdi mdi-pencil"></i>
+                                                </a>
+                                                <a class="action-icon delete-fabric" data-fabric-id="{{ $fabric->uuid }}">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -132,6 +141,8 @@
             </div>
         </div>
     </div>
+    @include('admin.modals.deleteFabric')
+    @include('admin.modals.editFabric')
 @endsection
 @push('scripts')
     <script src="{{ asset('assets/js/custom/fabric.js') }}"></script>

@@ -23,64 +23,77 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Auth::routes();
-
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
 Route::get('login', function () {
     return view('login');
 })->name('login');
 Route::get('register', function () {
     return view('register');
 });
-Route::get('my_profile', [UserController::class, 'myProfile'])->name('profile');
-Route::post('create_user', [UserController::class, 'store'])->name('user.create');
-Route::delete('user/{user_uuid}', [UserController::class, 'delete'])->name('user.delete');
-
-Route::get('/', function () {
-    return view('admin.pages.index');
-})->name('dashboard')->middleware('auth');
-Route::get('/orders', function () {
-    return view('admin.pages.orders.all');
-})->name('orders');
-Route::get('/customers', function () {
-    return view('admin.pages.customers.all');
-})->name('customers');
-
-
-Route::get('wedding_planner', function () {
-    return view('admin.pages.wedding_planner');
-})->name('wedding_planner');
+Route::middleware('auth')->group(function () {
+    Route::get('my_profile', [UserController::class, 'myProfile'])->name('profile');
+    Route::post('create_user', [UserController::class, 'store'])->name('user.create');
+    Route::delete('user/{user_uuid}', [UserController::class, 'delete'])->name('user.delete');
+    Route::get('/', function () {
+        return view('admin.pages.index');
+    })->name('dashboard');
+    Route::get('/orders', function () {
+        return view('admin.pages.orders.all');
+    })->name('orders');
+    Route::get('/customers', function () {
+        return view('admin.pages.customers.all');
+    })->name('customers');
 
 
-Route::prefix('look_builder_products')->group(function () {
-    Route::post('add', [LookBuilderProductController::class, 'store'])->name('lookBuilder.product.store');
-    Route::get('by_category/{uuid}', [LookBuilderProductController::class, 'byCategory'])->name('productByCategory');
+    Route::get('wedding_planner', function () {
+        return view('admin.pages.wedding_planner');
+    })->name('wedding_planner');
+
+
+    Route::prefix('look_builder_products')->group(function () {
+        Route::post('add', [LookBuilderProductController::class, 'store'])->name('lookBuilder.product.store');
+        Route::get('/{product_uuid}', [LookBuilderProductController::class, 'edit'])->name('lookBuilder.product.edit');
+        Route::post('/{product_uuid}', [LookBuilderProductController::class, 'update'])->name('lookBuilder.product.update');
+        Route::get('by_category/{uuid}', [LookBuilderProductController::class, 'byCategory'])->name('productByCategory');
+    });
+
+    Route::prefix('fabrics')->group(function () {
+        Route::get('all', [FabricController::class, 'all'])->name('fabrics');
+        Route::post('add', [FabricController::class, 'store'])->name('fabric.store');
+        Route::delete('/{product_uuid}', [FabricController::class, 'delete'])->name('fabric.delete');
+        Route::get('/{product_uuid}', [FabricController::class, 'edit'])->name('fabric.edit');
+        Route::post('/{product_uuid}', [FabricController::class, 'update'])->name('fabric.update');
+    });
+
+    Route::get('all_products', [LookBuilderProductController::class, 'allProducts'])->name('allProducts');
+    Route::get('products_by_fabric/{fabric_uuid}', [LookBuilderProductController::class, 'productsByFabric'])->name('productsByFabric');
+    Route::delete('all_products/delete/{product_uuid}', [LookBuilderProductController::class, 'delete'])->name('product.delete');
+
+    Route::prefix('attributes')->group(function () {
+        Route::post('add', [AttributeController::class, 'store'])->name('attribute.store');
+        Route::get('/{attribute_uuid}', [AttributeController::class, 'edit'])->name('attibute.edit');
+        Route::post('/{attribute_uuid}', [AttributeController::class, 'update'])->name('attribute.update');
+        Route::delete('/{attribute_uuid}', [AttributeController::class, 'delete'])->name('attribute.delete');
+    });
+    Route::prefix('options')->group(function () {
+        Route::post('add/{attribute_uuid}', [OptionController::class, 'store'])->name('option.store');
+        Route::get('/{attribute_uuid}', [OptionController::class, 'optionsByAttribute'])->name('option.by.attr');
+        Route::get('edit/{option_uuid}', [OptionController::class, 'optionById'])->name('option.by.id');
+        Route::post('update/{option_uuid}', [OptionController::class, 'update'])->name('option.update');
+        Route::delete('delete/{option_uuid}', [OptionController::class, 'delete'])->name('option.delete');
+    });
+
+    Route::prefix('look_builder_models')->group(function () {
+        Route::get('', [LookBuilderModelController::class, 'list'])->name('look_builder_models.list');
+        Route::post('add', [LookBuilderModelController::class, 'store'])->name('look_builder_models.store');
+        Route::delete('delete/{model_uuid}', [LookBuilderModelController::class, 'delete'])->name('look_builder_models.delete');
+        Route::get('/{model_uuid}', [LookBuilderModelController::class, 'edit'])->name('look_builder_models.edit');
+        Route::post('/{model_uuid}', [LookBuilderModelController::class, 'update'])->name('look_builder_models.update');
+    });
+
+    Route::get('editProfile', [UserController::class, 'edit'])->name('editProfile');
+    Route::post('update_profile', [UserController::class, 'update'])->name('update.profile');
+    Route::post('update_password', [UserController::class, 'updatePassword'])->name('update.password');
+    Route::get('product_attribute/{product_uuid}', [AttributeController::class, 'attributesByProduct'])->name('attributesByProduct');
 });
-
-Route::prefix('fabrics')->group(function () {
-    Route::get('all', [FabricController::class, 'all'])->name('fabrics');
-    Route::post('add', [FabricController::class, 'store'])->name('fabric.store');
-});
-
-Route::get('all_products', [LookBuilderProductController::class, 'allProducts'])->name('allProducts');
-Route::get('products_by_fabric/{fabric_uuid}', [LookBuilderProductController::class, 'productsByFabric'])->name('productsByFabric');
-Route::delete('all_products/delete/{product_uuid}', [LookBuilderProductController::class, 'delete'])->name('product.delete');
-
-Route::prefix('attributes')->group(function () {
-    Route::post('add', [AttributeController::class, 'store'])->name('attribute.store');
-});
-Route::prefix('options')->group(function () {
-    Route::post('add/{attribute_uuid}', [OptionController::class, 'store'])->name('option.store');
-    Route::get('/{attribute_uuid}', [OptionController::class, 'optionsByAttribute'])->name('option.by.attr');
-    Route::get('edit/{option_uuid}', [OptionController::class, 'optionById'])->name('option.by.id');
-    Route::post('update/{option_uuid}', [OptionController::class, 'update'])->name('option.update');
-    Route::delete('delete/{option_uuid}', [OptionController::class, 'delete'])->name('option.delete');
-});
-
-Route::prefix('look_builder_models')->group(function () {
-    Route::get('', [LookBuilderModelController::class, 'list'])->name('look_builder_models.list');
-    Route::post('add', [LookBuilderModelController::class, 'store'])->name('look_builder_models.store');
-});
-Route::get('editProfile', [UserController::class, 'edit'])->name('editProfile');
-Route::post('update_profile', [UserController::class, 'update'])->name('update.profile');
-Route::post('update_password', [UserController::class, 'updatePassword'])->name('update.password');
-Route::get('product_attribute/{product_uuid}', [AttributeController::class, 'attributesByProduct'])->name('attributesByProduct');

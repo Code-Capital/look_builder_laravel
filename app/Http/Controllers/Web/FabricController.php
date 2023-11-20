@@ -50,29 +50,26 @@ class FabricController extends Controller
                 $fabric->delete();
                 DB::commit();
                 return response()->json([
-                    'status' => 200,
+                    'status' => true,
                     'message' => 'Fabric Deleted Successfully',
                 ]);
             }
-            return response()->json(['status' => 204, 'message' => 'Fabric Not Found']);
+            return response()->json(['status' => false, 'message' => 'Fabric Not Found']);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['status' => 500, 'message' => 'something went wrong']);
+            return response()->json(['status' => false, 'message' => 'something went wrong']);
         }
     }
-    public function view($uuid)
+    public function edit($uuid)
     {
         try {
             $fabric = Fabric::where('uuid', $uuid)->first();
             if ($fabric != null) {
-                return response()->json([
-                    'status' => 200,
-                    'message' => 'Fabric Details',
-                ]);
+                return $fabric;
             }
-            return response()->json(['status' => 204, 'message' => 'Fabric Not Found']);
+            return response()->json(['status' => false, 'message' => 'Fabric Not Found']);
         } catch (\Throwable $th) {
-            return response()->json(['status' => 500, 'message' => 'something went wrong']);
+            return response()->json(['status' => false, 'message' => 'something went wrong']);
         }
     }
     public function update($uuid, Request $request)
@@ -80,20 +77,35 @@ class FabricController extends Controller
         try {
             DB::beginTransaction();
             $fabric = Fabric::where('uuid', $uuid)->first();
+            $imageName = $fabric->image;
+
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '_' . Str::random(15) . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('images/fabrics', $imageName);
+            }
             if ($fabric != null) {
                 $fabric->update([
-                    'id' => $fabric->id,
-                    'name' => $request->name,
+                    'uuid' => Str::uuid(),
+                    'name' => $request->title,
+                    'image' => $imageName,
+                    'price' => $request->price,
+                    'composition' => $request->composition,
+                    'weight' => $request->weight,
+                    'season' => $request->season,
+                    'woven_by' => $request->woven_by,
+                    'fabric_code' => $request->fabric_code,
                 ]);
                 DB::commit();
                 return response()->json([
-                    'status' => 200,
-                    'message' => 'Fabric Details',
+                    'status' => true,
+                    'message' => 'Fabric Updated successfully',
                 ]);
             }
-            return response()->json(['status' => 204, 'message' => 'Fabric Not Found']);
+            return response()->json(['status' => false, 'message' => 'Fabric Not Found']);
         } catch (\Throwable $th) {
-            return response()->json(['status' => 500, 'message' => 'something went wrong']);
+            dd($th->getMessage());
+            return response()->json(['status' => false, 'message' => 'something went wrong']);
         }
     }
     public function all()

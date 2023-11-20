@@ -11,7 +11,7 @@ class Attribute extends Model
     protected $fillable = [
         'uuid',
         'name',
-        'product_id',
+        'description',
         'look_builder_product_id',
     ];
     public function product()

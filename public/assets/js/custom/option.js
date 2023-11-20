@@ -47,6 +47,7 @@ $(function () {
         dataAttributeId = $(this).data("bs-attribute");
         $("#addOptionModal").modal("show");
     });
+
     $(".editOption").on("click", function (event) {
         editItemId = $(this).data("option-id");
         console.log(editItemId);
@@ -105,6 +106,7 @@ $(function () {
             },
         });
     });
+
     $(".deleteOption").on("click", function (event) {
         event.preventDefault();
         dataAttributeId = $(this).data("option-id");

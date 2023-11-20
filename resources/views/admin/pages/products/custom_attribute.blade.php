@@ -35,7 +35,7 @@
                                         <thead>
                                             <tr>
                                                 <th>Attribute Name</th>
-                                                <th>Type</th>
+                                                <th>Description</th>
                                                 <th>Action</th>
                                                 <th>Options</th>
                                             </tr>
@@ -44,13 +44,14 @@
                                             @foreach ($attributes as $attribute)
                                                 <tr>
                                                     <td>{{ $attribute->name }}</td>
-                                                    <td>Type</td>
+                                                    <td>{{ $attribute->description }}</td>
                                                     <td class="table-action">
-                                                        <a href="#" class="action-icon">
+                                                        <a class="action-icon editAttribute"
+                                                            data-attribute-id="{{ $attribute->uuid }}">
                                                             <i class="mdi mdi-pencil"></i>
                                                         </a>
-                                                        <a href="#" class="action-icon delete-product"
-                                                            data-product-id="">
+                                                        <a class="action-icon delete-product deleteAttribute"
+                                                            data-attribute-id="{{ $attribute->uuid }}">
                                                             <i class="mdi mdi-delete"></i>
                                                         </a>
                                                     </td>
@@ -85,15 +86,22 @@
                                             </svg>
                                         </button>
                                     </div>
-                                    <form id="addAttributeForm" method="POST">
+                                    <form id="addAttributeForm" method="POST" action="{{ route('attribute.store') }}">
                                         @csrf
                                         <input type="hidden" name="look_builder_product_id" value="{{ $product->id }}">
-                                        <div class="row ">
-                                            <div class="col-lg-4 appendCol">
-
+                                        <div class="input-rows">
+                                            <!-- Existing row with one input -->
+                                            <div class="row mb-3">
+                                                <div class="col-lg-4 appendCol">
+                                                    <input name='name[]' type='text' class='form-control mb-2'
+                                                        placeholder='Name'>
+                                                    <input name='description[]' type='text' class='form-control mb-2'
+                                                        placeholder='Description'>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="text-start">
+
                                             <button type="submit" class="btn btn-primary btn-sm py-1 px-2">
                                                 Submit
                                             </button>
@@ -108,6 +116,8 @@
         </div>
     </div>
     @include('admin.modals.addOption')
+    @include('admin.modals.editAttribute')
+    @include('admin.modals.deleteAttribute')
 @endsection
 
 @push('scripts')
