@@ -1,6 +1,13 @@
 $(function () {
     var dataAttributeId = 0;
     var editItemId = 0;
+
+    $(".addOption").on("click", function (event) {
+        event.preventDefault();
+        dataAttributeId = $(this).data("bs-attribute");
+        console.log(dataAttributeId);
+        $("#addOptionModal").modal("show");
+    });
     $("#addOptionForm").on("submit", function (event) {
         event.preventDefault();
         var formData = new FormData(this);
@@ -42,15 +49,9 @@ $(function () {
             },
         });
     });
-    $(".addOption").on("click", function (event) {
-        event.preventDefault();
-        dataAttributeId = $(this).data("bs-attribute");
-        $("#addOptionModal").modal("show");
-    });
 
     $(".editOption").on("click", function (event) {
         editItemId = $(this).data("option-id");
-        console.log(editItemId);
         $.ajax({
             url: "/options/edit/" + editItemId,
             type: "GET",

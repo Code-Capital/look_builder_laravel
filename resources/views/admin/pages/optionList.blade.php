@@ -1,29 +1,33 @@
 @extends('admin.layout.master')
 @section('content')
     <div class="content">
-
-        <!-- Start Content-->
         <div class="container-fluid">
-
-            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box">
-
                         <h2 class="page-title">{{ $attribute->name }} options</h2>
                     </div>
                 </div>
             </div>
-            <!-- end page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="py-3 text-end">
                     </div>
-
-                    <div class="card">
+                    @php
+                        foreach ($options as $option) {
+                            $attribute = $option->attribute;
+                            break;
+                        }
+                    @endphp
+                    <button type="button" class="btn btn-primary btn-sm addOption"
+                        data-bs-attribute="{{ $attribute->uuid }}">Add
+                        Option</button>
+                    <div class="card mt-3">
                         <div class="card-body">
+
                             <table id="selection-datatable"
                                 class="lookBuilderTable table table-striped dt-responsive nowrap w-100 align-middle">
+
                                 <thead>
                                     <tr>
                                         <th>Name</th>

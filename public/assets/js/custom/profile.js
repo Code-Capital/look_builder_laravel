@@ -1,4 +1,5 @@
 $(function () {
+    var editItemId = 0;
     $("body").on("click", ".editProfile", function () {
         $.ajax({
             url: "/editProfile",
@@ -134,6 +135,53 @@ $(function () {
                     errors?.responseJSON?.errors
                 ).flat();
 
+                toastr.options = {
+                    progressBar: true,
+                    closeButton: true,
+                };
+                for (let i = 0; i < errorMessages.length; i++) {
+                    toastr.error(errorMessages[i], "Error");
+                }
+            },
+        });
+    });
+
+    $("body").on("click", ".deleteUser", function (event) {
+        event.preventDefault();
+        editItemId = $(this).data("user-id");
+        $("#deleteUserModal").modal("show");
+    });
+
+    $("body").on("click", "#deleteUserButton", function (e) {
+        e.preventDefault();
+        var token = $("meta[name='csrf-token']").attr("content");
+
+        $.ajax({
+            type: "DELETE",
+            url: "/user/" + editItemId,
+            data: {
+                _token: token,
+            },
+            success: function (response) {
+                toastr.options = {
+                    progressBar: true,
+                    closeButton: true,
+                    timeOut: 2000,
+                };
+                console.log(response);
+                if (response.status == true) {
+                    toastr.success(response.message, "Success");
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                } else {
+                    toastr.error(response.message, "Error");
+                }
+            },
+            error: function (errors) {
+                const errorMessages = Object.values(
+                    errors?.responseJSON?.errors
+                ).flat();
                 toastr.options = {
                     progressBar: true,
                     closeButton: true,

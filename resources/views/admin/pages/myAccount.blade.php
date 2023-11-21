@@ -1,12 +1,9 @@
 @extends('admin.layout.master')
 @section('content')
     <div class="content">
-
-        <!-- Start Content-->
         <div class="container-fluid pt-5">
             <div class="row ">
                 <div class="col-xl-6 mb-3">
-                    <!-- Personal-Information -->
                     <div class="card min-height">
                         <div class="card-body">
                             <h4 class="header-title mt-0 mb-3">Seller Information</h4>
@@ -61,10 +58,7 @@
                             </form>
                         </div>
                     </div>
-
-
                 </div>
-
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
@@ -108,51 +102,8 @@
     </div>
     @include('admin.modals.editProfile')
     @include('admin.modals.addUser')
+    @include('admin.modals.deleteUser')
 @endsection
 @push('scripts')
     <script src="{{ asset('assets/js/custom/profile.js') }}"></script>
-    <script>
-        $(".deleteUser").click(function(e) {
-            e.preventDefault();
-
-            var userId = $(this).data("user-id");
-
-            $.ajax({
-                type: "DELETE",
-                url: "/user/" + userId,
-                data: {
-                    _token: "{{ csrf_token() }}",
-                    product_id: userId,
-                },
-                success: function(response) {
-                    toastr.options = {
-                        progressBar: true,
-                        closeButton: true,
-                        timeOut: 2000,
-                    };
-                    console.log(response);
-                    if (response.status == true) {
-                        toastr.success(response.message, "Success");
-                        setTimeout(function() {
-                            location.reload();
-                        }, 2000);
-                    } else {
-                        toastr.error(response.message, "Error");
-                    }
-                },
-                error: function(data) {
-                    const errorMessages = Object.values(
-                        errors?.responseJSON?.errors
-                    ).flat();
-                    toastr.options = {
-                        progressBar: true,
-                        closeButton: true,
-                    };
-                    for (let i = 0; i < errorMessages.length; i++) {
-                        toastr.error(errorMessages[i], "Error");
-                    }
-                },
-            });
-        });
-    </script>
 @endpush

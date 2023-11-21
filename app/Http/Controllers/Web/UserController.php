@@ -64,7 +64,8 @@ class UserController extends Controller
     public function myProfile()
     {
         try {
-            $users = User::all();
+            $loggedInUser = Auth::user();
+            $users = User::where('id', '!=', $loggedInUser->id)->get();
             return view('admin.pages.myAccount', compact('users'));
         } catch (\Throwable $th) {
             //throw $th;

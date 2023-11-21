@@ -10,21 +10,17 @@ $(function () {
                 window.location.href = "/";
             },
             error: function (errors) {
-                var errorMessages = "";
+                const errorMessages = Object.values(
+                    errors?.responseJSON?.errors
+                ).flat();
+                console.log(errorMessages);
+
                 toastr.options = {
                     progressBar: true,
                     closeButton: true,
                 };
-                if (errors.responseJSON.errors.email) {
-                    errorMessages += errors.responseJSON.errors.email + "<br>";
-                }
-
-                if (errors.responseJSON.errors.password) {
-                    errorMessages +=
-                        errors.responseJSON.errors.password + "<br>";
-                }
-                if (errorMessages) {
-                    toastr.error(errorMessages, "Error");
+                for (let i = 0; i < errorMessages.length; i++) {
+                    toastr.error(errorMessages[i], "Error");
                 }
             },
         });

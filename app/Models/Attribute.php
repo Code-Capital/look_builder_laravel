@@ -22,7 +22,7 @@ class Attribute extends Model
     {
         return $this->hasMany(Option::class);
     }
-    public function lookBuilderProducts()
+    public function lookBuilderProduct()
     {
         return $this->belongsTo(LookBuilderProduct::class);
     }

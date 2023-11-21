@@ -36,8 +36,9 @@
                                 <thead>
                                     <tr>
                                         <th>Product Name</th>
-                                        <th>Attributes</th>
                                         <th>Action</th>
+                                        <th>Attributes</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -45,10 +46,6 @@
                                         <tr>
                                             <td class="table-user">
                                                 {{ $product->title }}
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('attributesByProduct', $product->uuid) }}"
-                                                    class="btn btn-primary btn-sm">Attributes</a>
                                             </td>
                                             <td class="table-action">
                                                 <a class="action-icon editProduct" data-product-id="{{ $product->uuid }}">
@@ -58,6 +55,10 @@
                                                     data-product-id="{{ $product->uuid }}">
                                                     <i class="mdi mdi-delete"></i>
                                                 </a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('attributesByProduct', $product->uuid) }}"
+                                                    class="btn btn-primary btn-sm">View Attributes</a>
                                             </td>
                                         </tr>
                                     @endforeach

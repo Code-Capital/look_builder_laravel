@@ -56,10 +56,6 @@
                                                         </a>
                                                     </td>
                                                     <td>
-                                                        <button type="button" class="btn btn-primary btn-sm addOption"
-                                                            data-bs-attribute="{{ $attribute->uuid }}">Add
-                                                            Option</button>
-
                                                         <a href="{{ route('option.by.attr', $attribute->uuid) }}"
                                                             class="btn btn-primary btn-sm ">View
                                                             Option</a>
