@@ -36,6 +36,7 @@
                                 <thead>
                                     <tr>
                                         <th>Product Name</th>
+                                        <th>Category</th>
                                         <th>Action</th>
                                         <th>Attributes</th>
 
@@ -46,6 +47,9 @@
                                         <tr>
                                             <td class="table-user">
                                                 {{ $product->title }}
+                                            </td>
+                                            <td class="table-user">
+                                                {{ $product->category->name }}
                                             </td>
                                             <td class="table-action">
                                                 <a class="action-icon editProduct" data-product-id="{{ $product->uuid }}">

@@ -5,7 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ProductResource extends JsonResource
+class LookBuilderProductResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -21,11 +21,11 @@ class ProductResource extends JsonResource
             'product_image' => env('APP_URL') . '/images/look_builder_products/product_images/' . $this->product_image,
             'layer_image' => env('APP_URL') . '/images/look_builder_products/layer_images/' . $this->layer_image,
             'color' => $this->color,
+            'size' => $this->size,
             'price' => $this->price,
             'description' => $this->description,
             'category' => $this->category->name,
             'fabric' => $this->fabric->name,
-            'sizes' => AttributeResource::collection($this->attributes),
         ];
     }
 }

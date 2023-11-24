@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ResetPasswordController;
+use App\Http\Controllers\Api\ShopController;
 use App\Http\Controllers\Api\VerificationController;
 use Illuminate\Support\Facades\Auth;
 /*
@@ -29,9 +30,16 @@ Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword']
 Route::post('/email/resend', [VerificationController::class, 'sendOTPRequest'])->name('verification.resend');
 Route::post('/email/verify', [VerificationController::class, 'verify'])->name('verification.verify');
 
+Route::get('categories', [ShopController::class, 'categories']);
+Route::get('products/{category_uuid}', [ShopController::class, 'productsByCategory']);
+Route::get('product/{product_uuid}', [ShopController::class, 'productById']);
+
+
 
 
 Route::middleware(['auth:sanctum', 'emailVerified'])->group(function () {
-    Route::get('product/{product_uuid}', [ProductController::class, 'productById']);
+    Route::get('cart/{productIds}', [ShopController::class, 'myCart']);
+    Route::get('view/cart', [ShopController::class, 'viewCart']);
+    Route::post('remove_item/{product_id}', [ShopController::class, 'removeItemFromCart']);
     Route::post('logout', [AuthController::class, 'logout']);
 });

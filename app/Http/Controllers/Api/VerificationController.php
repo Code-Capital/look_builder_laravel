@@ -27,13 +27,11 @@ class VerificationController extends Controller
     {
         return Str::random(6); // You can adjust the OTP length as needed
     }
-
     public function sendOTP($email, $otp)
     {
         $url = env('APP_URL') . '/verify-email?email=' . $email . '&otp=' . $otp;
         Mail::to($email)->send(new VerificationEmail($url));  // Create a Mailable for this
     }
-
     public function sendOTPRequest(Request $request)
     {
         try {
