@@ -19,13 +19,13 @@
                                 <li class="nav-item">
                                     <a href="#input-types-code" data-bs-toggle="tab" aria-expanded="true"
                                         class="nav-link active">
-                                        {{ $product->title }} attributes
+                                        {{ $product->title }} sizes
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#input-types-preview" data-bs-toggle="tab" aria-expanded="false"
                                         class="nav-link ">
-                                        New {{ $product->title }} attributes
+                                        New {{ $product->title }} sizes
                                     </a>
                                 </li>
                             </ul>
@@ -34,8 +34,7 @@
                                     <table class="table table-sm table-striped table-centered mb-0">
                                         <thead>
                                             <tr>
-                                                <th>Attribute Name</th>
-                                                <th>Description</th>
+                                                <th>Size</th>
                                                 <th>Action</th>
                                                 <th>Options</th>
                                             </tr>
@@ -44,7 +43,6 @@
                                             @foreach ($attributes as $attribute)
                                                 <tr>
                                                     <td>{{ $attribute->name }}</td>
-                                                    <td>{{ $attribute->description }}</td>
                                                     <td class="table-action">
                                                         <a class="action-icon editAttribute"
                                                             data-attribute-id="{{ $attribute->uuid }}">

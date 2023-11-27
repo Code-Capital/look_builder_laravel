@@ -35,7 +35,6 @@ class LookBuilderProductController extends Controller
                 'product_image' => $product_image_name,
                 'layer_image' => $layer_image_name,
                 'color' => $request->color,
-                'size' => $request->size,
                 'price' => $request->price,
                 'description' => $request->description,
                 'category_id' => $request->category_id,
@@ -143,7 +142,6 @@ class LookBuilderProductController extends Controller
             $lookBuilderProduct->update([
                 'title' => $request->title,
                 'color' => $request->color,
-                'size' => $request->size,
                 'price' => $request->price,
                 'description' => $request->description,
                 'product_image' => $product_image_name,

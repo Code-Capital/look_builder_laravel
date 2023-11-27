@@ -31,7 +31,7 @@ Route::get('login', function () {
 Route::get('register', function () {
     return view('register');
 });
-Route::middleware('auth')->group(function () {
+Route::middleware('auth', 'role:admin')->group(function () {
     Route::get('my_profile', [UserController::class, 'myProfile'])->name('profile');
     Route::post('create_user', [UserController::class, 'store'])->name('user.create');
     Route::delete('user/{user_uuid}', [UserController::class, 'delete'])->name('user.delete');

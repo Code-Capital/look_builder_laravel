@@ -38,7 +38,7 @@
                                         <th>Product Name</th>
                                         <th>Category</th>
                                         <th>Action</th>
-                                        <th>Attributes</th>
+                                        <th>Sizes</th>
 
                                     </tr>
                                 </thead>
@@ -62,7 +62,7 @@
                                             </td>
                                             <td>
                                                 <a href="{{ route('attributesByProduct', $product->uuid) }}"
-                                                    class="btn btn-primary btn-sm">View Attributes</a>
+                                                    class="btn btn-primary btn-sm">View Sizes</a>
                                             </td>
                                         </tr>
                                     @endforeach

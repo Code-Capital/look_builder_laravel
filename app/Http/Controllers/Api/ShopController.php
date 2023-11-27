@@ -10,6 +10,8 @@ use App\Models\Cart;
 use App\Models\CartProduct;
 use App\Models\Category;
 use App\Models\LookBuilderProduct;
+use App\Models\Order;
+use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -130,6 +132,32 @@ class ShopController extends Controller
             ]);
         }
     }
+    public function addSize(Request $request)
+    {
+        try {
+            $cart = Auth::user()->cart;
+            if ($cart != null) {
+                $cartProducts = $cart->cartProducts;
+                if ($cartProducts->count() > 0) {
+                    $cartProducts->where('look_builder_product_id', $request->product_id)->first()->update([
+                        'size' => $request->size,
+                    ]);
+                } else {
+                    return response()->json([
+                        'status' => 204,
+                        'message' => 'Your cart is empty'
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'status' => 204,
+                    'message' => 'Your cart is empty'
+                ]);
+            }
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
     public function removeItemFromCart($product_id)
     {
         try {
@@ -163,14 +191,80 @@ class ShopController extends Controller
     {
         try {
             $cart = Auth::user()->cart;
-            $cartWithProducts = $cart->load('cartProducts');
-            return response()->json([
-                'status' => 200,
-                'message' => 'Cart Details',
-                'data' => new CartResource($cartWithProducts),
-            ]);
+            if ($cart != null) {
+                $cartWithProducts = $cart->load('cartProducts');
+                if ($cartWithProducts->count() > 0) {
+                    return response()->json([
+                        'status' => 200,
+                        'message' => 'Cart Details',
+                        'data' => new CartResource($cartWithProducts),
+                    ]);
+                } else {
+                    return response()->json([
+                        'status' => 204,
+                        'message' => 'Your cart is empty'
+                    ]);
+                }
+            } else {
+                return response()->json([
+                    'status' => 204,
+                    'message' => 'Your cart is empty'
+                ]);
+            }
         } catch (\Throwable $th) {
-            //throw $th;
+            return response()->json([
+                'status' => 500,
+                'message' => 'Internal server error',
+            ]);
+        }
+    }
+    public function checkout()
+    {
+        try {
+            DB::beginTransaction();
+            $cart = Auth::user()->cart;
+            if ($cart != null) {
+                $cartProducts = $cart->cartProducts;
+                $amount = $cartProducts->sum('total_price');
+                if ($cartProducts->count() > 0) {
+                    $order = Order::create([
+                        'user_id' => Auth::user()->id,
+                        'amount' => $amount,
+                    ]);
+                    foreach ($cartProducts as $cartProduct) {
+                        OrderProduct::create([
+                            'order_id' => $order->id,
+                            'look_builder_product_id' => $cartProduct->look_builder_product_id,
+                            'size' => $cartProduct->size,
+                        ]);
+                    }
+                    DB::commit();
+                    $cart->delete();
+                    DB::commit();
+                    return response()->json([
+                        'status' => 200,
+                        'message' => 'Order has been placed'
+                    ]);
+                } else {
+                    DB::rollBack();
+                    return response()->json([
+                        'status' => 204,
+                        'message' => 'Your cart is empty'
+                    ]);
+                }
+            } else {
+                DB::rollBack();
+                return response()->json([
+                    'status' => 204,
+                    'message' => 'Your cart is empty'
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 500,
+                'message' => 'Internal server error',
+            ]);
         }
     }
 }

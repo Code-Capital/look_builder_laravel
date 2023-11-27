@@ -19,10 +19,7 @@
                         </div>
                     </div>
                     <div class="mb-3 row">
-                        <div class="col">
-                            <label for="recipient-name" class="col-form-label">Size:</label>
-                            <input type="text" class="form-control" id="size" name="size">
-                        </div>
+
                         <div class="col">
                             <label for="message-text" class="col-form-label">Price:</label>
                             <input type="text" class="form-control" id="price" name="price">

@@ -12,6 +12,7 @@ class CartProduct extends Model
         'look_builder_product_id',
         'cart_id',
         'quantity',
+        'size',
         'total_price',
     ];
     public function lookBuilderProduct()

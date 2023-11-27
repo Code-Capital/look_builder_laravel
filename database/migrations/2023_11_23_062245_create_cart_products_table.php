@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('cart_id');
             $table->integer('quantity')->default(1);
             $table->decimal('total_price', 8, 2);
+            $table->string('size')->nullable();
 
             $table->foreign('look_builder_product_id')->references('id')->on('look_builder_products')->onDelete('cascade');
             $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade')->onUpdate('cascade');

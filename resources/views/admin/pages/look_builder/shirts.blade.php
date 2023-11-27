@@ -61,14 +61,11 @@
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="mb-3">
-                                            <input name="size" type="text" class="form-control" placeholder="Size">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4">
-                                        <div class="mb-3">
                                             <input name="price" type="text" class="form-control" placeholder="Price">
                                         </div>
                                     </div>
+
+
                                     <div class="col-lg-12">
                                         <div>
                                             <textarea name="description" placeholder="description" class="form-control" id="example-textarea" rows="5"></textarea>
@@ -99,7 +96,6 @@
                                         <th>Product Image</th>
                                         <th>Layer Image</th>
                                         <th>Color</th>
-                                        <th>Size</th>
                                         <th>Price</th>
                                         <th>Desc</th>
                                     </tr>
@@ -119,7 +115,6 @@
                                                     alt="no-image">
                                             </td>
                                             <td>{{ $product->color }}</td>
-                                            <td>{{ $product->size }}</td>
                                             <td>{{ $product->price }}</td>
                                             <td>{{ $product->description }}
                                             </td>

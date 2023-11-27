@@ -21,7 +21,7 @@
                     @endphp
                     <button type="button" class="btn btn-primary btn-sm addOption"
                         data-bs-attribute="{{ $attribute->uuid }}">Add
-                        Option</button>
+                        Value</button>
                     <div class="card mt-3">
                         <div class="card-body">
 
@@ -30,10 +30,10 @@
 
                                 <thead>
                                     <tr>
-                                        <th>Name</th>
-                                        <th>Description</th>
-                                        <th>Image</th>
-                                        <th>Attribute</th>
+                                        <th>Value</th>
+                                        {{-- <th>Description</th>
+                                        <th>Image</th> --}}
+                                        <th>Size</th>
                                         <th>Action</th>
 
                                     </tr>
@@ -42,11 +42,11 @@
                                     @foreach ($options as $option)
                                         <tr>
                                             <td>{{ $option->name }}</td>
-                                            <td>{{ $option->description }}</td>
+                                            {{-- <td>{{ $option->description }}</td>
                                             <td>
                                                 <img width="80" height="60"
                                                     src="{{ asset('images/options/' . $option->image) }}" alt="no-image">
-                                            </td>
+                                            </td> --}}
                                             <td>{{ $option->attribute->name }}</td>
 
                                             <td class="table-action">

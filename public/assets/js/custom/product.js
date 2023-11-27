@@ -58,7 +58,6 @@ $(function () {
                 $("#editProductModal").modal("show");
                 $("#editProductModal #title").val(response.title);
                 $("#editProductModal #color").val(response.color);
-                $("#editProductModal #size").val(response.size);
                 $("#editProductModal #price").val(response.price);
                 $("#editProductModal #description").val(response.description);
             },
