@@ -34,22 +34,19 @@
 
 
                                 <tbody>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger@gmail.com</td>
-                                        <td>+12345678990</td>
-                                        <td>New York</td>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. officia perferendis.
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger@gmail.com</td>
-                                        <td>+12345678990</td>
-                                        <td>New York</td>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. officia perferendis.
-                                        </td>
-                                    </tr>
+                                    @foreach ($users as $user)
+                                        <tr>
+                                            <td>{{ $user->name }}</td>
+                                            <td>{{ $user->email }}</td>
+                                            <td>{{ $user->phone }}</td>
+                                            <td>{{ $user->country }}</td>
+                                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. officia
+                                                perferendis.
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+
 
 
 

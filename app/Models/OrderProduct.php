@@ -13,4 +13,8 @@ class OrderProduct extends Model
         'look_builder_product_id',
         'size',
     ];
+    public function order()
+    {
+        return $this->belongsTo(Order::class);
+    }
 }

@@ -42,6 +42,8 @@ Route::middleware(['auth:sanctum', 'emailVerified'])->group(function () {
     Route::post('add_size', [ShopController::class, 'addSize']);
     Route::get('view/cart', [ShopController::class, 'viewCart']);
     Route::post('remove_item/{product_id}', [ShopController::class, 'removeItemFromCart']);
+    Route::get('sizes/{product_uuid}', [ShopController::class, 'getSizes']);
+    Route::post('select_size', [ShopController::class, 'selectSizes']);
     Route::post('checkout', [ShopController::class, 'checkout']);
     Route::post('logout', [AuthController::class, 'logout']);
 });

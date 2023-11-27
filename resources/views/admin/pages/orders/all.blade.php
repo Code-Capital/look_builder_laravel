@@ -30,28 +30,24 @@
                                         <th>Phone</th>
                                         <th>Delivery Address</th>
                                         <th>Delivery date</th>
+                                        <th>Details</th>
                                     </tr>
                                 </thead>
 
 
                                 <tbody>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger@gmail.com</td>
-                                        <td>+12345678990</td>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. officia
-                                            perferendis.</td>
-                                        <td>2011/04/25</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Tiger Nixon</td>
-                                        <td>Tiger@gmail.com</td>
-                                        <td>+12345678990</td>
-                                        <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. officia
-                                            perferendis.</td>
-                                        <td>2011/04/25</td>
-                                    </tr>
-
+                                    @foreach ($orders as $order)
+                                        <tr>
+                                            <td>{{ $order->user->name }}</td>
+                                            <td>{{ $order->user->email }}</td>
+                                            <td>{{ $order->user->phone }}</td>
+                                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. officia
+                                                perferendis.</td>
+                                            <td>{{ $order->created_at }}</td>
+                                            <td><a href="{{ route('order_details', $order->uuid) }}"
+                                                    class="btn btn-primary btn-sm">See Details</a></td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div> <!-- end card body-->

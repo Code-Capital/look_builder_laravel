@@ -6,15 +6,18 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CartResource;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\LookBuilderProductResource;
+use App\Http\Resources\SizeResource;
 use App\Models\Cart;
 use App\Models\CartProduct;
 use App\Models\Category;
+use App\Models\LookBuilderModel;
 use App\Models\LookBuilderProduct;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class ShopController extends Controller
 {
@@ -96,9 +99,9 @@ class ShopController extends Controller
             $cart = Auth::user()->cart ?? Cart::create(['user_id' => Auth::user()->id]);
             $productIdsInCart = explode(',', $productIds);
 
-            foreach ($productIdsInCart as $productId) {
-
-                $existingCartProduct = CartProduct::where('look_builder_product_id', $productId)
+            foreach ($productIdsInCart as $productUuid) {
+                $productForCart = LookBuilderProduct::where('uuid', $productUuid)->first();
+                $existingCartProduct = CartProduct::where('look_builder_product_id', $productForCart->id)
                     ->where('cart_id', $cart->id)
                     ->first();
 
@@ -108,9 +111,9 @@ class ShopController extends Controller
                         'total_price' => $existingCartProduct->quantity * $existingCartProduct->lookBuilderProduct->price
                     ]);
                 } else {
-                    $product = LookBuilderProduct::findorfail($productId);
+                    $product = LookBuilderProduct::findorfail($productForCart->id);
                     $cartProduct = CartProduct::create([
-                        'look_builder_product_id' => $productId,
+                        'look_builder_product_id' => $productForCart->id,
                         'cart_id' => $cart->id,
                         'total_price' => $product->price,
                     ]);
@@ -162,12 +165,13 @@ class ShopController extends Controller
     {
         try {
             DB::beginTransaction();
+            $removeProduct = LookBuilderProduct::where('uuid', $product_id)->first();
             $cart = Auth::user()->cart;
             $cartProducts = $cart->cartProducts;
             if ($cartProducts->count() > 0) {
                 foreach ($cartProducts as $cartProduct) {
 
-                    if ($cartProduct->look_builder_product_id == $product_id) {
+                    if ($cartProduct->look_builder_product_id == $removeProduct->id) {
                         $cartProduct->delete();
                         DB::commit();
                         return response()->json([
@@ -228,6 +232,7 @@ class ShopController extends Controller
                 $amount = $cartProducts->sum('total_price');
                 if ($cartProducts->count() > 0) {
                     $order = Order::create([
+                        'uuid' => Str::uuid(),
                         'user_id' => Auth::user()->id,
                         'amount' => $amount,
                     ]);
@@ -263,7 +268,67 @@ class ShopController extends Controller
             DB::rollBack();
             return response()->json([
                 'status' => 500,
-                'message' => 'Internal server error',
+                'message' => $th->getMessage(),
+            ]);
+        }
+    }
+    public function getSizes($product_uuid)
+    {
+        try {
+            $product = LookBuilderProduct::where('uuid', $product_uuid)->first();
+            $attributes = $product->attributes;
+            if ($attributes->count() > 0) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Sizes',
+                    'data' => SizeResource::collection($attributes),
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 204,
+                    'message' => 'No sizes available',
+                ]);
+            }
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 500,
+                'message' => $th->getMessage(),
+            ]);
+        }
+    }
+    public function selectSizes(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $cart = Auth::user()->cart;
+            $cartProducts = $cart->cartProducts;
+            if ($cartProducts->count() > 0) {
+                $productForSelectSize = LookBuilderProduct::where('uuid', $request->look_builder_product_id)->first();
+                $cartProduct = CartProduct::where('look_builder_product_id', $productForSelectSize->id)->first();
+                if ($cartProduct != null) {
+                    $cartProduct->update([
+                        'id' => $cartProduct->id,
+                        'size' => $request->size,
+                    ]);
+                    DB::commit();
+                    return response()->json([
+                        'status' => 200,
+                        'message' => 'Size successfully selected'
+                    ]);
+                }
+                return response()->json([
+                    'status' => 500,
+                    'message' => 'Size not found '
+                ]);
+            }
+            return response()->json([
+                'status' => 500,
+                'message' => 'Size not found '
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Internal server error '
             ]);
         }
     }

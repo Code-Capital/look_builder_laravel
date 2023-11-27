@@ -85,11 +85,19 @@
                 </a>
 
             </li>
-            <li class="side-nav-item">
+            {{-- <li class="side-nav-item">
                 <a href="{{ route('wedding_planner') }}" aria-expanded="false" aria-controls="sidebarDashboards"
                     class="side-nav-link">
                     <i class="uil-users-alt"></i>
                     <span> Wedding Planner </span>
+                </a>
+
+            </li> --}}
+            <li class="side-nav-item">
+                <a href="{{ route('categories') }}" aria-expanded="false" aria-controls="sidebarDashboards"
+                    class="side-nav-link">
+                    <i class="uil-users-alt"></i>
+                    <span> Categories </span>
                 </a>
 
             </li>
@@ -127,7 +135,7 @@
                 </div>
             </li>
 
-            <li class="side-nav-item">
+            {{-- <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEcommerce2" aria-expanded="false"
                     aria-controls="sidebarEcommerce" class="side-nav-link">
                     <i class="uil-store"></i>
@@ -151,7 +159,7 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li> --}}
             <li class="side-nav-title">Settings</li>
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks"
@@ -179,8 +187,8 @@
             </li>
 
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarTasks2" aria-expanded="false"
-                    aria-controls="sidebarTasks" class="side-nav-link">
+                <a data-bs-toggle="collapse" href="#sidebarTasks2" aria-expanded="false" aria-controls="sidebarTasks"
+                    class="side-nav-link">
                     <i class="uil-clipboard-alt"></i>
                     <span> General Settings </span>
                     <span class="menu-arrow"></span>

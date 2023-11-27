@@ -16,23 +16,17 @@ class OptionController extends Controller
         try {
             DB::beginTransaction();
             $attribute = Attribute::where('uuid', $attribute_uuid)->first();
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
 
-                $imageName = time() . '_' . Str::random(15) . '.' . $image->getClientOriginalExtension();
-                $image->storeAs('images/options', $imageName);
-            }
             Option::create([
                 'uuid' => Str::uuid(),
                 'name' => $request->name,
-                'description' => $request->description,
-                'image' => $imageName,
                 'attribute_id' => $attribute->id,
             ]);
             DB::commit();
             return response()->json(['status' => true, 'message' => 'Option Created Successfully']);
         } catch (\Throwable $th) {
             DB::rollback();
+            dd($th->getMessage());
             return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
     }

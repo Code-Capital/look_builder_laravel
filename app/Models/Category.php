@@ -11,6 +11,7 @@ class Category extends Model
     protected $fillable = [
         'uuid',
         'name',
+        'image',
     ];
     public function lookBuilderProducts()
     {

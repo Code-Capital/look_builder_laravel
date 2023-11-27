@@ -46,7 +46,7 @@ class AuthController extends Controller
                 'password' => Hash::make($request->input('password')),
                 'uuid' => Str::uuid(),
             ]);
-
+            $user->assignRole('user');
             DB::commit();
             return response()->json([
                 'status' => 201,

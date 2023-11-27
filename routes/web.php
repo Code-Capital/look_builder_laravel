@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Web\AttributeController;
+use App\Http\Controllers\Web\CategoryController;
+use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\FabricController;
 use App\Http\Controllers\Web\LookBuilderModelController;
 use App\Http\Controllers\Web\LookBuilderProductController;
@@ -31,25 +33,24 @@ Route::get('login', function () {
 Route::get('register', function () {
     return view('register');
 });
-Route::middleware('auth', 'role:admin')->group(function () {
+Route::middleware('role:admin')->group(function () {
     Route::get('my_profile', [UserController::class, 'myProfile'])->name('profile');
     Route::post('create_user', [UserController::class, 'store'])->name('user.create');
     Route::delete('user/{user_uuid}', [UserController::class, 'delete'])->name('user.delete');
     Route::get('/', function () {
         return view('admin.pages.index');
     })->name('dashboard');
-    Route::get('/orders', function () {
-        return view('admin.pages.orders.all');
-    })->name('orders');
-    Route::get('/customers', function () {
-        return view('admin.pages.customers.all');
-    })->name('customers');
+
 
 
     Route::get('wedding_planner', function () {
         return view('admin.pages.wedding_planner');
     })->name('wedding_planner');
 
+
+    Route::get('/orders', [DashboardController::class, 'orders'])->name('orders');
+    Route::get('order_details/{order_uuid}', [DashboardController::class, 'orderDetails'])->name('order_details');
+    Route::get('/customers', [DashboardController::class, 'customers'])->name('customers');
 
     Route::prefix('look_builder_products')->group(function () {
         Route::post('add', [LookBuilderProductController::class, 'store'])->name('lookBuilder.product.store');
@@ -64,6 +65,14 @@ Route::middleware('auth', 'role:admin')->group(function () {
         Route::delete('/{product_uuid}', [FabricController::class, 'delete'])->name('fabric.delete');
         Route::get('/{product_uuid}', [FabricController::class, 'edit'])->name('fabric.edit');
         Route::post('/{product_uuid}', [FabricController::class, 'update'])->name('fabric.update');
+    });
+
+    Route::prefix('categories')->group(function () {
+        Route::get('all', [CategoryController::class, 'all'])->name('categories');
+        Route::post('add', [CategoryController::class, 'store'])->name('category.store');
+        Route::delete('/{product_uuid}', [CategoryController::class, 'delete'])->name('category.delete');
+        Route::get('/{product_uuid}', [CategoryController::class, 'edit'])->name('category.edit');
+        Route::post('/{product_uuid}', [CategoryController::class, 'update'])->name('category.update');
     });
 
     Route::get('all_products', [LookBuilderProductController::class, 'allProducts'])->name('allProducts');

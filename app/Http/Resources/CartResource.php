@@ -28,6 +28,7 @@ class CartResource extends JsonResource
                 'id' => $cartProduct->id,
                 'cart_id' => $cartProduct->cart_id,
                 'quantity' => $cartProduct->quantity,
+                'size' => $cartProduct->size,
                 'total_price' => $cartProduct->total_price,
 
             ];
