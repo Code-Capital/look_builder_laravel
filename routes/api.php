@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ResetPasswordController;
+use App\Http\Controllers\Api\SavedItemController;
 use App\Http\Controllers\Api\ShopController;
 use App\Http\Controllers\Api\VerificationController;
 use Illuminate\Support\Facades\Auth;
@@ -38,6 +39,14 @@ Route::get('product/{product_uuid}', [ShopController::class, 'productById']);
 
 
 Route::middleware(['auth:sanctum', 'emailVerified'])->group(function () {
+
+    Route::prefix('saved_item')->group(function () {
+        Route::post('add', [SavedItemController::class, 'add']);
+        Route::get('', [SavedItemController::class, 'getSavedItems']);
+        Route::post('delete/{item_uuid}', [SavedItemController::class, 'removeFromSaveItem']);
+    });
+
+
     Route::get('cart/{productIds}', [ShopController::class, 'myCart']);
     Route::post('add_size', [ShopController::class, 'addSize']);
     Route::get('view/cart', [ShopController::class, 'viewCart']);
