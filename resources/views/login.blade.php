@@ -60,7 +60,7 @@
                                 placeholder="Enter your email">
                         </div>
                         <div class="mb-3">
-                            <a href="recoverpw" class="text-muted float-end"><small>Forgot your password?</small></a>
+                            <a class="text-muted float-end"><small>Forgot your password?</small></a>
                             <label for="password" class="form-label">Password</label>
                             <input class="form-control" type="password" name="password" required="" id="password"
                                 placeholder="Enter your password">

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -35,5 +36,10 @@ class DashboardController extends Controller
         } catch (\Throwable $th) {
             //throw $th;
         }
+    }
+    public function logout()
+    {
+        Auth::logout();
+        return redirect('/login')->with(['status' => true, 'message' => 'Logged out successfully']);
     }
 }

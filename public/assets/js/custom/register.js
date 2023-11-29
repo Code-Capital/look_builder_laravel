@@ -10,6 +10,7 @@ $(function () {
                 window.location.href = "/";
             },
             error: function (errors) {
+                console.log(errors);
                 const errorMessages = Object.values(
                     errors?.responseJSON?.errors
                 ).flat();

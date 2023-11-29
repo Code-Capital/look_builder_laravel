@@ -33,15 +33,14 @@ Route::get('login', function () {
 Route::get('register', function () {
     return view('register');
 });
-Route::middleware('role:admin')->group(function () {
+Route::post('logout', [DashboardController::class, 'logout'])->name('logout');
+Route::middleware('role:admin', 'auth')->group(function () {
     Route::get('my_profile', [UserController::class, 'myProfile'])->name('profile');
     Route::post('create_user', [UserController::class, 'store'])->name('user.create');
     Route::delete('user/{user_uuid}', [UserController::class, 'delete'])->name('user.delete');
     Route::get('/', function () {
         return view('admin.pages.index');
     })->name('dashboard');
-
-
 
     Route::get('wedding_planner', function () {
         return view('admin.pages.wedding_planner');
