@@ -25,8 +25,7 @@ class RoleMiddleware
         }
 
         if (!method_exists($user, 'hasAnyRole')) {
-            // auth()->logout();
-            dd('has any role', Auth::user());
+            auth()->logout();
             return redirect('/login')->with(['status' => false, 'message' => 'User Does not have the right roles']);
             throw UnauthorizedException::missingTraitHasRoles($user);
         }
@@ -36,10 +35,8 @@ class RoleMiddleware
             : explode('|', $role);
 
         if (!$user->hasAnyRole($roles)) {
-            // dd('has  role', Auth::user());
 
             auth()->logout();
-            // dd(Auth::user());
             return redirect('/login')->with(['status' => false, 'message' => 'User Does not have the right roles']);
             throw UnauthorizedException::forRoles($roles);
         }
