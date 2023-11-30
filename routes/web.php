@@ -2,6 +2,9 @@
 
 use App\Http\Controllers\Web\AttributeController;
 use App\Http\Controllers\Web\CategoryController;
+use App\Http\Controllers\Web\CustomProducts\AttributeController as CustomProductsAttributeController;
+use App\Http\Controllers\Web\CustomProducts\OptionController as CustomProductsOptionController;
+use App\Http\Controllers\Web\CustomProducts\ProductController;
 use App\Http\Controllers\Web\DashboardController;
 use App\Http\Controllers\Web\FabricController;
 use App\Http\Controllers\Web\LookBuilderModelController;
@@ -34,6 +37,8 @@ Route::get('register', function () {
     return view('register');
 });
 Route::post('logout', [DashboardController::class, 'logout'])->name('logout');
+
+
 Route::middleware('role:admin', 'auth')->group(function () {
     Route::get('my_profile', [UserController::class, 'myProfile'])->name('profile');
     Route::post('create_user', [UserController::class, 'store'])->name('user.create');
@@ -57,6 +62,13 @@ Route::middleware('role:admin', 'auth')->group(function () {
         Route::post('/{product_uuid}', [LookBuilderProductController::class, 'update'])->name('lookBuilder.product.update');
         Route::get('by_category/{uuid}', [LookBuilderProductController::class, 'byCategory'])->name('productByCategory');
     });
+    Route::prefix('custom_products')->group(function () {
+        Route::post('add', [ProductController::class, 'store'])->name('custom.product.store');
+        Route::delete('delete/{product_uuid}', [ProductController::class, 'delete'])->name('custom.product.delete');
+        Route::get('/{product_uuid}', [ProductController::class, 'edit'])->name('custom.product.edit');
+        Route::post('/{product_uuid}', [ProductController::class, 'update'])->name('custom.product.update');
+        Route::get('by_category/{uuid}', [ProductController::class, 'byCategory'])->name('customProductByCategory');
+    });
 
     Route::prefix('fabrics')->group(function () {
         Route::get('all', [FabricController::class, 'all'])->name('fabrics');
@@ -75,6 +87,7 @@ Route::middleware('role:admin', 'auth')->group(function () {
     });
 
     Route::get('all_products', [LookBuilderProductController::class, 'allProducts'])->name('allProducts');
+    Route::get('custom_products', [ProductController::class, 'allProducts'])->name('customProducts');
     Route::get('products_by_fabric/{fabric_uuid}', [LookBuilderProductController::class, 'productsByFabric'])->name('productsByFabric');
     Route::delete('all_products/delete/{product_uuid}', [LookBuilderProductController::class, 'delete'])->name('product.delete');
 
@@ -84,12 +97,26 @@ Route::middleware('role:admin', 'auth')->group(function () {
         Route::post('/{attribute_uuid}', [AttributeController::class, 'update'])->name('attribute.update');
         Route::delete('/{attribute_uuid}', [AttributeController::class, 'delete'])->name('attribute.delete');
     });
+    Route::prefix('custom_arrtibutes')->group(function () {
+        Route::get('/by/{product_uuid}', [CustomProductsAttributeController::class, 'attributesByProduct'])->name('customAttributesByProduct');
+        Route::post('add', [CustomProductsAttributeController::class, 'store'])->name('attribute.store');
+        Route::get('/{attribute_uuid}', [CustomProductsAttributeController::class, 'edit'])->name('attibute.edit');
+        Route::post('/{attribute_uuid}', [CustomProductsAttributeController::class, 'update'])->name('attribute.update');
+        Route::delete('/{attribute_uuid}', [CustomProductsAttributeController::class, 'delete'])->name('attribute.delete');
+    });
     Route::prefix('options')->group(function () {
         Route::post('add/{attribute_uuid}', [OptionController::class, 'store'])->name('option.store');
         Route::get('/{attribute_uuid}', [OptionController::class, 'optionsByAttribute'])->name('option.by.attr');
         Route::get('edit/{option_uuid}', [OptionController::class, 'optionById'])->name('option.by.id');
         Route::post('update/{option_uuid}', [OptionController::class, 'update'])->name('option.update');
         Route::delete('delete/{option_uuid}', [OptionController::class, 'delete'])->name('option.delete');
+    });
+    Route::prefix('custom_options')->group(function () {
+        Route::post('add/{attribute_uuid}', [CustomProductsOptionController::class, 'store'])->name('custom.option.store');
+        Route::get('/{attribute_uuid}', [CustomProductsOptionController::class, 'optionsByAttribute'])->name('custom.option.by.attr');
+        Route::get('edit/{option_uuid}', [CustomProductsOptionController::class, 'optionById'])->name('custom.option.by.id');
+        Route::post('update/{option_uuid}', [CustomProductsOptionController::class, 'update'])->name('custom.option.update');
+        Route::delete('delete/{option_uuid}', [CustomProductsOptionController::class, 'delete'])->name('custom.option.delete');
     });
 
     Route::prefix('look_builder_models')->group(function () {

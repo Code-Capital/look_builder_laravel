@@ -4,7 +4,7 @@
 <div class="leftside-menu">
 
     <!-- Brand Logo Light -->
-    <a href="index" class="logo logo-light">
+    <a href="{{ route('dashboard') }}" class="logo logo-light">
         <span class="logo-lg  ">
             <div class="d-flex align-items-center gap-2">
                 <img class="logoImage" src="{{ asset('assets/images/logo.png') }}" alt="small logo">
@@ -116,26 +116,12 @@
                             </li>
                         @endforeach
 
-                        {{-- <li>
-                            <a href="{{ route('shirts') }}"> Trousers</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('shirts') }}"> Shoes</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('shirts') }}"> Jackets</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('shirts') }}"> Overcoat</a>
-                        </li>
-                        <li>
-                            <a href="{{ route('shirts') }}"> Suit</a>
-                        </li> --}}
+
                     </ul>
                 </div>
             </li>
 
-            {{-- <li class="side-nav-item">
+            <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEcommerce2" aria-expanded="false"
                     aria-controls="sidebarEcommerce" class="side-nav-link">
                     <i class="uil-store"></i>
@@ -144,22 +130,15 @@
                 </a>
                 <div class="collapse" id="sidebarEcommerce2">
                     <ul class="side-nav-second-level">
-
-                        <li>
-                            <a href="custom-product"> Jacket</a>
-                        </li>
-                        <li>
-                            <a href="custom-product"> Shirt</a>
-                        </li>
-                        <li>
-                            <a href="custom-product"> Waistcoat</a>
-                        </li>
-                        <li>
-                            <a href="custom-product"> Trousers</a>
-                        </li>
+                        @foreach ($categories as $category)
+                            <li>
+                                <a href="{{ route('customProductByCategory', $category->uuid) }}">
+                                    {{ $category->name }}</a>
+                            </li>
+                        @endforeach
                     </ul>
                 </div>
-            </li> --}}
+            </li>
             <li class="side-nav-title">Settings</li>
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks"
@@ -172,7 +151,10 @@
                     <ul class="side-nav-second-level">
 
                         <li>
-                            <a href="{{ route('allProducts') }}">All Product</a>
+                            <a href="{{ route('allProducts') }}">Look Builder Products</a>
+                        </li>
+                        <li>
+                            <a href="{{ route('customProducts') }}">Custom Products</a>
                         </li>
 
                         <li>
@@ -187,8 +169,8 @@
             </li>
 
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarTasks2" aria-expanded="false" aria-controls="sidebarTasks"
-                    class="side-nav-link">
+                <a data-bs-toggle="collapse" href="#sidebarTasks2" aria-expanded="false"
+                    aria-controls="sidebarTasks" class="side-nav-link">
                     <i class="uil-clipboard-alt"></i>
                     <span> General Settings </span>
                     <span class="menu-arrow"></span>

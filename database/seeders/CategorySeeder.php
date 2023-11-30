@@ -16,23 +16,24 @@ class CategorySeeder extends Seeder
     {
         Category::create([
             'uuid' => Str::uuid(),
-            'name' => 'shirts'
+            'name' => 'Jackets',
+            'image' => '1701346139_oNA6CGfPz71Ul6J.jpg'
         ]);
         Category::create([
             'uuid' => Str::uuid(),
-            'name' => 'trousers'
+            'name' => 'Trousers',
+            'image' => '1701346152_Zzml0QTCPPVwCuv.jpg'
+
         ]);
         Category::create([
             'uuid' => Str::uuid(),
-            'name' => 'base'
+            'name' => 'Base',
+            'image' => '1701346162_mYxunhEwEqj7KfK.jpg'
         ]);
         Category::create([
             'uuid' => Str::uuid(),
-            'name' => 'shoes'
-        ]);
-        Category::create([
-            'uuid' => Str::uuid(),
-            'name' => 'coat'
+            'name' => 'Shoes',
+            'image' => '1701346171_MYFQ8Lab5x7ZgJx.jpg'
         ]);
     }
 }

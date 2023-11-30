@@ -7,7 +7,7 @@ $(function () {
             url: "/look_builder_products/add",
             data: formData,
             type: "POST",
-            processData: false, // Important: Don't process the data
+            processData: false,
             contentType: false,
             success: function (response) {
                 $("#addLookBuilderProduct")[0].reset();

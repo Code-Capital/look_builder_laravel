@@ -19,8 +19,12 @@ class Fabric extends Model
         'woven_by',
         'fabric_code',
     ];
-    public function products()
+    public function lookBuilderProducts()
     {
-        return $this->hasMany(Product::class);
+        return $this->hasMany(LookBuilderProduct::class);
+    }
+    public function customProducts()
+    {
+        return $this->hasMany(CustomProduct::class);
     }
 }

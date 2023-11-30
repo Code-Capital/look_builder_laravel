@@ -5,20 +5,18 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Category extends Model
+class CustomOption extends Model
 {
     use HasFactory;
     protected $fillable = [
         'uuid',
         'name',
+        'description',
         'image',
+        'custom_attribute_id'
     ];
-    public function lookBuilderProducts()
+    public function customAttribute()
     {
-        return $this->hasMany(LookBuilderProduct::class);
-    }
-    public function customProducts()
-    {
-        return $this->hasMany(CustomProduct::class);
+        return $this->belongsTo(CustomAttribute::class);
     }
 }

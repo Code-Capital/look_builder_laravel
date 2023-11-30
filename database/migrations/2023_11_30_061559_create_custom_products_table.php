@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('look_builder_products', function (Blueprint $table) {
+        Schema::create('custom_products', function (Blueprint $table) {
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('title');
@@ -24,6 +24,9 @@ return new class extends Migration
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
 
+            $table->unsignedBigInteger('fabric_id')->nullable();
+            $table->foreign('fabric_id')->references('id')->on('fabrics')->onDelete('cascade')->onUpdate('cascade');
+
             $table->timestamps();
         });
     }
@@ -33,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('look_builder_products');
+        Schema::dropIfExists('custom_products');
     }
 };

@@ -26,7 +26,7 @@
                     </div>
                     <div class="collapse bg-light p-3 rounded-3 my-3" id="collapseLook" style="">
                         <div class=" bg-transparent">
-                            <form id="addLookBuilderProduct" method="POST" enctype="multipart/form-data">
+                            <form id="addCustomProduct" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="row mx-0">
                                     <div class="col-lg-4">
@@ -34,7 +34,7 @@
                                             <input type="text" name="title" class="form-control" placeholder="Title">
                                         </div>
                                     </div>
-                                    {{-- <div class="col-lg-4">
+                                    <div class="col-lg-4">
                                         <div class="mb-3">
                                             <select class="form-select" name="fabric_id">
                                                 <option selected>Select Fabric</option>
@@ -43,7 +43,7 @@
                                                 @endforeach
                                             </select>
                                         </div>
-                                    </div> --}}
+                                    </div>
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <input name="product_image" type="file" class="form-control">
@@ -106,12 +106,12 @@
                                             <td>{{ $product->title }}</td>
                                             <td>
                                                 <img width="80" height="60"
-                                                    src="{{ asset('images/look_builder_products/product_images/' . $product->product_image) }}"
+                                                    src="{{ asset('images/custom_products/product_images/' . $product->product_image) }}"
                                                     alt="no-image">
                                             </td>
                                             <td>
                                                 <img width="80" height="60"
-                                                    src="{{ asset('images/look_builder_products/layer_images/' . $product->layer_image) }}"
+                                                    src="{{ asset('images/custom_products/layer_images/' . $product->layer_image) }}"
                                                     alt="no-image">
                                             </td>
                                             <td>{{ $product->color }}</td>
@@ -130,5 +130,5 @@
     </div>
 @endsection
 @push('scripts')
-    <script src="{{ asset('assets/js/custom/look_builder_product.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/custom_product.js') }}"></script>
 @endpush
