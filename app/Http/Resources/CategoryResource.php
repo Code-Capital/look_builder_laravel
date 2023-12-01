@@ -18,7 +18,7 @@ class CategoryResource extends JsonResource
             'id' => $this->id,
             'uuid' => $this->uuid,
             'name' => $this->name,
-            'image' => env('APP_URL') . "/images/categories/" . $this->image,
+            'image' => "/images/categories/" . $this->image,
         ];
     }
 }

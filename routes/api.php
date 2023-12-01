@@ -47,7 +47,7 @@ Route::middleware(['auth:sanctum', 'emailVerified'])->group(function () {
     });
 
 
-    Route::get('cart/{productIds}', [ShopController::class, 'myCart']);
+    Route::post('cart/{productIds}', [ShopController::class, 'myCart']);
     Route::post('add_size', [ShopController::class, 'addSize']);
     Route::get('view/cart', [ShopController::class, 'viewCart']);
     Route::post('remove_item/{product_id}', [ShopController::class, 'removeItemFromCart']);

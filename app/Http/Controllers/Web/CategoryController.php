@@ -56,10 +56,10 @@ class CategoryController extends Controller
                     'message' => 'Category Deleted Successfully',
                 ]);
             }
-            return response()->json(['status' => 204, 'message' => 'Category Not Found']);
+            return response()->json(['status' => false, 'message' => 'Category Not Found']);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['status' => 500, 'message' => 'something went wrong']);
+            return response()->json(['status' => false, 'message' => 'something went wrong']);
         }
     }
     public function edit($uuid)
@@ -69,9 +69,9 @@ class CategoryController extends Controller
             if ($category != null) {
                 return $category;
             }
-            return response()->json(['status' => 204, 'message' => 'Category Not Found']);
+            return response()->json(['status' => false, 'message' => 'Category Not Found']);
         } catch (\Throwable $th) {
-            return response()->json(['status' => 500, 'message' => 'something went wrong']);
+            return response()->json(['status' => false, 'message' => 'something went wrong']);
         }
     }
     public function update($uuid, Request $request)
@@ -81,6 +81,13 @@ class CategoryController extends Controller
             $category = Category::where('uuid', $uuid)->first();
             $imageName = $category->image;
             if ($request->hasFile('image')) {
+                if (isset($imageName)) {
+                    $filePathToDeleteLayer = public_path('images/categories/' . $imageName);
+
+                    if (file_exists($filePathToDeleteLayer)) {
+                        unlink($filePathToDeleteLayer);
+                    }
+                }
                 $image = $request->file('image');
                 $imageName = time() . '_' . Str::random(15) . '.' . $image->getClientOriginalExtension();
                 $image->storeAs('images/categories', $imageName);
@@ -97,9 +104,9 @@ class CategoryController extends Controller
                     'message' => 'Category Updated Successfully',
                 ]);
             }
-            return response()->json(['status' => 204, 'message' => 'Category Not Found']);
+            return response()->json(['status' => false, 'message' => 'Category Not Found']);
         } catch (\Throwable $th) {
-            return response()->json(['status' => 500, 'message' => 'something went wrong']);
+            return response()->json(['status' => false, 'message' => 'something went wrong']);
         }
     }
     public function all()
@@ -108,7 +115,7 @@ class CategoryController extends Controller
             $categories = Category::all();
             return view('admin.pages.categoryList', compact('categories'));
         } catch (\Throwable $th) {
-            return response()->json(['status' => 500, 'message' => 'something went wrong']);
+            return response()->json(['status' => false, 'message' => 'something went wrong']);
         }
     }
 }
