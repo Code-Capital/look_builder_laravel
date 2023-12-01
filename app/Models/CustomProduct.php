@@ -18,7 +18,6 @@ class CustomProduct extends Model
         'price',
         'description',
         'category_id',
-        'fabric_id',
     ];
     public function customAttributes()
     {

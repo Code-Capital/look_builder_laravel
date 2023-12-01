@@ -10,6 +10,7 @@ use App\Http\Resources\SizeResource;
 use App\Models\Cart;
 use App\Models\CartProduct;
 use App\Models\Category;
+use App\Models\Fabric;
 use App\Models\LookBuilderModel;
 use App\Models\LookBuilderProduct;
 use App\Models\Order;
@@ -345,6 +346,22 @@ class ShopController extends Controller
             return response()->json([
                 'status' => 500,
                 'messasge' => 'Internal server error',
+            ]);
+        }
+    }
+    public function fabrics()
+    {
+        try {
+            $fabrics = Fabric::all();
+            return response()->json([
+                'status' => 200,
+                'message' => 'All Fabrics',
+                'data' => $fabrics,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Something went wrong',
             ]);
         }
     }

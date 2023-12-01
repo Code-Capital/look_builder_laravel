@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CustomProductController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ResetPasswordController;
 use App\Http\Controllers\Api\SavedItemController;
@@ -36,9 +37,12 @@ Route::get('products/{category_uuid}', [ShopController::class, 'productsByCatego
 Route::get('product/{product_uuid}', [ShopController::class, 'productById']);
 
 Route::get('models', [ShopController::class, 'getModels']);
+Route::get('fabrics', [ShopController::class, 'fabrics']);
 
-
-
+Route::prefix('custom_products')->group(function () {
+    Route::get('', [CustomProductController::class, 'getAllCustomProducts']);
+    Route::get('{product_uuid}', [CustomProductController::class, 'getProductById']);
+});
 
 Route::middleware(['auth:sanctum', 'emailVerified'])->group(function () {
 
