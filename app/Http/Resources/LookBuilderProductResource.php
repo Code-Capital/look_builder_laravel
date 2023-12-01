@@ -25,7 +25,6 @@ class LookBuilderProductResource extends JsonResource
             'price' => $this->price,
             'description' => $this->description,
             'category' => $this->category->name,
-            'fabric' => $this->fabric->name,
         ];
     }
 }
