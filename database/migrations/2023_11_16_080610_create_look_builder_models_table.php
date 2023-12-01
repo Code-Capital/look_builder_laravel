@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('image');
+            $table->string('layer_image');
+            $table->string('hand_image');
             $table->timestamps();
         });
     }

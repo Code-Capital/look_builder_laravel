@@ -40,6 +40,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row mx-0">
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <input type="file" class="form-control" name="layer_image">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-3">
+                                            <input type="file" class="form-control" name="hand_image">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-lg-12">
                                     <div class="mb-3 text-center ">
                                         <button type="submit" class="btn btn-primary btn-sm">Submit</button>
@@ -57,8 +69,9 @@
                                     <tr>
                                         <th>Title</th>
                                         <th>Image</th>
+                                        <th>Layer Image</th>
+                                        <th>Hand Image</th>
                                         <th>Action</th>
-
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -68,6 +81,16 @@
                                             <td>
                                                 <img height="60" width="80"
                                                     src="{{ asset('images/look_builder_models/' . $model->image) }}"
+                                                    alt="no-image">
+                                            </td>
+                                            <td>
+                                                <img height="60" width="80"
+                                                    src="{{ asset('images/look_builder_models/layer_images/' . $model->layer_image) }}"
+                                                    alt="no-image">
+                                            </td>
+                                            <td>
+                                                <img height="60" width="80"
+                                                    src="{{ asset('images/look_builder_models/hand_images/' . $model->hand_image) }}"
                                                     alt="no-image">
                                             </td>
                                             <td class="table-action">

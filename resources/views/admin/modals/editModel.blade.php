@@ -17,6 +17,14 @@
                         <label for="message-text" class="col-form-label">Image:</label>
                         <input type="file" class="form-control" id="image" name="image">
                     </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Layer Image:</label>
+                        <input type="file" class="form-control" id="layer_image" name="layer_image">
+                    </div>
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Hand Image:</label>
+                        <input type="file" class="form-control" id="hand_image" name="hand_image">
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

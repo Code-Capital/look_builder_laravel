@@ -11,5 +11,7 @@ class LookBuilderModel extends Model
     protected $fillable = [
         'title',
         'image',
+        'layer_image',
+        'hand_image',
     ];
 }

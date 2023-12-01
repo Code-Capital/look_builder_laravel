@@ -35,6 +35,8 @@ Route::get('categories', [ShopController::class, 'categories']);
 Route::get('products/{category_uuid}', [ShopController::class, 'productsByCategory']);
 Route::get('product/{product_uuid}', [ShopController::class, 'productById']);
 
+Route::get('models', [ShopController::class, 'getModels']);
+
 
 
 

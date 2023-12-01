@@ -332,4 +332,20 @@ class ShopController extends Controller
             ]);
         }
     }
+    public function getModels()
+    {
+        try {
+            $lookBuilderModels = LookBuilderModel::all();
+            return response()->json([
+                'status' => 200,
+                'messasge' => 'Model Details',
+                'data' => $lookBuilderModels,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 500,
+                'messasge' => 'Internal server error',
+            ]);
+        }
+    }
 }
