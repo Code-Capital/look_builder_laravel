@@ -7,6 +7,7 @@ use App\Http\Resources\CartResource;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\LookBuilderProductResource;
 use App\Http\Resources\SizeResource;
+use App\Http\Resources\SuitResource;
 use App\Models\Cart;
 use App\Models\CartProduct;
 use App\Models\Category;
@@ -15,6 +16,7 @@ use App\Models\LookBuilderModel;
 use App\Models\LookBuilderProduct;
 use App\Models\Order;
 use App\Models\OrderProduct;
+use App\Models\Suit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -363,6 +365,35 @@ class ShopController extends Controller
                 'status' => 500,
                 'message' => 'Something went wrong',
             ]);
+        }
+    }
+    public function suits()
+    {
+        try {
+            $suits = Suit::all();
+            return response()->json([
+                'status' => 200,
+                'data' => SuitResource::collection($suits),
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 500,
+                'message' => $th->getMessage(),
+            ]);
+        }
+    }
+    public function suitById($suit_uuid)
+    {
+        try {
+            $suit = Suit::where('uuid', $suit_uuid)->first();
+            return response()->json([
+                'status' => 200,
+                'message' => '',
+
+                'message' => new SuitResource($suit),
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
         }
     }
 }

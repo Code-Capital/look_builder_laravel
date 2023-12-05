@@ -10,6 +10,7 @@ use App\Http\Controllers\Web\FabricController;
 use App\Http\Controllers\Web\LookBuilderModelController;
 use App\Http\Controllers\Web\LookBuilderProductController;
 use App\Http\Controllers\Web\OptionController;
+use App\Http\Controllers\Web\SuitController;
 use App\Http\Controllers\Web\UserController;
 use App\Models\LookBuilderModel;
 use Illuminate\Support\Facades\Route;
@@ -61,6 +62,14 @@ Route::middleware('role:admin', 'auth')->group(function () {
         Route::get('/{product_uuid}', [LookBuilderProductController::class, 'edit'])->name('lookBuilder.product.edit');
         Route::post('/{product_uuid}', [LookBuilderProductController::class, 'update'])->name('lookBuilder.product.update');
         Route::get('by_category/{uuid}', [LookBuilderProductController::class, 'byCategory'])->name('productByCategory');
+    });
+    Route::prefix('suits')->group(function () {
+        Route::post('add', [SuitController::class, 'store'])->name('suit.add');
+        Route::get('', [SuitController::class, 'list'])->name('suit.list');
+        Route::get('all', [SuitController::class, 'all'])->name('suit.all');
+        Route::delete('/{suit_uuid}', [SuitController::class, 'delete'])->name('suit.delete');
+        Route::get('/{suit_uuid}', [SuitController::class, 'edit'])->name('suit.edit');
+        Route::post('/{suit_uuid}', [SuitController::class, 'update'])->name('suit.update');
     });
     Route::prefix('custom_products')->group(function () {
         Route::post('add', [ProductController::class, 'store'])->name('custom.product.store');

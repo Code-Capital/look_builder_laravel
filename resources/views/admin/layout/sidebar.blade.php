@@ -115,8 +115,11 @@
                                 <a href="{{ route('productByCategory', $category->uuid) }}"> {{ $category->name }}</a>
                             </li>
                         @endforeach
-
-
+                    </ul>
+                    <ul class="side-nav-second-level">
+                        <li>
+                            <a href="{{ route('suit.list') }}"> Add Suit</a>
+                        </li>
                     </ul>
                 </div>
             </li>
@@ -156,13 +159,16 @@
                         <li>
                             <a href="{{ route('customProducts') }}">Custom Products</a>
                         </li>
-
+                        <li>
+                            <a href="{{ route('suit.all') }}">Suits</a>
+                        </li>
                         <li>
                             <a href="{{ route('fabrics') }}">Fabrics</a>
                         </li>
                         <li>
                             <a href="{{ route('look_builder_models.list') }}">LB Models</a>
                         </li>
+
 
                     </ul>
                 </div>
