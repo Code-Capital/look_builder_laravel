@@ -8,6 +8,7 @@ use App\Models\CustomProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\Attribute;
 
 class AttributeController extends Controller
 {
@@ -98,12 +99,28 @@ class AttributeController extends Controller
             //throw $th;
         }
     }
-    public function addSizeInCustomProduct()
+    public function addSizeInCustomProduct($product_uuid, Request $request)
     {
         try {
-            //code...
+            DB::beginTransaction();
+            $custom_product = CustomProduct::where('uuid', $product_uuid)->first();
+            Attribute::create([
+                'uuid' => Str::uuid(),
+                'name' => $request->name,
+                'description' => $request->description,
+                'custom_product_id' => $$custom_product->id,
+            ]);
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'messsage' => 'Size Added Successfully',
+            ]);
         } catch (\Throwable $th) {
-            //throw $th;
+            DB::rollBack();
+            return response()->json([
+                'status' => false,
+                'messsage' => 'Something went wrong',
+            ]);
         }
     }
 }

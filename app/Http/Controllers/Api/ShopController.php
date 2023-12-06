@@ -391,9 +391,8 @@ class ShopController extends Controller
             $suit = Suit::where('uuid', $suit_uuid)->first();
             return response()->json([
                 'status' => 200,
-                'message' => '',
-
-                'message' => new SuitResource($suit),
+                'message' => 'Suit Details',
+                'data' => new SuitResource($suit),
             ]);
         } catch (\Throwable $th) {
             //throw $th;

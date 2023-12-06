@@ -13,6 +13,7 @@ class Attribute extends Model
         'name',
         'description',
         'look_builder_product_id',
+        'custom_product_id',
     ];
     public function product()
     {

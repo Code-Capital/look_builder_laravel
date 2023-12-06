@@ -108,6 +108,8 @@ Route::middleware('role:admin', 'auth')->group(function () {
     });
     Route::get('sizes_of_custom_products/{product_id}', [CustomProductsAttributeController::class, 'customSizeList'])->name('sizesOfCustomProduct');
     Route::post('add_size_of_custom_product/{product_id}', [CustomProductsAttributeController::class, 'addSizeInCustomProduct'])->name('add.size.custom');
+
+
     Route::prefix('custom_arrtibutes')->group(function () {
         Route::get('/by/{product_uuid}', [CustomProductsAttributeController::class, 'attributesByProduct'])->name('customAttributesByProduct');
         Route::post('add', [CustomProductsAttributeController::class, 'store'])->name('attribute.store');

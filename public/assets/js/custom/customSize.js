@@ -8,19 +8,19 @@ $(function () {
         console.log(dataAttributeId);
         $("#addCustomSizeModal").modal("show");
     });
-    $("#addOptionForm").on("submit", function (event) {
+    $("#addCustomSizeForm").on("submit", function (event) {
         event.preventDefault();
         var formData = new FormData(this);
         $.ajax({
-            url: "/options/add/" + dataAttributeId,
+            url: "/add_size_of_custom_product/" + dataAttributeId,
             data: formData,
             type: "POST",
             processData: false, // Important: Don't process the data
             contentType: false,
             success: function (response) {
-                $("#addOptionModal").modal("hide");
+                $("#addCustomSizeModal").modal("hide");
 
-                $("#addOptionForm")[0].reset();
+                $("#addCustomSizeForm")[0].reset();
                 toastr.options = {
                     progressBar: true,
                     closeButton: true,
