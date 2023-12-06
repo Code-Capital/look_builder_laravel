@@ -316,7 +316,8 @@ class ShopController extends Controller
                     DB::commit();
                     return response()->json([
                         'status' => 200,
-                        'message' => 'Size successfully selected'
+                        'message' => 'Size successfully selected',
+                        'data' => $cartProduct,
                     ]);
                 }
                 return response()->json([
