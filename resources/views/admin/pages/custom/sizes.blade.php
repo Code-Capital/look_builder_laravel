@@ -16,7 +16,7 @@
             </button> --}}
             <button type="button" class="btn btn-primary btn-sm addSize" data-bs-size="{{ $custom_product->uuid }}">Add
                 Size</button>
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body">

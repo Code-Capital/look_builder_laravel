@@ -104,11 +104,11 @@ class AttributeController extends Controller
         try {
             DB::beginTransaction();
             $custom_product = CustomProduct::where('uuid', $product_uuid)->first();
-            Attribute::create([
+            $attribute = Attribute::create([
                 'uuid' => Str::uuid(),
                 'name' => $request->name,
                 'description' => $request->description,
-                'custom_product_id' => $$custom_product->id,
+                'custom_product_id' => $custom_product->id,
             ]);
             DB::commit();
             return response()->json([
