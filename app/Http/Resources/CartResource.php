@@ -24,7 +24,7 @@ class CartResource extends JsonResource
     {
         return $cartProducts->map(function ($cartProduct) {
             return [
-                'lookbuilderproduct' => new ProductResource($cartProduct->lookbuilderproduct),
+                'lookbuilderproduct' => new LookBuilderProductResource($cartProduct->lookbuilderproduct),
                 'id' => $cartProduct->id,
                 'cart_id' => $cartProduct->cart_id,
                 'quantity' => $cartProduct->quantity,

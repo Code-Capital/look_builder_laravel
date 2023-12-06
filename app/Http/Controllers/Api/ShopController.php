@@ -96,34 +96,35 @@ class ShopController extends Controller
             ]);
         }
     }
-    public function myCart($productIds)
+    public function myCart(Request $request)
     {
         try {
             DB::beginTransaction();
             $cart = Auth::user()->cart ?? Cart::create(['user_id' => Auth::user()->id]);
-            $productIdsInCart = explode(',', $productIds);
+            // $productIdsInCart = explode(',', $request->productId);
 
-            foreach ($productIdsInCart as $productUuid) {
-                $productForCart = LookBuilderProduct::where('uuid', $productUuid)->first();
-                $existingCartProduct = CartProduct::where('look_builder_product_id', $productForCart->id)
-                    ->where('cart_id', $cart->id)
-                    ->first();
+            // foreach ($productIdsInCart as $productUuid) {
+            $productForCart = LookBuilderProduct::where('uuid', $request->productId)->first();
+            $existingCartProduct = CartProduct::where('look_builder_product_id', $productForCart->id)
+                ->where('cart_id', $cart->id)
+                ->first();
 
-                if ($existingCartProduct) {
-                    $existingCartProduct->increment('quantity');
-                    $existingCartProduct->update([
-                        'total_price' => $existingCartProduct->quantity * $existingCartProduct->lookBuilderProduct->price
-                    ]);
-                } else {
-                    $product = LookBuilderProduct::findorfail($productForCart->id);
-                    $cartProduct = CartProduct::create([
-                        'look_builder_product_id' => $productForCart->id,
-                        'cart_id' => $cart->id,
-                        'total_price' => $product->price,
-                    ]);
-                    $cartProduct->load('lookBuilderProduct');
-                }
+            if ($existingCartProduct) {
+                $existingCartProduct->increment('quantity');
+                $existingCartProduct->update([
+                    'total_price' => $existingCartProduct->quantity * $existingCartProduct->lookBuilderProduct->price
+                ]);
+            } else {
+                $product = LookBuilderProduct::findorfail($productForCart->id);
+                $cartProduct = CartProduct::create([
+                    'look_builder_product_id' => $productForCart->id,
+                    'cart_id' => $cart->id,
+                    'total_price' => $product->price,
+                    'size' => $request->size,
+                ]);
+                $cartProduct->load('lookBuilderProduct');
             }
+            // }
             DB::commit();
             $cartWithProducts = $cart->load('cartProducts');
             return response()->json([
