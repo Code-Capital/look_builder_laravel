@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Resources\Custom;
+namespace App\Http\Resources;
 
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use App\Http\Resources\Custom\AttributeResource;
 
-class ProductResource extends JsonResource
+
+
+class CustomProductResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -26,6 +28,7 @@ class ProductResource extends JsonResource
             'description' => $this->description,
             'category' => $this->category->name,
             'attributes' => AttributeResource::collection($this->customAttributes),
+            'sizes' => SizeResource::collection($this->attributes),
         ];
     }
 }

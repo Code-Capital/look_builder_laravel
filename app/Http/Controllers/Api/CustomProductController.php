@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Custom\ProductResource;
+use App\Http\Resources\CustomProductResource;
 use App\Models\CustomProduct;
 use Illuminate\Http\Request;
 
@@ -26,10 +27,12 @@ class CustomProductController extends Controller
     {
         try {
             $product = CustomProduct::where('uuid', $product_uuid)->first();
+            $attributes = $product->attributes;
+            // dd($attributes);
             return response()->json([
                 'status' => 200,
                 'message' => 'Product Details',
-                'data' => new ProductResource($product),
+                'data' => new CustomProductResource($product),
             ]);
         } catch (\Throwable $th) {
             dd($th->getMessage());
