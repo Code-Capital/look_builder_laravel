@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\CartResource;
 use App\Http\Resources\CategoryResource;
 use App\Http\Resources\LookBuilderProductResource;
+use App\Http\Resources\ProductResource;
 use App\Http\Resources\SizeResource;
 use App\Http\Resources\SuitResource;
 use App\Models\Cart;
@@ -395,6 +396,34 @@ class ShopController extends Controller
             ]);
         } catch (\Throwable $th) {
             //throw $th;
+        }
+    }
+    public function shopLook($productIds)
+    {
+        try {
+            DB::beginTransaction();
+            $productIdsInCart = explode(',', $productIds);
+            $productsForCart = [];
+
+            foreach ($productIdsInCart as $productUuid) {
+                $productForCart = LookBuilderProduct::where('uuid', $productUuid)->first();
+                if ($productForCart) {
+                    $productsForCart[] = $productForCart;
+                }
+            }
+
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Shop Look Details',
+                'data' =>  ProductResource::collection($productsForCart),
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json([
+                'status' => 500,
+                'message' => $th->getMessage(),
+            ]);
         }
     }
 }

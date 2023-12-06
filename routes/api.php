@@ -54,6 +54,8 @@ Route::middleware(['auth:sanctum', 'emailVerified'])->group(function () {
         Route::post('delete/{item_uuid}', [SavedItemController::class, 'removeFromSaveItem']);
     });
 
+    Route::get('shop_look/{productIds}', [ShopController::class, 'shopLook']);
+
 
     Route::post('cart/{productIds}', [ShopController::class, 'myCart']);
     Route::post('add_size', [ShopController::class, 'addSize']);
