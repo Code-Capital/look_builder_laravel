@@ -40,6 +40,12 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'api' => [
+            'driver' => 'token',
+            'provider' => 'users',
+            'hash' => false,
+            'expire' => 120, // Set the expiration time to 120 minutes (2 hours)
+        ],
     ],
 
     /*
