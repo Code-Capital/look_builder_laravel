@@ -15,7 +15,6 @@ class SizeResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-
             'name' => $this->name,
             'values' => OptionResource::collection($this->options),
         ];

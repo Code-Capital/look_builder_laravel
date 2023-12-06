@@ -22,8 +22,8 @@ class SuitResource extends JsonResource
             'description' => $this->description,
             'price' => $this->shirt->price + $this->trouser->price,
             'product_image' => 'images/suits/product_images/' . $this->product_image,
-            'jacket' => new LookBuilderProductResource($this->shirt),
-            'trouser' => new LookBuilderProductResource($this->trouser),
+            'jacket' => new ProductResource($this->shirt),
+            'trouser' => new ProductResource($this->trouser),
         ];
     }
 }
