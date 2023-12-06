@@ -18,6 +18,7 @@ class SuitResource extends JsonResource
         return [
             'id' => $this->id,
             'uuid' => $this->uuid,
+            'title' => $this->title,
             'description' => $this->description,
             'price' => $this->shirt->price + $this->trouser->price,
             'product_image' => 'images/suits/product_images/' . $this->product_image,
