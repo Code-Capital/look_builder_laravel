@@ -26,4 +26,8 @@ class Attribute extends Model
     {
         return $this->belongsTo(LookBuilderProduct::class);
     }
+    public function customProduct()
+    {
+        return $this->belongsTo(CustomProduct::class);
+    }
 }

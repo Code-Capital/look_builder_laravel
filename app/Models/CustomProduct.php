@@ -23,6 +23,10 @@ class CustomProduct extends Model
     {
         return $this->hasMany(CustomAttribute::class);
     }
+    public function attributes()
+    {
+        return $this->hasMany(Attribute::class);
+    }
     public function category()
     {
         return $this->belongsTo(Category::class);

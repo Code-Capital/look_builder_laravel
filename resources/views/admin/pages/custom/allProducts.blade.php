@@ -39,6 +39,7 @@
                                         <th>Category</th>
                                         <th>Action</th>
                                         <th>Attributes</th>
+                                        <th>Sizes</th>
 
                                     </tr>
                                 </thead>
@@ -63,6 +64,10 @@
                                             <td>
                                                 <a href="{{ route('customAttributesByProduct', $product->uuid) }}"
                                                     class="btn btn-primary btn-sm">View Attributes</a>
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('sizesOfCustomProduct', $product->uuid) }}"
+                                                    class="btn btn-primary btn-sm">View Sizes</a>
                                             </td>
                                         </tr>
                                     @endforeach

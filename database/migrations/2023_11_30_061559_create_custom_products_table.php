@@ -20,10 +20,8 @@ return new class extends Migration
             $table->string('color');
             $table->float('price');
             $table->text('description')->nullable();
-
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
-
             $table->timestamps();
         });
     }

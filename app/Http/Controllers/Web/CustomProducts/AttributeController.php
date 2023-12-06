@@ -88,4 +88,22 @@ class AttributeController extends Controller
             return response()->json(['status' => false, 'message' => 'Something went wrong']);
         }
     }
+    public function customSizeList($product_uuid)
+    {
+        try {
+            $custom_product = CustomProduct::where('uuid', $product_uuid)->first();
+            $sizes = $custom_product->attributes;
+            return view('admin.pages.custom.sizes', compact('sizes', 'custom_product'));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+    public function addSizeInCustomProduct()
+    {
+        try {
+            //code...
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
 }
