@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('uuid');
+            $table->string('description');
             $table->string('product_image');
             $table->unsignedBigInteger('shirt_id')->nullable();
             $table->foreign('shirt_id')->references('id')->on('look_builder_products')->onDelete('cascade')->onUpdate('cascade');

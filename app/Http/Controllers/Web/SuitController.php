@@ -23,6 +23,7 @@ class SuitController extends Controller
             $suit = Suit::create([
                 'uuid' => Str::uuid(),
                 'title' => $request->title,
+                'description' => $request->description,
                 'product_image' => $product_image_name,
                 'shirt_id' => $request->shirt_id,
                 'trouser_id' => $request->trouser_id,
@@ -127,6 +128,7 @@ class SuitController extends Controller
                 'id' => $suit->id,
                 'product_image' => $product_image_name,
                 'shirt_id' => $request->shirt_id,
+                'description' => $request->description,
                 'trouser_id' => $request->trouser_id
             ]);
             DB::commit();

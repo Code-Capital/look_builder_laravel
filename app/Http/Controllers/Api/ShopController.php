@@ -427,4 +427,44 @@ class ShopController extends Controller
             ]);
         }
     }
+    public function newestFirst()
+    {
+        try {
+            $products = LookBuilderProduct::orderBy('created_at', 'desc')->get();
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Newest Products',
+                'data' => LookBuilderProductResource::collection($products),
+            ]);
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
+    }
+    public function lowToHigh()
+    {
+        try {
+            $products = LookBuilderProduct::orderBy('price', 'asc')->get();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Price low to high',
+                'data' => LookBuilderProductResource::collection($products),
+            ]);
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
+    }
+    public function highToLow()
+    {
+        try {
+            $products = LookBuilderProduct::orderBy('price', 'desc')->get();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Price high to low',
+                'data' => LookBuilderProductResource::collection($products),
+            ]);
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
+    }
 }

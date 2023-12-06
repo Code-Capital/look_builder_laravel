@@ -11,6 +11,7 @@ class Suit extends Model
     protected $fillable = [
         'uuid',
         'title',
+        'description',
         'product_image',
         'shirt_id',
         'trouser_id'
