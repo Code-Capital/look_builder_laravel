@@ -106,6 +106,7 @@ class ShopController extends Controller
             // foreach ($productIdsInCart as $productUuid) {
             $productForCart = LookBuilderProduct::where('uuid', $request->productId)->first();
             $existingCartProduct = CartProduct::where('look_builder_product_id', $productForCart->id)
+                ->where('size', $request->size)
                 ->where('cart_id', $cart->id)
                 ->first();
 
