@@ -247,6 +247,7 @@ class ShopController extends Controller
                             'order_id' => $order->id,
                             'look_builder_product_id' => $cartProduct->look_builder_product_id,
                             'size' => $cartProduct->size,
+                            'quantity' => $cartProduct->quantity,
                         ]);
                     }
                     DB::commit();

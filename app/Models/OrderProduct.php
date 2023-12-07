@@ -12,6 +12,7 @@ class OrderProduct extends Model
         'order_id',
         'look_builder_product_id',
         'size',
+        'quantity',
     ];
     public function order()
     {

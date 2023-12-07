@@ -18,6 +18,12 @@ class SavedItemController extends Controller
         try {
             DB::beginTransaction();
             $lookBuilderProduct = LookBuilderProduct::where('uuid', $request->uuid)->first();
+            $savedItems = Auth::user()->savedItems;
+            foreach ($savedItems as $savedItem) {
+                if ($savedItem->look_builder_product_id == $lookBuilderProduct->id) {
+                    $savedItem->delete();
+                }
+            }
             SavedItem::create([
                 'uuid' => Str::uuid(),
                 'look_builder_product_id' => $lookBuilderProduct->id,

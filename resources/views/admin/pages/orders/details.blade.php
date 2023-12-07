@@ -6,7 +6,7 @@
             <div class="row">
                 @foreach ($orderProducts as $product)
                     {{-- @php
-                        dd($product->lookBuilderProduct);
+                        dd($product);
                     @endphp --}}
                     <div class="col-md-8 col-lg-6 col-xl-4">
                         <div class="card text-black">
@@ -20,17 +20,19 @@
                                 </div>
                                 <div>
                                     <div class="d-flex justify-content-between">
-                                        <span>Color</span><span>{{ $product->lookBuilderProduct->color }}</span>
-                                    </div>
-                                    <div class="d-flex justify-content-between">
                                         <span>Size</span><span>{{ $product->size }}</span>
                                     </div>
                                     <div class="d-flex justify-content-between">
-                                        <span>Category</span><span>{{ $product->lookBuilderProduct->category->name }}</span>
+                                        <span>Price</span><span>€{{ $product->lookBuilderProduct->price }}</span>
+                                    </div>
+
+                                    <div class="d-flex justify-content-between">
+                                        <span>Quantity</span><span>×{{ $product->quantity }}</span>
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-between total font-weight-bold mt-4">
-                                    <span>Price</span><span>€{{ $product->lookBuilderProduct->price }}</span>
+                                    <span>Total
+                                        Price</span><span>€{{ $product->lookBuilderProduct->price * $product->quantity }}</span>
                                 </div>
                             </div>
                         </div>
