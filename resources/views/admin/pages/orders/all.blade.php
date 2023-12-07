@@ -29,7 +29,7 @@
                                         <th>Email</th>
                                         <th>Phone</th>
                                         <th>Delivery Address</th>
-                                        <th>Delivery date</th>
+                                        <th>Order date</th>
                                         <th>Details</th>
                                     </tr>
                                 </thead>
