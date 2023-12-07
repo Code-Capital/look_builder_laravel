@@ -1,7 +1,8 @@
 @extends('admin.layout.master')
 @section('content')
     <section style="background-color: #eee;">
-        <div class="container py-5">
+        <div class="container pt-2 pb-5">
+            <h2 class="mb-4">Order Details</h2>
             <div class="row">
                 @foreach ($orderProducts as $product)
                     {{-- @php
