@@ -21,7 +21,6 @@ class LookBuilderProductResource extends JsonResource
             'product_image' => '/images/look_builder_products/product_images/' . $this->product_image,
             'layer_image' =>  '/images/look_builder_products/layer_images/' . $this->layer_image,
             'color' => $this->color,
-            'size' => $this->size,
             'price' => $this->price,
             'description' => $this->description,
             'category' => $this->category->name,
