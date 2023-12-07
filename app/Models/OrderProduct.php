@@ -17,4 +17,8 @@ class OrderProduct extends Model
     {
         return $this->belongsTo(Order::class);
     }
+    public function lookBuilderProduct()
+    {
+        return $this->belongsTo(LookBuilderProduct::class);
+    }
 }

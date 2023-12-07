@@ -32,7 +32,7 @@ class DashboardController extends Controller
         try {
             $order = Order::where('uuid', $order_uuid)->first();
             $orderProducts = $order->orderProducts;
-            dd($orderProducts);
+            return view('admin.pages.orders.details', compact('orderProducts'));
         } catch (\Throwable $th) {
             //throw $th;
         }
