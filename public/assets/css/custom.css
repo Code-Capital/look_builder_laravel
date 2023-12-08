@@ -26,7 +26,6 @@ img.logoImage {
     object-fit: contain;
 }
 
-
 .panel-default > .panel-heading {
     color: #333;
     background-color: #fff;
@@ -53,7 +52,7 @@ img.logoImage {
     position: relative;
     top: 3px;
     display: inline-block;
-    font-family: 'Glyphicons Halflings';
+    font-family: "Glyphicons Halflings";
     font-style: normal;
     font-weight: 400;
     line-height: 1;
@@ -61,22 +60,35 @@ img.logoImage {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     float: right;
-    transition: transform .25s linear;
-    -webkit-transition: -webkit-transform .25s linear;
+    transition: transform 0.25s linear;
+    -webkit-transition: -webkit-transform 0.25s linear;
 }
 
-.panel-default > .panel-heading , .panel-default > .panel-heading [aria-expanded="true"] {
+.panel-default > .panel-heading,
+.panel-default > .panel-heading [aria-expanded="true"] {
     background-color: #eee;
     color: #000000 !important;
     border-radius: 12px;
 }
-.heightSideBar{
-    min-height: calc( 100vh - 40px);
+.heightSideBar {
+    min-height: calc(100vh - 40px);
 }
-@media only screen and (max-width: 992px){
-    .heightSideBar{
-        min-height:unset !important;
+@media only screen and (max-width: 992px) {
+    .heightSideBar {
+        min-height: unset !important;
     }
+}
+#toast-container .toast-error {
+    background-color: #df0a0a !important;
+    border-color: #df0a0a !important;
+    color: #ffffff !important;
+    opacity: 1 !important;
+}
+#toast-container .toast-success {
+    background-color: #5edf09 !important;
+    border-color: #5edf09 !important;
+    color: #ffffff !important;
+    opacity: 1 !important;
 }
 
 /*.panel-default > .panel-heading a[aria-expanded="true"]:after {*/

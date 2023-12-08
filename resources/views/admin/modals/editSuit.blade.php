@@ -11,6 +11,11 @@
                             placeholder="">
                     </div>
                     <div class="mb-2">
+                        <label for="username" class="form-label">Description</label>
+                        <input class="form-control" id="description" name="description" type="text" required
+                            placeholder="">
+                    </div>
+                    <div class="mb-2">
                         <label for="emailaddress" class="form-label">Product image</label>
                         <input class="form-control" id="product_image" name="product_image" type="file"
                             placeholder="">

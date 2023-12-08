@@ -96,6 +96,7 @@ $(function () {
             type: "GET",
             success: function (response) {
                 $("#editSuitModal #title").val(response.title);
+                $("#editSuitModal #description").val(response.description);
                 $("#editSuitModal select[name='shirt_id']").val(
                     response.shirt_id
                 );

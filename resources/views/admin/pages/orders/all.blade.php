@@ -37,9 +37,9 @@
                                                 {{ $order->user->state }}, {{ $order->user->country }}.</td>
                                             <td>
                                                 @if ($order->isDelivered == 0)
-                                                    Not Delivered
+                                                    <span class="badge  bg-danger">Not Delivered</span>
                                                 @else
-                                                    Delivered
+                                                    <span class="badge  bg-success ">Delivered</span>
                                                 @endif
                                             </td>
                                             <td>{{ $order->amount }}</td>

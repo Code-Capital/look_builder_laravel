@@ -16,10 +16,7 @@
                             </form>
                         </div>
                         <h4 class="page-title">Dashboard</h4>
-                        <form action="{{ route('logout') }}" method="POST">
-                            @csrf
-                            <button type="submit">logout</button>
-                        </form>
+
                     </div>
                 </div>
             </div>

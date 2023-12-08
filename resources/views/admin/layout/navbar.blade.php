@@ -26,9 +26,12 @@
             </div>
 
             <!-- Sidebar Menu Toggle Button -->
+
             <button class="button-toggle-menu">
                 <i class="mdi mdi-menu"></i>
             </button>
+
+
 
             <!-- Horizontal Menu Toggle Button -->
             <button class="navbar-toggle" data-bs-toggle="collapse" data-bs-target="#topnav-menu-content">
@@ -39,6 +42,19 @@
                 </div>
             </button>
             <!-- Topbar Search Form -->
+        </div>
+        <div class="d-flex align-items-center gap-lg-2 gap- py-1">
+
+
+            <!-- Sidebar Menu Toggle Button -->
+
+            <form action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button class="btn btn-dark btn-sm" type="submit">logout</button>
+            </form>
+
+
+
         </div>
 
     </div>

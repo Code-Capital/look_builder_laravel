@@ -50,17 +50,17 @@
                                                 {{ $suit->title }}
                                             </td>
                                             <td>
-                                                <img width="80" height="60"
+                                                <img class="object-fit-contain " width="80" height="60"
                                                     src="{{ asset('images/suits/product_images/' . $suit->product_image) }}"
                                                     alt="no-image">
                                             </td>
                                             <td>
-                                                <img width="80" height="60"
+                                                <img class="object-fit-contain " width="80" height="60"
                                                     src="{{ asset('images/look_builder_products/product_images/' . $suit->shirt->product_image) }}"
                                                     alt="no-image">
                                             </td>
                                             <td>
-                                                <img width="80" height="60"
+                                                <img class="object-fit-contain " width="80" height="60"
                                                     src="{{ asset('images/look_builder_products/product_images/' . $suit->trouser->product_image) }}"
                                                     alt="no-image">
                                             </td>
