@@ -60,14 +60,16 @@
                                 placeholder="Enter your email">
                         </div>
                         <div class="mb-3">
-                            <a class="text-muted float-end"><small>Forgot your password?</small></a>
+                            <a href="{{ route('password.request') }}" class="text-muted float-end"><small>Forgot your
+                                    password?</small></a>
                             <label for="password" class="form-label">Password</label>
                             <input class="form-control" type="password" name="password" required="" id="password"
                                 placeholder="Enter your password">
                         </div>
                         <div class="mb-3">
                             <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="checkbox-signin">
+                                <input type="checkbox" class="form-check-input" name="remember" id="remember"
+                                    {{ old('remember') ? 'checked' : '' }}>
                                 <label class="form-check-label" for="checkbox-signin">Remember me</label>
                             </div>
                         </div>
@@ -77,7 +79,7 @@
                         </div>
                     </form>
 
-                    <div class="text-center mt-4">
+                    {{-- <div class="text-center mt-4">
                         <p class="text-muted font-16">Sign in with</p>
                         <ul class="social-list list-inline mt-3">
                             <li class="list-inline-item">
@@ -98,13 +100,13 @@
                                         class="mdi mdi-github"></i></a>
                             </li>
                         </ul>
-                    </div>
+                    </div> --}}
                 </div>
 
-                <footer class="footer footer-alt">
+                {{-- <footer class="footer footer-alt">
                     <p class="text-muted">Don't have an account? <a href="register" class="text-muted ms-1"><b>Sign
                                 Up</b></a></p>
-                </footer>
+                </footer> --}}
 
             </div>
         </div>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -30,6 +31,15 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
+    public function redirectTo()
+    {
+        if (Auth::user()->hasRole('admin')) {
+            return '/'; // Replace with the desired admin dashboard route
+        }
+
+        // If the user doesn't have the 'admin' role, it will fall back to the default $redirectTo
+        return $this->redirectTo;
+    }
 
     /**
      * Create a new controller instance.
