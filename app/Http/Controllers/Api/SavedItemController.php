@@ -17,23 +17,31 @@ class SavedItemController extends Controller
     {
         try {
             DB::beginTransaction();
-            $lookBuilderProduct = LookBuilderProduct::where('uuid', $request->uuid)->first();
-            $savedItems = Auth::user()->savedItems;
-            foreach ($savedItems as $savedItem) {
-                if ($savedItem->look_builder_product_id == $lookBuilderProduct->id) {
-                    $savedItem->delete();
-                }
+
+            $lookBuilderProduct = LookBuilderProduct::where('uuid', $request->uuid)->firstOrFail();
+
+            $user = Auth::user();
+            $existingSavedItem = $user->savedItems()->where('look_builder_product_id', $lookBuilderProduct->id)->first();
+
+            if ($existingSavedItem) {
+                $existingSavedItem->delete();
+                DB::commit();
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Removed from saved item'
+                ]);
+            } else {
+                SavedItem::create([
+                    'uuid' => Str::uuid(),
+                    'look_builder_product_id' => $lookBuilderProduct->id,
+                    'user_id' => $user->id,
+                ]);
+                DB::commit();
+                return response()->json([
+                    'status' => 201,
+                    'message' => 'Item saved successfully'
+                ]);
             }
-            SavedItem::create([
-                'uuid' => Str::uuid(),
-                'look_builder_product_id' => $lookBuilderProduct->id,
-                'user_id' => Auth::user()->id,
-            ]);
-            DB::commit();
-            return response()->json([
-                'status' => 201,
-                'message' => 'Item saved successfully'
-            ]);
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json([
@@ -42,6 +50,7 @@ class SavedItemController extends Controller
             ]);
         }
     }
+
     public function getSavedItems()
     {
         try {
