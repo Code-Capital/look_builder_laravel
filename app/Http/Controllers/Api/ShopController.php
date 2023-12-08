@@ -228,11 +228,21 @@ class ShopController extends Controller
             ]);
         }
     }
-    public function checkout()
+    public function checkout(Request $request)
     {
         try {
             DB::beginTransaction();
             $cart = Auth::user()->cart;
+            $user = Auth::user();
+            $user->update([
+                'id' => $user->id,
+                'country' => $request->country,
+                'state' => $request->state,
+                'city' => $request->state,
+                'postcode' => $request->postcode,
+                'phone' => $request->phone,
+                'address' => $request->address,
+            ]);
             if ($cart != null) {
                 $cartProducts = $cart->cartProducts;
                 $amount = $cartProducts->sum('total_price');
@@ -466,6 +476,22 @@ class ShopController extends Controller
             ]);
         } catch (\Throwable $th) {
             dd($th->getMessage());
+        }
+    }
+    public function profile()
+    {
+        try {
+            return response()->json([
+                'status' => 200,
+                'message' => 'User Details',
+                'data' => Auth::user(),
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Internal server error',
+
+            ]);
         }
     }
 }
