@@ -238,7 +238,7 @@ class ShopController extends Controller
                 'id' => $user->id,
                 'country' => $request->country,
                 'state' => $request->state,
-                'city' => $request->state,
+                'city' => $request->city,
                 'postcode' => $request->postcode,
                 'phone' => $request->phone,
                 'address' => $request->address,

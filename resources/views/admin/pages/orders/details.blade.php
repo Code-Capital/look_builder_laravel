@@ -40,7 +40,7 @@
                     </div>
                 @endforeach
 
-
+                <h2>Total Amount : {{ $order->amount }}</h2>
 
             </div>
         </div>

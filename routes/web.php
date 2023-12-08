@@ -54,6 +54,7 @@ Route::middleware('role:admin', 'auth')->group(function () {
 
 
     Route::get('/orders', [DashboardController::class, 'orders'])->name('orders');
+    Route::post('order/mark_delivered/{order_uuid}', [DashboardController::class, 'markAsDelivered'])->name('markAsDelivered');
     Route::get('order_details/{order_uuid}', [DashboardController::class, 'orderDetails'])->name('order_details');
     Route::get('/customers', [DashboardController::class, 'customers'])->name('customers');
 
