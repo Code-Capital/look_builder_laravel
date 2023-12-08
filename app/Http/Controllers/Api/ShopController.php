@@ -243,30 +243,38 @@ class ShopController extends Controller
                 'phone' => $request->phone,
                 'address' => $request->address,
             ]);
-            if ($cart != null) {
-                $cartProducts = $cart->cartProducts;
-                $amount = $cartProducts->sum('total_price');
-                if ($cartProducts->count() > 0) {
-                    $order = Order::create([
-                        'uuid' => Str::uuid(),
-                        'user_id' => Auth::user()->id,
-                        'amount' => $amount,
-                    ]);
-                    foreach ($cartProducts as $cartProduct) {
-                        OrderProduct::create([
-                            'order_id' => $order->id,
-                            'look_builder_product_id' => $cartProduct->look_builder_product_id,
-                            'size' => $cartProduct->size,
-                            'quantity' => $cartProduct->quantity,
+            if ($request->country != null and $request->state != null and $request->postcode != null and $request->city != null and $request->phone != null and $request->address != null) {
+                if ($cart != null) {
+                    $cartProducts = $cart->cartProducts;
+                    $amount = $cartProducts->sum('total_price');
+                    if ($cartProducts->count() > 0) {
+                        $order = Order::create([
+                            'uuid' => Str::uuid(),
+                            'user_id' => Auth::user()->id,
+                            'amount' => $amount,
+                        ]);
+                        foreach ($cartProducts as $cartProduct) {
+                            OrderProduct::create([
+                                'order_id' => $order->id,
+                                'look_builder_product_id' => $cartProduct->look_builder_product_id,
+                                'size' => $cartProduct->size,
+                                'quantity' => $cartProduct->quantity,
+                            ]);
+                        }
+                        DB::commit();
+                        $cart->delete();
+                        DB::commit();
+                        return response()->json([
+                            'status' => 200,
+                            'message' => 'Order has been placed'
+                        ]);
+                    } else {
+                        DB::rollBack();
+                        return response()->json([
+                            'status' => 204,
+                            'message' => 'Your cart is empty'
                         ]);
                     }
-                    DB::commit();
-                    $cart->delete();
-                    DB::commit();
-                    return response()->json([
-                        'status' => 200,
-                        'message' => 'Order has been placed'
-                    ]);
                 } else {
                     DB::rollBack();
                     return response()->json([
@@ -275,10 +283,9 @@ class ShopController extends Controller
                     ]);
                 }
             } else {
-                DB::rollBack();
                 return response()->json([
-                    'status' => 204,
-                    'message' => 'Your cart is empty'
+                    'status' => 422,
+                    'message' => 'All input feilds are required'
                 ]);
             }
         } catch (\Throwable $th) {
@@ -491,6 +498,28 @@ class ShopController extends Controller
                 'status' => 500,
                 'message' => 'Internal server error',
 
+            ]);
+        }
+    }
+    public function initialLook()
+    {
+        try {
+            $jacket = LookBuilderProduct::where('category_id', 1)->first();
+            $trouser = LookBuilderProduct::where('category_id', 2)->first();
+            $base = LookBuilderProduct::where('category_id', 3)->first();
+            $shoes = LookBuilderProduct::where('category_id', 4)->first();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Initial Look',
+                'jacket' => $jacket,
+                'trouser' => $trouser,
+                'base' => $base,
+                'shoe' => $shoes,
+            ]);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => 500,
+                'message' => 'Internal server error',
             ]);
         }
     }

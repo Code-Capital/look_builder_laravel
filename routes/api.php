@@ -51,6 +51,7 @@ Route::get('newest_first', [ShopController::class, 'newestFirst']);
 Route::get('price_low_to_high', [ShopController::class, 'lowToHigh']);
 Route::get('price_high_to_low', [ShopController::class, 'highToLow']);
 Route::get('products_by_color', [ShopController::class, 'byColor']);
+Route::get('initial_look', [ShopController::class, 'initialLook']);
 
 
 
