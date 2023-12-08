@@ -511,10 +511,10 @@ class ShopController extends Controller
             return response()->json([
                 'status' => 200,
                 'message' => 'Initial Look',
-                'jacket' => $jacket,
-                'trouser' => $trouser,
-                'base' => $base,
-                'shoe' => $shoes,
+                'jacket' => new LookBuilderProductResource($jacket),
+                'trouser' => new LookBuilderProductResource($trouser),
+                'base' => new LookBuilderProductResource($base),
+                'shoe' => new LookBuilderProductResource($shoes),
             ]);
         } catch (\Throwable $th) {
             return response()->json([
