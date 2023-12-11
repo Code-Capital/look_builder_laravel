@@ -19,6 +19,17 @@
 
                                 <p class="text-muted"><strong>Country :</strong> <span
                                         class="ms-2">{{ Auth::user()->country }}</span></p>
+
+                                <p class="text-muted"><strong>State :</strong> <span
+                                        class="ms-2">{{ Auth::user()->state }}</span></p>
+
+                                <p class="text-muted"><strong>City :</strong> <span
+                                        class="ms-2">{{ Auth::user()->city }}</span></p>
+
+                                <p class="text-muted"><strong>Postcode :</strong> <span
+                                        class="ms-2">{{ Auth::user()->postcode }}</span></p>
+                                <p class="text-muted"><strong>Street address :</strong> <span
+                                        class="ms-2">{{ Auth::user()->address }}</span></p>
                             </div>
                             <div class="text-end">
                                 <button type="button" class="btn btn-primary editProfile" data-bs-toggle="modal"

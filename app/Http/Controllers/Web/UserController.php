@@ -31,6 +31,10 @@ class UserController extends Controller
                 'name' => $request->name,
                 'phone' => $request->phone,
                 'country' => $request->country,
+                'state' => $request->state,
+                'city' => $request->city,
+                'postcode' => $request->postcode,
+                'address' => $request->address,
             ]);
             DB::commit();
             return response()->json(['status' => true, 'message' => 'Updated Successfully']);

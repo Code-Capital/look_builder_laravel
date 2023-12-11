@@ -25,6 +25,26 @@
                         <input class="form-control" type="text" id="country" name="country" required
                             placeholder="">
                     </div>
+                    <div class="mb-2">
+                        <label for="password" class="form-label">State</label>
+                        <input class="form-control" type="text" id="state" name="state" required
+                            placeholder="">
+                    </div>
+                    <div class="mb-2">
+                        <label for="password" class="form-label">City</label>
+                        <input class="form-control" type="text" id="city" name="city" required
+                            placeholder="">
+                    </div>
+                    <div class="mb-2">
+                        <label for="password" class="form-label">Postcode</label>
+                        <input class="form-control" type="text" id="postcode" name="postcode" required
+                            placeholder="">
+                    </div>
+                    <div class="mb-2">
+                        <label for="password" class="form-label">Street address</label>
+                        <input class="form-control" type="text" id="address" name="address" required
+                            placeholder="">
+                    </div>
                     <div class="text-center">
                         <button class="btn btn-primary" type="submit">Save</button>
                     </div>

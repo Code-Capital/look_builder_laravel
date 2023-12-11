@@ -10,6 +10,10 @@ $(function () {
                 $("#editUserModal #email").val(response.email);
                 $("#editUserModal #phone").val(response.phone);
                 $("#editUserModal #country").val(response.country);
+                $("#editUserModal #state").val(response.state);
+                $("#editUserModal #city").val(response.city);
+                $("#editUserModal #postcode").val(response.postcode);
+                $("#editUserModal #address").val(response.address);
             },
             error: function (xhr) {
                 toastr.error(response.message, "Error");
