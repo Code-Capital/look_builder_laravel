@@ -21,4 +21,8 @@ class Category extends Model
     {
         return $this->hasMany(CustomProduct::class);
     }
+    public function attributes()
+    {
+        return $this->hasMany(Attribute::class);
+    }
 }

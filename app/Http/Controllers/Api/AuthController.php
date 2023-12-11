@@ -47,18 +47,18 @@ class AuthController extends Controller
                 'uuid' => Str::uuid(),
             ]);
             $user->assignRole('user');
-            $user['jwt'] =  auth()->user()->createToken('Api Tokken')->plainTextToken;
+            $user['jwt'] =  $user->createToken('Api Tokken')->plainTextToken;
             DB::commit();
             return response()->json([
                 'status' => 201,
-                'message' => 'Registered successfully Please Verify Your Email',
+                'message' => 'User registered successfully',
                 'data' => new RegisterResource($user),
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json([
                 'status' => 500,
-                'message' => 'Something went wrong',
+                'message' => $th->getMessage(),
             ]);
         }
     }
