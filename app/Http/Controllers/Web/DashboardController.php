@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
+use App\Models\LookBuilderProduct;
 use App\Models\Order;
+use App\Models\Suit;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
@@ -15,6 +17,19 @@ class DashboardController extends Controller
     {
         $orders = Order::all();
         return view('admin.pages.orders.all', compact('orders'));
+    }
+    public function landing()
+    {
+        try {
+            $orders = Order::all()->count();
+            $customers = User::role('user')->get()->count();
+            $lookBuilderProducts = LookBuilderProduct::all()->count();
+            $suits = Suit::all()->count();
+
+            return view('admin.pages.index', compact('orders', 'customers', 'lookBuilderProducts', 'suits'));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
     public function customers()
     {

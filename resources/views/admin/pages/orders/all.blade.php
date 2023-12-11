@@ -43,7 +43,13 @@
                                                 @endif
                                             </td>
                                             <td>{{ $order->amount }}</td>
-                                            <td>{{ $order->created_at }}</td>
+                                            <td>
+                                                @php
+                                                    $dateTime = new DateTime($order->created_at);
+                                                    $formattedDate = $dateTime->format('Y-m-d');
+                                                @endphp
+                                                {{ $formattedDate }}
+                                            </td>
                                             <td>
                                                 @if ($order->isDelivered == 0)
                                                     <form id="deliveryForm"
