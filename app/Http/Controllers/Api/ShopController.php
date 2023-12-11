@@ -9,6 +9,7 @@ use App\Http\Resources\LookBuilderProductResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\SizeResource;
 use App\Http\Resources\SuitResource;
+use App\Mail\OrderPlaceMail;
 use App\Models\Cart;
 use App\Models\CartProduct;
 use App\Models\Category;
@@ -18,9 +19,11 @@ use App\Models\LookBuilderProduct;
 use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\Suit;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 
 class ShopController extends Controller
@@ -264,6 +267,15 @@ class ShopController extends Controller
                         DB::commit();
                         $cart->delete();
                         DB::commit();
+                        $admin = User::role('admin')->first();
+                        $data = [
+                            'order_id' => $order->id,
+                            'customer_name' => $order->user->name,
+                            'customer_email' => $order->user->email,
+                            'customer_phone' => $order->user->phone,
+                            'order_amount' => $order->amount,
+                        ];
+                        Mail::to($admin->email)->send(new OrderPlaceMail($data));
                         return response()->json([
                             'status' => 200,
                             'message' => 'Order has been placed'

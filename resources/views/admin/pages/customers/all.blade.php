@@ -1,11 +1,7 @@
 @extends('admin.layout.master')
 @section('content')
     <div class="content">
-
-        <!-- Start Content-->
         <div class="container-fluid">
-
-            <!-- start page title -->
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box">
@@ -13,10 +9,6 @@
                     </div>
                 </div>
             </div>
-            <!-- end page title -->
-
-
-
             <div class="row">
                 <div class="col-12">
                     <div class="card">
@@ -31,8 +23,6 @@
                                         <th>Address</th>
                                     </tr>
                                 </thead>
-
-
                                 <tbody>
                                     @foreach ($users as $user)
                                         <tr>
@@ -40,23 +30,17 @@
                                             <td>{{ $user->email }}</td>
                                             <td>{{ $user->phone }}</td>
                                             <td>{{ $user->country }}</td>
-                                            <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. officia
-                                                perferendis.
+                                            <td>{{ $user->address }}, {{ $user->city }},
+                                                {{ $user->state }}, {{ $user->country }}
                                             </td>
                                         </tr>
                                     @endforeach
-
-
-
-
-
                                 </tbody>
                             </table>
-                        </div> <!-- end card body-->
-                    </div> <!-- end card -->
-                </div><!-- end col-->
-            </div> <!-- end row-->
-        </div> <!-- container -->
-
-    </div> <!-- content -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection

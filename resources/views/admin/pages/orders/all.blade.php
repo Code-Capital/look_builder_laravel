@@ -23,7 +23,7 @@
                                         <th>Status</th>
                                         <th>Amount</th>
                                         <th>Order date</th>
-                                        <th>Status</th>
+                                        <th>Change Status</th>
                                         <th>Details</th>
                                     </tr>
                                 </thead>
@@ -45,13 +45,22 @@
                                             <td>{{ $order->amount }}</td>
                                             <td>{{ $order->created_at }}</td>
                                             <td>
-                                                <form action="{{ route('markAsDelivered', $order->uuid) }}" method="POST">
-                                                    @csrf
-                                                    <button type="submit">Mark as delivered</button>
-                                                </form>
+                                                @if ($order->isDelivered == 0)
+                                                    <form id="deliveryForm"
+                                                        action="{{ route('markAsDelivered', $order->uuid) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        <button type="submit" class="border-0 bg-transparent m-0 p-0">
+                                                            <span style="font-size: 20px;"
+                                                                class="mdi mdi-truck-check"></span>
+
+                                                        </button>
+                                                        {{-- <i class="mdi mdi-truck-check" id="submitFormIcon"></i> --}}
+                                                    </form>
+                                                @endif
                                             </td>
-                                            <td><a href="{{ route('order_details', $order->uuid) }}"
-                                                    class="btn btn-primary btn-sm">See Details</a></td>
+                                            <td><a href="{{ route('order_details', $order->uuid) }}" class="action-icon"><i
+                                                        class="mdi mdi-eye"></i></a></td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -64,4 +73,9 @@
     </div>
 @endsection
 @push('scripts')
+    {{-- <script>
+        document.getElementById('submitFormIcon').addEventListener('click', function() {
+            document.getElementById('deliveryForm').submit();
+        });
+    </script> --}}
 @endpush
