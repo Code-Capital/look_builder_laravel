@@ -12,7 +12,7 @@
                         <div class="card text-black">
                             <div class="card-body">
                                 <img src="{{ asset('images/look_builder_products/product_images/' . $product->lookBuilderProduct->product_image) }}"
-                                    class="card-img-top" alt="Apple Computer" />
+                                    class="card-img-top order-img" alt="Apple Computer" />
 
                                 <div class="text-center pt-2">
                                     <h5 class="card-title">{{ $product->lookBuilderProduct->title }}</h5>
@@ -40,7 +40,7 @@
                     </div>
                 @endforeach
 
-                <h2>Total Amount : {{ $order->amount }}</h2>
+                <h2>Total Amount : £{{ $order->amount }}</h2>
 
             </div>
         </div>

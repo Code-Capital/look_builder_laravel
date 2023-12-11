@@ -90,6 +90,15 @@ img.logoImage {
     color: #ffffff !important;
     opacity: 1 !important;
 }
+.order-img {
+    min-height: 280px;
+    max-height: 280px;
+    max-width: 280px;
+    min-width: 280px;
+    object-fit: contain;
+    background-color: #efefef;
+    border-radius: 5px !important;
+}
 
 /*.panel-default > .panel-heading a[aria-expanded="true"]:after {*/
 /*    content: "\2212";*/
