@@ -1,4 +1,5 @@
 @extends('admin.layout.master')
+@section('title', 'DTAIL | Orders')
 @section('content')
     <div class="content">
         <div class="container-fluid">

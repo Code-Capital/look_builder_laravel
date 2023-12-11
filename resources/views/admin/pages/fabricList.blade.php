@@ -1,4 +1,6 @@
 @extends('admin.layout.master')
+@section('title', 'DTAIL | Fabrics')
+
 @section('content')
     <div class="content">
 

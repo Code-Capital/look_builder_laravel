@@ -1,9 +1,8 @@
 @extends('admin.layout.master')
+@section('title', 'DTAIL | Categories')
 @section('content')
     <div class="content">
-
         <div class="container-fluid">
-
             <div class="row">
                 <div class="col-12">
                     <div class="page-title-box">
@@ -12,7 +11,6 @@
                     </div>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-12">
                     <div class="py-3 text-end">

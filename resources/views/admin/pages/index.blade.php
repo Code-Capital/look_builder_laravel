@@ -1,4 +1,5 @@
 @extends('admin.layout.master')
+@section('meta_description', 'This is the meta description for the home page.')
 @section('content')
     <div class="content">
         <div class="container-fluid">
