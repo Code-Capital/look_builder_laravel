@@ -29,8 +29,8 @@ Route::post('signin', [AuthController::class, 'loginUser']);
 Route::post('signup', [AuthController::class, 'register']);
 Route::post('/forgot-password', [ResetPasswordController::class, 'sendOTPRequest'])->name('password.email');
 Route::post('/reset-password', [ResetPasswordController::class, 'resetPassword'])->name('password.update');
-Route::post('/email/resend', [VerificationController::class, 'sendOTPRequest'])->name('verification.resend');
-Route::post('/email/verify', [VerificationController::class, 'verify'])->name('verification.verify');
+// Route::post('/email/resend', [VerificationController::class, 'sendOTPRequest'])->name('verification.resend');
+// Route::post('/email/verify', [VerificationController::class, 'verify'])->name('verification.verify');
 
 Route::get('categories', [ShopController::class, 'categories']);
 Route::get('products/{category_uuid}', [ShopController::class, 'productsByCategory']);
@@ -55,7 +55,7 @@ Route::get('initial_look', [ShopController::class, 'initialLook']);
 
 
 
-Route::middleware(['auth:sanctum', 'emailVerified'])->group(function () {
+Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('saved_item')->group(function () {
         Route::post('add', [SavedItemController::class, 'add']);

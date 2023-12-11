@@ -47,6 +47,7 @@ class AuthController extends Controller
                 'uuid' => Str::uuid(),
             ]);
             $user->assignRole('user');
+            $user['jwt'] =  auth()->user()->createToken('Api Tokken')->plainTextToken;
             DB::commit();
             return response()->json([
                 'status' => 201,
@@ -66,17 +67,13 @@ class AuthController extends Controller
         try {
             if (Auth::attempt($request->all())) {
                 $user = Auth::user();
-                if ($user->email_verified_at != null) {
-                    $user['jwt'] =  auth()->user()->createToken('Api Tokken')->plainTextToken;
+                $user['jwt'] =  auth()->user()->createToken('Api Tokken')->plainTextToken;
 
-                    return response()->json([
-                        'status' => 200,
-                        'message' => 'Logged in Successfully.',
-                        'data' => new LoginResource($user),
-                    ]);
-                } else {
-                    return response()->json(['status' => 201, 'message' => 'Verify Your Email First']);
-                }
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Logged in Successfully.',
+                    'data' => new LoginResource($user),
+                ]);
             }
             return response()->json(['status' => 401, 'message' => 'email or password wrong']);
         } catch (\Throwable $e) {
