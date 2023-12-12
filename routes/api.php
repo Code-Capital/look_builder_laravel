@@ -63,9 +63,9 @@ Route::middleware(['auth:sanctum'])->group(function () {
         Route::post('delete/{item_uuid}', [SavedItemController::class, 'removeFromSaveItem']);
     });
     Route::get('profile', [ShopController::class, 'profile']);
-
+    Route::post('update_profile', [ShopController::class, 'updateProfile']);
+    Route::post('change_password', [ShopController::class, 'changePassword']);
     Route::get('shop_look/{productIds}', [ShopController::class, 'shopLook']);
-
 
     Route::post('cart', [ShopController::class, 'myCart']);
     Route::post('add_size', [ShopController::class, 'addSize']);

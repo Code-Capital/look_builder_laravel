@@ -25,6 +25,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class ShopController extends Controller
 {
@@ -511,6 +513,80 @@ class ShopController extends Controller
                 'status' => 500,
                 'message' => 'Internal server error',
 
+            ]);
+        }
+    }
+    public function updateProfile(Request $request)
+    {
+        try {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required|string',
+                'email' => 'required|email',
+                'country' => 'required',
+                'phone' => 'required',
+                'state' => 'required',
+                'country' => 'required',
+                'city' => 'required',
+                'address' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => '422',
+                    'message' => 'Validation failed',
+                    'errors' => $validator->errors()
+                ]);
+            }
+            DB::beginTransaction();
+            $user = Auth::user();
+            $user->update([
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'country' => $request->country,
+                'state' => $request->state,
+                'city' => $request->city,
+                'postcode' => $request->postcode,
+                'address' => $request->address,
+            ]);
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Profile updated successfully',
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'status' => 500,
+                'message' => 'Internal server error',
+            ]);
+        }
+    }
+    public function changePassword(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $user = Auth::user();
+            if (!is_null($request->old_password) && Hash::check($request->old_password, $user->password)) {
+                $user->update([
+                    'password' => Hash::make($request->password)
+                ]);
+                DB::commit();
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Password Changed Successfully.',
+                ]);
+            } else {
+                DB::rollback();
+                return response()->json([
+                    'status' => 500,
+                    'message' => 'Old password is incorrect.',
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json([
+                'status' => 500,
+                'message' => 'Something went wrong',
             ]);
         }
     }
