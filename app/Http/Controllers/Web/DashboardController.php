@@ -63,11 +63,16 @@ class DashboardController extends Controller
                 'isDelivered' => 1,
             ]);
             DB::commit();
-            return redirect(route('orders'))->with(['status' => true, 'message' => 'Mark as delivered']);
+            return response()->json([
+                'status' => true,
+                'message' => 'Order mark as delivered',
+            ]);
         } catch (\Throwable $th) {
             DB::rollback();
-            dd($th->getMessage());
-            return redirect(route('orders'))->with(['status' => false, 'message' => 'Something went wrong']);
+            return response()->json([
+                'status' => false,
+                'message' => 'Something went wrong',
+            ]);
         }
     }
     public function logout()

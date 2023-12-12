@@ -118,4 +118,14 @@ class CategoryController extends Controller
             return response()->json(['status' => false, 'message' => 'something went wrong']);
         }
     }
+    public function sizesOfCategory($category_id)
+    {
+        try {
+            $category = Category::where('uuid', $category_id)->first();
+            $attributes = $category->attributes;
+            return view('admin.pages.products.custom_attribute', compact('attributes', 'category'));
+        } catch (\Throwable $th) {
+            dd($th->getMessage());
+        }
+    }
 }

@@ -40,7 +40,7 @@
                                         <th>Product Name</th>
                                         <th>Category</th>
                                         <th>Action</th>
-                                        <th>Sizes</th>
+                                        {{-- <th>Sizes</th> --}}
 
                                     </tr>
                                 </thead>

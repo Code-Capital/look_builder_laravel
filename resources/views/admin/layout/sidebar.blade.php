@@ -83,7 +83,6 @@
                     <i class="uil-users-alt"></i>
                     <span> Customers </span>
                 </a>
-
             </li>
             {{-- <li class="side-nav-item">
                 <a href="{{ route('wedding_planner') }}" aria-expanded="false" aria-controls="sidebarDashboards"
@@ -99,7 +98,6 @@
                     <i class="uil-users-alt"></i>
                     <span> Categories </span>
                 </a>
-
             </li>
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEcommerce" aria-expanded="false"
@@ -116,14 +114,14 @@
                             </li>
                         @endforeach
                         <li>
-                            <a href="{{ route('suit.list') }}"> Add Suit</a>
+                            <a href="{{ route('suit.list') }}">Suits</a>
                         </li>
                     </ul>
 
                 </div>
             </li>
 
-            <li class="side-nav-item">
+            {{-- <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEcommerce2" aria-expanded="false"
                     aria-controls="sidebarEcommerce" class="side-nav-link">
                     <i class="uil-store"></i>
@@ -140,8 +138,29 @@
                         @endforeach
                     </ul>
                 </div>
+            </li> --}}
+            {{-- <li class="side-nav-item">
+                <a href="{{ route('suit.all') }}" aria-expanded="false" aria-controls="sidebarDashboards"
+                    class="side-nav-link">
+                    <i class="uil-users-alt"></i>
+                    <span> Suits </span>
+                </a>
+            </li> --}}
+            {{-- <li class="side-nav-item">
+                <a href="{{ route('fabrics') }}" aria-expanded="false" aria-controls="sidebarDashboards"
+                    class="side-nav-link">
+                    <i class="uil-users-alt"></i>
+                    <span> Fabrics </span>
+                </a>
+            </li> --}}
+            <li class="side-nav-item">
+                <a href="{{ route('look_builder_models.list') }}" aria-expanded="false"
+                    aria-controls="sidebarDashboards" class="side-nav-link">
+                    <i class="uil-users-alt"></i>
+                    <span> LB Models </span>
+                </a>
             </li>
-            <li class="side-nav-title">Settings</li>
+            {{-- <li class="side-nav-title">Settings</li>
             <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarTasks" aria-expanded="false" aria-controls="sidebarTasks"
                     class="side-nav-link">
@@ -169,11 +188,11 @@
                         </li>
                     </ul>
                 </div>
-            </li>
+            </li> --}}
 
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarTasks2" aria-expanded="false"
-                    aria-controls="sidebarTasks" class="side-nav-link">
+                <a data-bs-toggle="collapse" href="#sidebarTasks2" aria-expanded="false" aria-controls="sidebarTasks"
+                    class="side-nav-link">
                     <i class="uil-clipboard-alt"></i>
                     <span> General Settings </span>
                     <span class="menu-arrow"></span>

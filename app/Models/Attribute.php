@@ -14,6 +14,7 @@ class Attribute extends Model
         'description',
         'look_builder_product_id',
         'custom_product_id',
+        'category_id'
     ];
     public function product()
     {
@@ -21,7 +22,7 @@ class Attribute extends Model
     }
     public function category()
     {
-        return $this->belongsTo(Product::class, 'product_id');
+        return $this->belongsTo(Category::class);
     }
     public function options()
     {

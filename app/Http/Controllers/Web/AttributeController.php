@@ -39,7 +39,7 @@ class AttributeController extends Controller
                     'uuid' => Str::uuid(),
                     'name' => $nameArray[$i],
                     'description' => $descriptionArray[$i],
-                    'look_builder_product_id' => $productId
+                    'category_id' => $productId
                 ]);
             }
 

@@ -35,6 +35,7 @@ class SuitController extends Controller
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
+            dd($th->getMessage());
         }
     }
     public function list()
@@ -118,14 +119,13 @@ class SuitController extends Controller
                     }
                 }
 
-
-
                 $product_image = $request->file('product_image');
                 $product_image_name = time() . '_' . Str::random(15) . '.' . $product_image->getClientOriginalExtension();
                 $product_image->storeAs('images/suits/product_images', $product_image_name);
             }
             $suit->update([
                 'id' => $suit->id,
+                'title' => $request->title,
                 'product_image' => $product_image_name,
                 'shirt_id' => $request->shirt_id,
                 'description' => $request->description,

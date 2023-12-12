@@ -1,4 +1,6 @@
 @extends('admin.layout.master')
+@section('title', 'DTAIL | Suits')
+
 @section('content')
     <div class="content">
         <div class="container-fluid">
@@ -32,6 +34,12 @@
                                     <div class="col-lg-4">
                                         <div class="mb-3">
                                             <input type="text" name="title" class="form-control" placeholder="Title">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="mb-3">
+                                            <input type="text" name="description" class="form-control"
+                                                placeholder="description">
                                         </div>
                                     </div>
 
@@ -75,6 +83,8 @@
                                         <th>Product Image</th>
                                         <th>Jacket Image</th>
                                         <th>Trouser Image</th>
+                                        <th>Action</th>
+
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -96,6 +106,15 @@
                                                     src="{{ asset('images/look_builder_products/product_images/' . $suit->trouser->product_image) }}"
                                                     alt="no-image">
                                             </td>
+                                            <td class="table-action">
+                                                <a class="action-icon editSuit" data-suit-id="{{ $suit->uuid }}">
+                                                    <i class="mdi mdi-pencil"></i>
+                                                </a>
+                                                <a href="#" class="action-icon delete-suit"
+                                                    data-suit-id="{{ $suit->uuid }}">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </a>
+                                            </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -106,6 +125,8 @@
             </div>
         </div>
     </div>
+    @include('admin.modals.deleteSuit')
+    @include('admin.modals.editSuit')
 @endsection
 @push('scripts')
     <script src="{{ asset('assets/js/custom/suit.js') }}"></script>

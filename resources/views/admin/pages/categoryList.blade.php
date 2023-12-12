@@ -60,7 +60,8 @@
                                 <thead>
                                     <tr>
                                         <th>Name</th>
-                                        <th> Image</th>
+                                        <th>Image</th>
+                                        <th>Sizes</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -72,6 +73,9 @@
                                                 <img width="80" height="60"
                                                     src="{{ asset('images/categories/' . $category->image) }}"
                                                     alt="no-image">
+                                            </td>
+                                            <td>
+                                                <a href="{{ route('category.sizes', $category->uuid) }}">View Sizes</a>
                                             </td>
                                             <td class="table-action">
                                                 <a class="action-icon editCategory"

@@ -21,13 +21,13 @@
                                 <li class="nav-item">
                                     <a href="#input-types-code" data-bs-toggle="tab" aria-expanded="true"
                                         class="nav-link active">
-                                        {{ $product->title }} sizes
+                                        {{ $product->title ?? $category->name }} sizes
                                     </a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#input-types-preview" data-bs-toggle="tab" aria-expanded="false"
                                         class="nav-link ">
-                                        New {{ $product->title }} sizes
+                                        New {{ $product->title ?? $category->name }} sizes
                                     </a>
                                 </li>
                             </ul>
@@ -84,9 +84,9 @@
                                     </div>
                                     <form id="addAttributeForm" method="POST" action="{{ route('attribute.store') }}">
                                         @csrf
-                                        <input type="hidden" name="look_builder_product_id" value="{{ $product->id }}">
+                                        <input type="hidden" name="look_builder_product_id"
+                                            value="{{ $product->id ?? $category->id }}">
                                         <div class="input-rows">
-                                            <!-- Existing row with one input -->
                                             <div class="row mb-3">
                                                 <div class="col-lg-4 appendCol">
                                                     <input name='name[]' type='text' class='form-control mb-2'
@@ -97,7 +97,6 @@
                                             </div>
                                         </div>
                                         <div class="text-start">
-
                                             <button type="submit" class="btn btn-primary btn-sm py-1 px-2">
                                                 Submit
                                             </button>

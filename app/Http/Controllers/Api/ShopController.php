@@ -438,6 +438,7 @@ class ShopController extends Controller
 
             foreach ($productIdsInCart as $productUuid) {
                 $productForCart = LookBuilderProduct::where('uuid', $productUuid)->first();
+                // dd($productForCart);
                 if ($productForCart) {
                     $productsForCart[] = $productForCart;
                 }

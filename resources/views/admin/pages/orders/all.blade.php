@@ -53,17 +53,13 @@
                                             </td>
                                             <td>
                                                 @if ($order->isDelivered == 0)
-                                                    <form id="deliveryForm"
-                                                        action="{{ route('markAsDelivered', $order->uuid) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        <button type="submit" class="border-0 bg-transparent m-0 p-0">
-                                                            <span style="font-size: 20px;"
-                                                                class="mdi mdi-truck-check"></span>
-
-                                                        </button>
-                                                        {{-- <i class="mdi mdi-truck-check" id="submitFormIcon"></i> --}}
-                                                    </form>
+                                                    {{-- <form id="deliveryForm" method="POST"> --}}
+                                                    {{-- @csrf --}}
+                                                    <a class="deliverOrder" data-order-id="{{ $order->uuid }}">
+                                                        <span style="font-size: 20px;" class="mdi mdi-truck-check"></span>
+                                                    </a>
+                                                    {{-- <i class="mdi mdi-truck-check" id="submitFormIcon"></i> --}}
+                                                    {{-- </form> --}}
                                                 @endif
                                             </td>
                                             <td><a href="{{ route('order_details', $order->uuid) }}" class="action-icon"><i
@@ -78,8 +74,10 @@
             </div>
         </div>
     </div>
+    @include('admin.modals.delivered')
 @endsection
 @push('scripts')
+    <script src="{{ asset('assets/js/custom/order.js') }}"></script>
     {{-- <script>
         document.getElementById('submitFormIcon').addEventListener('click', function() {
             document.getElementById('deliveryForm').submit();

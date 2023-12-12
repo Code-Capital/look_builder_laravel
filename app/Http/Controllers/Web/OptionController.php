@@ -58,22 +58,22 @@ class OptionController extends Controller
         try {
             DB::beginTransaction();
             $option  = Option::where('uuid', $option_uuid)->first();
-            $imageName = $option->image;
-            if ($request->hasFile('image')) {
-                $image = $request->file('image');
-                $imageName = time() . '_' . Str::random(15) . '.' . $image->getClientOriginalExtension();
-                $image->storeAs('images/options', $imageName);
-            }
+            // $imageName = $option->image;
+            // if ($request->hasFile('image')) {
+            //     $image = $request->file('image');
+            //     $imageName = time() . '_' . Str::random(15) . '.' . $image->getClientOriginalExtension();
+            //     $image->storeAs('images/options', $imageName);
+            // }
             $option->update([
                 'name' => $request->name,
-                'description' => $request->description,
-                'image' => $imageName,
+                // 'description' => $request->description,
+                // 'image' => $imageName,
             ]);
             DB::commit();
             return response()->json(['status' => true, 'message' => 'Updated Successfully']);
         } catch (\Throwable $th) {
             DB::rollBack();
-            return response()->json(['status' => false, 'message' => 'Something went wrong']);
+            return response()->json(['status' => false, 'message' => $th->getMessage()]);
         }
     }
     public function delete($option_uuid)

@@ -99,6 +99,7 @@
                                         <th>Color</th>
                                         <th>Price</th>
                                         <th>Desc</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -117,7 +118,15 @@
                                             </td>
                                             <td>{{ $product->color }}</td>
                                             <td>{{ $product->price }}</td>
-                                            <td>{{ $product->description }}
+                                            <td>{{ $product->description }}</td>
+                                            <td class="table-action">
+                                                <a class="action-icon editProduct" data-product-id="{{ $product->uuid }}">
+                                                    <i class="mdi mdi-pencil"></i>
+                                                </a>
+                                                <a href="#" class="action-icon delete-product"
+                                                    data-product-id="{{ $product->uuid }}">
+                                                    <i class="mdi mdi-delete"></i>
+                                                </a>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -129,7 +138,10 @@
             </div>
         </div>
     </div>
+    @include('admin.modals.deleteProduct')
+    @include('admin.modals.editProduct')
 @endsection
 @push('scripts')
     <script src="{{ asset('assets/js/custom/look_builder_product.js') }}"></script>
+    <script src="{{ asset('assets/js/custom/product.js') }}"></script>
 @endpush

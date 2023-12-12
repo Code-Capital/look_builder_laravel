@@ -62,6 +62,7 @@ Route::middleware('role:admin', 'auth')->group(function () {
         Route::post('/{product_uuid}', [LookBuilderProductController::class, 'update'])->name('lookBuilder.product.update');
         Route::get('by_category/{uuid}', [LookBuilderProductController::class, 'byCategory'])->name('productByCategory');
     });
+
     Route::prefix('suits')->group(function () {
         Route::post('add', [SuitController::class, 'store'])->name('suit.add');
         Route::get('', [SuitController::class, 'list'])->name('suit.list');
@@ -70,6 +71,7 @@ Route::middleware('role:admin', 'auth')->group(function () {
         Route::get('/{suit_uuid}', [SuitController::class, 'edit'])->name('suit.edit');
         Route::post('/{suit_uuid}', [SuitController::class, 'update'])->name('suit.update');
     });
+
     Route::prefix('custom_products')->group(function () {
         Route::post('add', [ProductController::class, 'store'])->name('custom.product.store');
         Route::delete('delete/{product_uuid}', [ProductController::class, 'delete'])->name('custom.product.delete');
@@ -92,6 +94,7 @@ Route::middleware('role:admin', 'auth')->group(function () {
         Route::delete('/{product_uuid}', [CategoryController::class, 'delete'])->name('category.delete');
         Route::get('/{product_uuid}', [CategoryController::class, 'edit'])->name('category.edit');
         Route::post('/{product_uuid}', [CategoryController::class, 'update'])->name('category.update');
+        Route::get('sizes/{category_id}', [CategoryController::class, 'sizesOfCategory'])->name('category.sizes');
     });
 
     Route::get('all_products', [LookBuilderProductController::class, 'allProducts'])->name('allProducts');
