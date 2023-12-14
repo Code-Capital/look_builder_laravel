@@ -15,13 +15,11 @@ return new class extends Migration
             $table->id();
             $table->uuid('uuid')->unique();
             $table->string('title');
-            $table->string('product_image');
             $table->string('layer_image');
-            $table->string('color');
-            $table->float('price');
-            $table->text('description')->nullable();
             $table->unsignedBigInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade')->onUpdate('cascade');
+            $table->unsignedBigInteger('fabric_id')->nullable();
+            $table->foreign('fabric_id')->references('id')->on('fabrics')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\CustomAttribute;
 use App\Models\CustomOption;
+use App\Models\CustomOptionImage;
+use App\Models\Fabric;
 use Illuminate\Support\Str;
 
 class OptionController extends Controller
@@ -28,6 +30,7 @@ class OptionController extends Controller
                 'description' => $request->description,
                 'image' => $imageName,
                 'custom_attribute_id' => $attribute->id,
+                'fabric_id' => $request->fabric_id,
             ]);
             DB::commit();
             return response()->json(['status' => true, 'message' => 'Created Successfully']);
@@ -41,8 +44,9 @@ class OptionController extends Controller
     {
         try {
             $attribute = CustomAttribute::where('uuid', $attribute_uuid)->first();
+            $fabrics = Fabric::all();
             $options = $attribute->customOptions;
-            return view('admin.pages.custom.optionList', compact('options', 'attribute'));
+            return view('admin.pages.custom.optionList', compact('options', 'attribute', 'fabrics'));
         } catch (\Throwable $th) {
         }
     }
@@ -99,6 +103,43 @@ class OptionController extends Controller
             return response()->json(['status' => true, 'messsage' => 'Deleted Successfully']);
         } catch (\Throwable $th) {
             return response()->json(['status' => false, 'messsage' => 'Something went wrong']);
+        }
+    }
+    public function custom_option_images($option_uuid)
+    {
+        try {
+            $option = CustomOption::where('uuid', $option_uuid)->first();
+            $customImages = $option->customOptionImages;
+            $fabrics = Fabric::all();
+            return view('admin.pages.custom.optionImages', compact('option', 'customImages', 'fabrics'));
+        } catch (\Throwable $th) {
+        }
+    }
+    public function addCustomOptionImage(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            if ($request->hasFile('image')) {
+                $image = $request->file('image');
+                $imageName = time() . '_' . Str::random(15) . '.' . $image->getClientOriginalExtension();
+                $image->storeAs('images/custom_products/options/images', $imageName);
+            }
+            CustomOptionImage::create([
+                'fabric_id' => $request->fabric_id,
+                'custom_option_images' => $request->option_id,
+                'layer_image' => $imageName,
+            ]);
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'message' => 'Layer Image added successfully',
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'status' => false,
+                'message' => 'Something went wrong',
+            ]);
         }
     }
 }

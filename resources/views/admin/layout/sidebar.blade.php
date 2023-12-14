@@ -120,6 +120,13 @@
 
                 </div>
             </li>
+            <li class="side-nav-item">
+                <a href="{{ route('customProducts') }}" aria-expanded="false" aria-controls="sidebarDashboards"
+                    class="side-nav-link">
+                    <i class="uil-users-alt"></i>
+                    <span> Custom Products </span>
+                </a>
+            </li>
 
             {{-- <li class="side-nav-item">
                 <a data-bs-toggle="collapse" href="#sidebarEcommerce2" aria-expanded="false"
@@ -146,13 +153,13 @@
                     <span> Suits </span>
                 </a>
             </li> --}}
-            {{-- <li class="side-nav-item">
+            <li class="side-nav-item">
                 <a href="{{ route('fabrics') }}" aria-expanded="false" aria-controls="sidebarDashboards"
                     class="side-nav-link">
                     <i class="uil-users-alt"></i>
                     <span> Fabrics </span>
                 </a>
-            </li> --}}
+            </li>
             <li class="side-nav-item">
                 <a href="{{ route('look_builder_models.list') }}" aria-expanded="false"
                     aria-controls="sidebarDashboards" class="side-nav-link">
@@ -191,8 +198,8 @@
             </li> --}}
 
             <li class="side-nav-item">
-                <a data-bs-toggle="collapse" href="#sidebarTasks2" aria-expanded="false" aria-controls="sidebarTasks"
-                    class="side-nav-link">
+                <a data-bs-toggle="collapse" href="#sidebarTasks2" aria-expanded="false"
+                    aria-controls="sidebarTasks" class="side-nav-link">
                     <i class="uil-clipboard-alt"></i>
                     <span> General Settings </span>
                     <span class="menu-arrow"></span>

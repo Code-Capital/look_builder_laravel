@@ -29,12 +29,7 @@ class ProductController extends Controller
     {
         try {
             DB::beginTransaction();
-
-            if ($request->hasFile('product_image')) {
-                $product_image = $request->file('product_image');
-                $product_image_name = time() . '_' . Str::random(15) . '.' . $product_image->getClientOriginalExtension();
-                $product_image->storeAs('images/custom_products/product_images', $product_image_name);
-            }
+            $layer_image_name = null;
             if ($request->hasFile('layer_image')) {
                 $layer_image = $request->file('layer_image');
                 $layer_image_name = time() . '_' . Str::random(15) . '.' . $layer_image->getClientOriginalExtension();
@@ -44,13 +39,8 @@ class ProductController extends Controller
             CustomProduct::create([
                 'uuid' => Str::uuid(),
                 'title' => $request->title,
-                'product_image' => $product_image_name,
                 'layer_image' => $layer_image_name,
-                'color' => $request->color,
-                'price' => $request->price,
-                'description' => $request->description,
                 'category_id' => $request->category_id,
-                'fabric_id' => $request->fabric_id,
             ]);
             DB::commit();
             return response()->json(['status' => true, 'message' => 'Product added successfully']);
@@ -67,7 +57,6 @@ class ProductController extends Controller
             $fabrics = Fabric::all();
             return view('admin.pages.custom.allProducts', compact('products', 'fabrics'));
         } catch (\Throwable $th) {
-            //throw $th;
         }
     }
     public function delete($product_uuid)

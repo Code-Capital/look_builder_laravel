@@ -13,13 +13,16 @@ return new class extends Migration
     {
         Schema::create('cart_products', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('look_builder_product_id');
+            $table->unsignedBigInteger('look_builder_product_id')->nullable();
+            $table->unsignedBigInteger('custom_product_id')->nullable();
+
             $table->unsignedBigInteger('cart_id');
             $table->integer('quantity')->default(1);
             $table->decimal('total_price', 8, 2);
-            $table->string('size')->nullable();
+            $table->string('size');
 
-            $table->foreign('look_builder_product_id')->references('id')->on('look_builder_products')->onDelete('cascade');
+            $table->foreign('look_builder_product_id')->references('id')->on('look_builder_products')->onDelete('cascade')->onUpdate('cascade');
+            $table->foreign('custom_product_id')->references('id')->on('custom_products')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });

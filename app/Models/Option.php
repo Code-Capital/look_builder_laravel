@@ -11,8 +11,6 @@ class Option extends Model
     protected $fillable = [
         'uuid',
         'name',
-        'description',
-        'image',
         'attribute_id'
     ];
     public function attribute()

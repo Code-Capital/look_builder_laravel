@@ -132,7 +132,10 @@ Route::middleware('role:admin', 'auth')->group(function () {
         Route::get('edit/{option_uuid}', [CustomProductsOptionController::class, 'optionById'])->name('custom.option.by.id');
         Route::post('update/{option_uuid}', [CustomProductsOptionController::class, 'update'])->name('custom.option.update');
         Route::delete('delete/{option_uuid}', [CustomProductsOptionController::class, 'delete'])->name('custom.option.delete');
+        Route::get('images/{option_uuid}', [CustomProductsOptionController::class, 'custom_option_images'])->name('custom.option.images');
     });
+    Route::post('image/add', [CustomProductsOptionController::class, 'addCustomOptionImage'])->name('add.custom.option.image');
+
 
     Route::prefix('look_builder_models')->group(function () {
         Route::get('', [LookBuilderModelController::class, 'list'])->name('look_builder_models.list');

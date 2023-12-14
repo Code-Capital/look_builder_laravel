@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('attributes', function (Blueprint $table) {
-            $table->unsignedBigInteger('category_id')->nullable();
-            $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
-        });
+        // Schema::table('attributes', function (Blueprint $table) {
+        //     $table->unsignedBigInteger('category_id')->nullable();
+        //     $table->foreign('category_id')->references('id')->on('categories')->onUpdate('cascade')->onDelete('cascade');
+        // });
     }
     /**
      * Reverse the migrations.

@@ -17,8 +17,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('description');
             $table->string('image');
+
             $table->unsignedBigInteger('custom_attribute_id')->nullable();
             $table->foreign('custom_attribute_id')->references('id')->on('custom_attributes')->onDelete('cascade')->onUpdate('cascade');
+
+            $table->unsignedBigInteger('fabric_id')->nullable();
+            $table->foreign('fabric_id')->references('id')->on('fabrics')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

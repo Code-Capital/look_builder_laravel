@@ -1,21 +1,15 @@
-<div class="modal fade" id="addOptionModal" tabindex="-1" aria-labelledby="addOptionModalLabel" aria-hidden="true">
+<div class="modal fade" id="addOptionImageModal" tabindex="-1" aria-labelledby="addOptionImageModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="addOptionModalLabel">Add new value</h5>
+                <h5 class="modal-title" id="addOptionImageModalLabel">Add new image</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form id="addOptionForm" method="POST" enctype="multipart/form-data">
+            <form id="addOptionImageForm" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="modal-body">
-                    @csrf
-                    <div class="mb-3">
-                        <label for="recipient-name" class="col-form-label">Enter Name:</label>
-                        <input type="text" class="form-control" id="name" name="name">
-                    </div>
-                    <div class="mb-3">
-                        <label for="message-text" class="col-form-label">Description:</label>
-                        <input type="text" class="form-control" id="description" name="description">
-                    </div>
+                    <input type="text" value="{{ $option->id }}" name="option_id">
                     <div class="mb-3">
                         <label for="message-text" class="col-form-label">Image:</label>
                         <input type="file" class="form-control" id="image" name="image">
@@ -32,7 +26,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save Option</button>
+                    <button type="submit" class="btn btn-primary">Save Image</button>
                 </div>
             </form>
         </div>

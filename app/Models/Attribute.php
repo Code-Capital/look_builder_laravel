@@ -16,10 +16,10 @@ class Attribute extends Model
         'custom_product_id',
         'category_id'
     ];
-    public function product()
-    {
-        return $this->belongsTo(Product::class, 'product_id');
-    }
+    // public function product()
+    // {
+    //     return $this->belongsTo(Product::class, 'product_id');
+    // }
     public function category()
     {
         return $this->belongsTo(Category::class);
@@ -30,10 +30,10 @@ class Attribute extends Model
     }
     public function lookBuilderProduct()
     {
-        return $this->belongsTo(LookBuilderProduct::class);
+        return $this->belongsTo(LookBuilderProduct::class, 'look_builder_product_id');
     }
     public function customProduct()
     {
-        return $this->belongsTo(CustomProduct::class);
+        return $this->belongsTo(CustomProduct::class, 'custom_product_id');
     }
 }

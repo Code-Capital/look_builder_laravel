@@ -17,10 +17,18 @@ class CartProduct extends Model
     ];
     public function lookBuilderProduct()
     {
-        return $this->belongsTo(LookBuilderProduct::class);
+        return $this->belongsTo(LookBuilderProduct::class, 'look_builder_product_id');
+    }
+    public function customProduct()
+    {
+        return $this->belongsTo(LookBuilderProduct::class, 'custom_product_id');
     }
     public function cart()
     {
         return $this->belongsTo(Cart::class);
+    }
+    public function cartProductOptions()
+    {
+        return $this->hasMany(CartProductOption::class);
     }
 }

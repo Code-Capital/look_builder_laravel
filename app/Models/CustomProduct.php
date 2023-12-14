@@ -11,13 +11,9 @@ class CustomProduct extends Model
     protected $fillable = [
         'uuid',
         'title',
-        'product_image',
         'layer_image',
-        'color',
-        'size',
-        'price',
-        'description',
         'category_id',
+        'fabric_id'
     ];
     public function customAttributes()
     {
