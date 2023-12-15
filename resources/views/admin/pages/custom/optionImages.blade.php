@@ -36,20 +36,20 @@
                                         <tr>
                                             <td>{{ $customImage->customOption->name }}</td>
                                             <td>{{ $customImage->fabric->name }}</td>
-
                                             <td>
                                                 <img width="80" height="60"
                                                     src="{{ asset('images/custom_products/options/images/' . $customImage->layer_image) }}"
                                                     alt="no-image">
                                             </td>
-
                                             <td class="table-action">
-                                                {{-- <a class="action-icon editOption" data-option-id="{{ $option->uuid }}">
+                                                <a class="action-icon editOptionImage"
+                                                    data-image-id="{{ $customImage->id }}">
                                                     <i class="mdi mdi-pencil"></i>
                                                 </a>
-                                                <a class="action-icon deleteOption" data-option-id="{{ $option->uuid }}">
+                                                <a class="action-icon deleteOptionImage"
+                                                    data-image-id="{{ $customImage->id }}">
                                                     <i class="mdi mdi-delete"></i>
-                                                </a> --}}
+                                                </a>
                                             </td>
                                             </td>
                                         </tr>

@@ -132,9 +132,14 @@ Route::middleware('role:admin', 'auth')->group(function () {
         Route::get('edit/{option_uuid}', [CustomProductsOptionController::class, 'optionById'])->name('custom.option.by.id');
         Route::post('update/{option_uuid}', [CustomProductsOptionController::class, 'update'])->name('custom.option.update');
         Route::delete('delete/{option_uuid}', [CustomProductsOptionController::class, 'delete'])->name('custom.option.delete');
-        Route::get('images/{option_uuid}', [CustomProductsOptionController::class, 'custom_option_images'])->name('custom.option.images');
+
+        Route::post('image/add', [CustomProductsOptionController::class, 'addCustomOptionImage'])->name('add.custom.option.image');
+        Route::get('image/{option_uuid}', [CustomProductsOptionController::class, 'custom_option_images'])->name('custom.option.images');
+        Route::get('image/edit/{id}', [CustomProductsOptionController::class, 'editCustomOptionImage']);
+        Route::post('image/update', [CustomProductsOptionController::class, 'updateCustomOptionImage']);
+        Route::delete('image/delete/{id}', [CustomProductsOptionController::class, 'deleteCustomOptionImage']);
     });
-    Route::post('image/add', [CustomProductsOptionController::class, 'addCustomOptionImage'])->name('add.custom.option.image');
+
 
 
     Route::prefix('look_builder_models')->group(function () {

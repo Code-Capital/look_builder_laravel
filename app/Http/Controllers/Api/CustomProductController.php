@@ -5,7 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Custom\ProductResource;
 use App\Http\Resources\CustomProductResource;
+use App\Models\CustomOption;
+use App\Models\CustomOptionImage;
 use App\Models\CustomProduct;
+use App\Models\Fabric;
 use Illuminate\Http\Request;
 
 class CustomProductController extends Controller
@@ -27,7 +30,7 @@ class CustomProductController extends Controller
     {
         try {
             $product = CustomProduct::where('uuid', $product_uuid)->first();
-            $attributes = $product->attributes;
+            // $attributes = $product->attributes;
             // dd($attributes);
             return response()->json([
                 'status' => 200,
@@ -36,6 +39,24 @@ class CustomProductController extends Controller
             ]);
         } catch (\Throwable $th) {
             dd($th->getMessage());
+        }
+    }
+    public function getOptionById($option_uuid, $fabric_uuid)
+    {
+        try {
+            $customOption = CustomOption::where('uuid', $option_uuid)->first();
+            $fabric = Fabric::where('uuid', $fabric_uuid)->first();
+
+            $layer_image = CustomOptionImage::where('custom_option_id', $customOption->id)
+                ->where('fabric_id', $fabric->id)
+                ->first();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Layer Image',
+                'data' => $layer_image,
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
         }
     }
 }

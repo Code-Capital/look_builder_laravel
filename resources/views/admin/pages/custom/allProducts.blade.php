@@ -51,29 +51,9 @@
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <div class="mb-3">
-                                                        <select class="form-select" name="fabric_id">
-                                                            <option selected>Select Fabric</option>
-                                                            @foreach ($fabrics as $fabric)
-                                                                <option value="{{ $fabric->id }}">{{ $fabric->name }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-lg-4">
-                                                    <div class="mb-3">
                                                         <input name="layer_image" type="file" class="form-control">
                                                     </div>
                                                 </div>
-
-
-                                                {{-- <div class="col-lg-12">
-                                                    <div class="mt-3 text-center ">
-                                                        <input type="hidden" name="category_id" id="category_id"
-                                                            value="{{ $tabCategory->id }}">
-                                                    </div>
-                                                </div> --}}
                                                 <div class="col-lg-12">
                                                     <div class="mt-3 text-center ">
                                                         <button class="btn btn-primary btn-sm"
@@ -84,21 +64,12 @@
                                         </form>
                                     </div>
                                 </div>
-                                {{-- <div class="col-lg-6 mb-3">
-                                    <select class="form-select mb-3">
-                                        <option selected>Select Fabric</option>
-                                        @foreach ($fabrics as $fabric)
-                                            <option value="{{ $fabric->id }}">{{ $fabric->name }}</option>
-                                        @endforeach
-
-                                    </select>
-                                </div> --}}
                             </div>
                             <table class="table table-sm table-striped table-centered mb-0">
                                 <thead>
                                     <tr>
                                         <th>Product Name</th>
-                                        {{-- <th>Category</th> --}}
+                                        <th>Layer Image</th>
                                         <th>Action</th>
                                         <th>Attributes</th>
                                         <th>Sizes</th>
@@ -111,9 +82,9 @@
                                             <td class="table-user">
                                                 {{ $product->title }}
                                             </td>
-                                            {{-- <td class="table-user">
-                                                {{ $product->category->name }}
-                                            </td> --}}
+                                            <td> <img width="80" height="60"
+                                                    src="{{ asset('images/custom_products/layer_images/' . $product->layer_image) }}"
+                                                    alt="no-image"></td>
                                             <td class="table-action">
                                                 <a class="action-icon editProduct" data-product-id="{{ $product->uuid }}">
                                                     <i class="mdi mdi-pencil"></i>

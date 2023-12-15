@@ -26,7 +26,6 @@ class CustomProductResource extends JsonResource
             'color' => $this->color,
             'price' => $this->price,
             'description' => $this->description,
-            'category' => $this->category->name,
             'attributes' => AttributeResource::collection($this->customAttributes),
             'sizes' => SizeResource::collection($this->attributes),
         ];

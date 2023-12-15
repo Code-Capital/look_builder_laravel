@@ -104,15 +104,18 @@ class ProductController extends Controller
         try {
             DB::beginTransaction();
             $customProduct = CustomProduct::where('uuid', $product_uuid)->first();
-            $product_image_name = $customProduct->product_image;
             $layer_image_name = $customProduct->layer_image;
 
-            if ($request->hasFile('product_image')) {
-                $product_image = $request->file('product_image');
-                $product_image_name = time() . '_' . Str::random(15) . '.' . $product_image->getClientOriginalExtension();
-                $product_image->storeAs('images/custom_products/product_images', $product_image_name);
-            }
             if ($request->hasFile('layer_image')) {
+
+                if (isset($layer_image_name)) {
+                    $filePathToDeleteLayer = public_path('images/custom_products/layer_images/' . $layer_image_name);
+
+                    if (file_exists($filePathToDeleteLayer)) {
+                        unlink($filePathToDeleteLayer);
+                    }
+                }
+
                 $layer_image = $request->file('layer_image');
                 $layer_image_name = time() . '_' . Str::random(15) . '.' . $layer_image->getClientOriginalExtension();
                 $layer_image->storeAs('images/custom_products/layer_images', $layer_image_name);
@@ -120,10 +123,6 @@ class ProductController extends Controller
 
             $customProduct->update([
                 'title' => $request->title,
-                'color' => $request->color,
-                'price' => $request->price,
-                'description' => $request->description,
-                'product_image' => $product_image_name,
                 'layer_image' => $layer_image_name,
             ]);
             DB::commit();

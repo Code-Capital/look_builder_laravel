@@ -45,7 +45,10 @@ Route::get('fabrics', [ShopController::class, 'fabrics']);
 Route::prefix('custom_products')->group(function () {
     Route::get('', [CustomProductController::class, 'getAllCustomProducts']);
     Route::get('{product_uuid}', [CustomProductController::class, 'getProductById']);
+
+    Route::get('option_by_id/{option_uuid}/{fabric_uuid}', [CustomProductController::class, 'getOptionById']);
 });
+
 
 Route::get('newest_first', [ShopController::class, 'newestFirst']);
 Route::get('price_low_to_high', [ShopController::class, 'lowToHigh']);

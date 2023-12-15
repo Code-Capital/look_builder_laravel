@@ -142,4 +142,81 @@ class OptionController extends Controller
             ]);
         }
     }
+    public function editCustomOptionImage($id)
+    {
+        try {
+            return CustomOptionImage::findorfail($id);
+        } catch (\Throwable $th) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Something went wrong'
+            ]);
+        }
+    }
+    public function updateCustomOptionImage(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $customOptionImage = CustomOptionImage::findorfail($request->option_id);
+            $layer_image_name = $customOptionImage->layer_image;
+            if ($request->hasFile('layer_image')) {
+
+                if (isset($layer_image_name)) {
+                    $filePathToDeleteLayer = public_path('images/custom_products/options/images/' . $layer_image_name);
+
+                    if (file_exists($filePathToDeleteLayer)) {
+                        unlink($filePathToDeleteLayer);
+                    }
+                }
+
+                $layer_image = $request->file('layer_image');
+                $layer_image_name = time() . '_' . Str::random(15) . '.' . $layer_image->getClientOriginalExtension();
+                $layer_image->storeAs('images/custom_products/options/images', $layer_image_name);
+            }
+
+            $customOptionImage->update([
+                'id' => $customOptionImage->id,
+                'fabric_id' => $request->fabric_id,
+                'layer_image' => $layer_image_name,
+            ]);
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'message' => 'Updated Successfully',
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'status' => false,
+                'message' => 'Something went wrong',
+            ]);
+        }
+    }
+    public function deleteCustomOptionImage($id)
+    {
+        try {
+            DB::beginTransaction();
+            $customImage = CustomOptionImage::findorfail($id);
+            $layer_image_name = $customImage->layer_image;
+            if (isset($layer_image_name)) {
+                $filePathToDeleteLayer = public_path('images/custom_products/options/images/' . $layer_image_name);
+
+                if (file_exists($filePathToDeleteLayer)) {
+                    unlink($filePathToDeleteLayer);
+                }
+            }
+            $customImage->delete();
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'message' => 'Deleted Successfully'
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return response()->json([
+                'status' => false,
+                'message' => 'Something went wrong'
+            ]);
+        }
+    }
 }
