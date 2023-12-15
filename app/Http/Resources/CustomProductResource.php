@@ -21,11 +21,6 @@ class CustomProductResource extends JsonResource
             'id' => $this->id,
             'uuid' => $this->uuid,
             'title' => $this->title,
-            'product_image' =>  '/images/custom_products/product_images/' . $this->product_image,
-            'layer_image' => '/images/custom_products/layer_images/' . $this->layer_image,
-            'color' => $this->color,
-            'price' => $this->price,
-            'description' => $this->description,
             'attributes' => AttributeResource::collection($this->customAttributes),
             'sizes' => SizeResource::collection($this->attributes),
         ];

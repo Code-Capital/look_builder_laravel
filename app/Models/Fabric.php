@@ -23,4 +23,8 @@ class Fabric extends Model
     {
         return $this->hasMany(CustomProduct::class);
     }
+    public function productLayerImages()
+    {
+        return $this->hasMany(ProductLayerImage::class);
+    }
 }

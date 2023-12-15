@@ -9,7 +9,7 @@
                     <div class="page-title-box">
                         <div class="page-title-right">
                         </div>
-                        <h4 class="page-title">Product Definitions</h4>
+                        <h4 class="page-title">Product Layer Images</h4>
                     </div>
                 </div>
             </div>
@@ -19,16 +19,16 @@
                         <div class="card-body">
                             <div class="row align-items-center">
                                 <div class="col-lg-6 mb-3">
-                                    <h4 class="header-title">All Products</h4>
+                                    <h4 class="header-title">Layer Images</h4>
                                     <p class="text-muted font-14">
-                                        Add Products and product attributes for the entire system.
+                                        Add product layer image for the entire system.
                                     </p>
                                 </div>
                                 <div class="py-3 text-end">
                                     <a class="btn btn-primary" data-bs-toggle="collapse" href="#collapseLook" role="button"
                                         aria-expanded="true" aria-controls="collapseLook">
                                         <span class="d-flex align-items-center gap-2">
-                                            <span>Add new product</span>
+                                            <span>Add new image</span>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
                                                 viewBox="0 0 256 256">
                                                 <path fill="currentColor"
@@ -40,20 +40,28 @@
                                 </div>
                                 <div class="collapse bg-light p-3 rounded-3 my-3" id="collapseLook" style="">
                                     <div class=" bg-transparent">
-                                        <form id="addCustomProduct" method="POST" enctype="multipart/form-data">
+                                        <form id="addCustomProductImage" method="POST" enctype="multipart/form-data">
                                             @csrf
                                             <div class="row mx-0">
                                                 <div class="col-lg-4">
                                                     <div class="mb-3">
-                                                        <input type="text" name="title" class="form-control"
-                                                            placeholder="Title">
+                                                        <input name="image" type="file" class="form-control"
+                                                            name="image">
                                                     </div>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <div class="mb-3">
-                                                        <input name="layer_image" type="file" class="form-control">
+                                                        <select class="form-select" name="fabric_id">
+                                                            <option selected>Select Fabric</option>
+                                                            @foreach ($fabrics as $fabric)
+                                                                <option value="{{ $fabric->id }}">{{ $fabric->name }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
                                                 </div>
+                                                <input type="hidden" name="product_id" class="form-control"
+                                                    placeholder="Title" value="{{ $product->id }}">
                                                 <div class="col-lg-12">
                                                     <div class="mt-3 text-center ">
                                                         <button class="btn btn-primary btn-sm"
@@ -68,41 +76,33 @@
                             <table class="table table-sm table-striped table-centered mb-0">
                                 <thead>
                                     <tr>
-                                        <th>Product Name</th>
+                                        <th>Product</th>
+                                        <th>Fabric</th>
                                         <th>Layer Image</th>
-                                        <th>Attributes</th>
-                                        <th>Sizes</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach ($products as $product)
+                                    @foreach ($layer_images as $layer_image)
                                         <tr>
                                             <td class="table-user">
-                                                {{ $product->title }}
+                                                {{ $layer_image->customProduct->title }}
+                                            </td>
+                                            <td class="table-user">
+                                                {{ $layer_image->fabric->name }}
                                             </td>
                                             <td>
-                                                <a href="{{ route('layerImagesByProduct', $product->uuid) }}">Layer
-                                                    Images</a>
-                                                {{-- <img width="80" height="60"
-                                                    src="{{ asset('images/custom_products/layer_images/' . $product->layer_image) }}"
-                                                    alt="no-image"> --}}
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('customAttributesByProduct', $product->uuid) }}"> <i
-                                                        class="mdi mdi-eye"></i>
-                                                </a>
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('sizesOfCustomProduct', $product->uuid) }}"><i
-                                                        class="mdi mdi-eye"></i></a>
+                                                <img width="80" height="60"
+                                                    src="{{ asset('images/custom_products/layer_images/' . $layer_image->image) }}"
+                                                    alt="no-image">
                                             </td>
                                             <td class="table-action">
-                                                <a class="action-icon editProduct" data-product-id="{{ $product->uuid }}">
+                                                <a class="action-icon editProductLayer"
+                                                    data-layer-id="{{ $layer_image->id }}">
                                                     <i class="mdi mdi-pencil"></i>
                                                 </a>
-                                                <a href="#" class="action-icon delete-product"
-                                                    data-product-id="{{ $product->uuid }}">
+                                                <a href="#" class="action-icon delete-productLayer"
+                                                    data-layer-id="{{ $layer_image->id }}">
                                                     <i class="mdi mdi-delete"></i>
                                                 </a>
                                             </td>
@@ -116,8 +116,8 @@
             </div>
         </div>
     </div>
-    @include('admin.modals.custom.deleteProduct')
-    @include('admin.modals.custom.editProduct')
+    @include('admin.modals.custom.deleteProductImage')
+    @include('admin.modals.custom.editProductImage')
 @endsection
 @push('scripts')
     <script src="{{ asset('assets/js/custom/custom_product.js') }}"></script>

@@ -78,6 +78,12 @@ Route::middleware('role:admin', 'auth')->group(function () {
         Route::get('/{product_uuid}', [ProductController::class, 'edit'])->name('custom.product.edit');
         Route::post('/{product_uuid}', [ProductController::class, 'update'])->name('custom.product.update');
         Route::get('by_category/{uuid}', [ProductController::class, 'byCategory'])->name('customProductByCategory');
+
+        Route::get('images/{product_uuid}', [ProductController::class, 'layerImagesByProduct'])->name('layerImagesByProduct');
+        Route::post('layer_image/store', [ProductController::class, 'storeLayerImage']);
+        Route::get('layer_image/edit/{layer_id}', [ProductController::class, 'editLayerImage']);
+        Route::post('layer_image/update/{layer_id}', [ProductController::class, 'updateLayerImage']);
+        Route::delete('layer_image/delete/{layer_id}', [ProductController::class, 'deleteLayerImage']);
     });
 
     Route::prefix('fabrics')->group(function () {
@@ -132,6 +138,7 @@ Route::middleware('role:admin', 'auth')->group(function () {
         Route::get('edit/{option_uuid}', [CustomProductsOptionController::class, 'optionById'])->name('custom.option.by.id');
         Route::post('update/{option_uuid}', [CustomProductsOptionController::class, 'update'])->name('custom.option.update');
         Route::delete('delete/{option_uuid}', [CustomProductsOptionController::class, 'delete'])->name('custom.option.delete');
+
 
         Route::post('image/add', [CustomProductsOptionController::class, 'addCustomOptionImage'])->name('add.custom.option.image');
         Route::get('image/{option_uuid}', [CustomProductsOptionController::class, 'custom_option_images'])->name('custom.option.images');

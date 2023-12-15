@@ -126,7 +126,7 @@ class OptionController extends Controller
             }
             CustomOptionImage::create([
                 'fabric_id' => $request->fabric_id,
-                'custom_option_images' => $request->option_id,
+                'custom_option_id' => $request->option_id,
                 'layer_image' => $imageName,
             ]);
             DB::commit();

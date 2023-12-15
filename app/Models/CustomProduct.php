@@ -31,4 +31,8 @@ class CustomProduct extends Model
     {
         return $this->belongsTo(Fabric::class);
     }
+    public function productLayerImages()
+    {
+        return $this->hasMany(ProductLayerImage::class);
+    }
 }

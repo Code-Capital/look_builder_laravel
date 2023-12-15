@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use App\Models\CustomProduct;
 use App\Models\Fabric;
 use App\Models\Category;
-
+use App\Models\ProductLayerImage;
 
 class ProductController extends Controller
 {
@@ -130,6 +130,121 @@ class ProductController extends Controller
         } catch (\Throwable $th) {
             DB::rollBack();
             return response()->json(['status' => false, 'message' => 'Something went wrong']);
+        }
+    }
+
+    public function layerImagesByProduct($product_uuid)
+    {
+        try {
+            $product = CustomProduct::where('uuid', $product_uuid)->first();
+            $layer_images = $product->productLayerImages;
+            $fabrics = Fabric::all();
+            return view('admin.pages.custom.product_layer_image', compact('layer_images', 'fabrics', 'product'));
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+    public function storeLayerImage(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            if ($request->hasFile('image')) {
+                $layer_image = $request->file('image');
+                $layer_image_name = time() . '_' . Str::random(15) . '.' . $layer_image->getClientOriginalExtension();
+                $layer_image->storeAs('images/custom_products/layer_images', $layer_image_name);
+            }
+            ProductLayerImage::create([
+                'fabric_id' => $request->fabric_id,
+                'custom_product_id' => $request->product_id,
+                'image' => $layer_image_name,
+            ]);
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'message' => 'Image saved successfully',
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th->getMessage());
+            return response()->json([
+                'status' => false,
+                'message' => 'Something went wrong',
+            ]);
+        }
+    }
+    public function editLayerImage($layer_id)
+    {
+        try {
+            $customLayer = ProductLayerImage::findorfail($layer_id);
+            return $customLayer;
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+    public function updateLayerImage(Request $request, $layer_id)
+    {
+        try {
+            DB::beginTransaction();
+            $layer = ProductLayerImage::findorfail($layer_id);
+            $layer_image_name = $layer->image;
+            if ($request->hasFile('image')) {
+
+                if (isset($layer_image_name)) {
+                    $filePathToDeleteLayer = public_path('images/custom_products/layer_images/' . $layer_image_name);
+
+                    if (file_exists($filePathToDeleteLayer)) {
+                        unlink($filePathToDeleteLayer);
+                    }
+                }
+
+                $layer_image = $request->file('image');
+                $layer_image_name = time() . '_' . Str::random(15) . '.' . $layer_image->getClientOriginalExtension();
+                $layer_image->storeAs('images/custom_products/layer_images', $layer_image_name);
+            }
+            $layer->update([
+                'id' => $layer->id,
+                'fabric_id' => $request->fabric_id,
+                'image' => $layer_image_name,
+            ]);
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'message' => 'Updated successfully',
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollback();
+            return response()->json([
+                'status' => false,
+                'message' => 'Something went wrong',
+            ]);
+        }
+    }
+    public function deleteLayerImage($layer_id)
+    {
+        try {
+            DB::beginTransaction();
+            $customLayer = ProductLayerImage::findorfail($layer_id);
+            $layer_image_name = $customLayer->image;
+            if (isset($layer_image_name)) {
+                $filePathToDeleteLayer = public_path('images/custom_products/layer_images/' . $layer_image_name);
+
+                if (file_exists($filePathToDeleteLayer)) {
+                    unlink($filePathToDeleteLayer);
+                }
+            }
+            $customLayer->delete();
+            DB::commit();
+            return response()->json([
+                'status' => true,
+                'message' => 'Deleted Successfully',
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th->getMessage());
+            return response()->json([
+                'status' => false,
+                'message' => 'Something went wrong',
+            ]);
         }
     }
 }

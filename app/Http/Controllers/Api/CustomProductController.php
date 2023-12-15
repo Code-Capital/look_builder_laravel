@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\Custom\ProductLayerResource;
 use App\Http\Resources\Custom\ProductResource;
 use App\Http\Resources\CustomProductResource;
 use App\Models\CustomOption;
 use App\Models\CustomOptionImage;
 use App\Models\CustomProduct;
 use App\Models\Fabric;
+use App\Models\ProductLayerImage;
 use Illuminate\Http\Request;
 
 class CustomProductController extends Controller
@@ -30,8 +32,6 @@ class CustomProductController extends Controller
     {
         try {
             $product = CustomProduct::where('uuid', $product_uuid)->first();
-            // $attributes = $product->attributes;
-            // dd($attributes);
             return response()->json([
                 'status' => 200,
                 'message' => 'Product Details',
@@ -39,6 +39,23 @@ class CustomProductController extends Controller
             ]);
         } catch (\Throwable $th) {
             dd($th->getMessage());
+        }
+    }
+    public function getLayerImageByFabric($product_uuid, $fabric_uuid)
+    {
+        try {
+            $product = CustomProduct::where('uuid', $product_uuid)->first();
+            $fabric = Fabric::where('uuid', $fabric_uuid)->first();
+            $productLayerImage = ProductLayerImage::where('custom_product_id', $product->id)
+                ->where('fabric_id', $fabric->id)
+                ->first();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Layer Image',
+                'data' => new ProductLayerResource($productLayerImage),
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
         }
     }
     public function getOptionById($option_uuid, $fabric_uuid)

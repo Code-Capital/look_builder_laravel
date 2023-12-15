@@ -108,49 +108,49 @@ $(function () {
         });
     });
 
-    // $(".deleteOption").on("click", function (event) {
-    //     event.preventDefault();
-    //     dataAttributeId = $(this).data("option-id");
-    //     $("#deleteOptionModal").modal("show");
-    // });
-    // $("#deleteOptionButton").on("click", function (event) {
-    //     event.preventDefault();
-    //     var token = $("meta[name='csrf-token']").attr("content");
+    $(".deleteOptionImage").on("click", function (event) {
+        event.preventDefault();
+        dataAttributeId = $(this).data("image-id");
+        $("#deleteOptionLayerModal").modal("show");
+    });
+    $("#deleteOptionLayerButton").on("click", function (event) {
+        event.preventDefault();
+        var token = $("meta[name='csrf-token']").attr("content");
 
-    //     $.ajax({
-    //         url: "/custom_options/delete/" + dataAttributeId,
-    //         type: "DELETE",
-    //         data: {
-    //             _token: token,
-    //         },
-    //         success: function (response) {
-    //             $("#deleteOptionModal").modal("hide");
-    //             toastr.options = {
-    //                 progressBar: true,
-    //                 closeButton: true,
-    //                 timeOut: 2000,
-    //             };
-    //             if (response.status == true) {
-    //                 toastr.success(response.message, "Success");
-    //                 setTimeout(function () {
-    //                     location.reload();
-    //                 }, 2000);
-    //             } else {
-    //                 toastr.error(response.message, "Error");
-    //             }
-    //         },
-    //         error: function (xhr) {
-    //             const errorMessages = Object.values(
-    //                 errors?.responseJSON?.errors
-    //             ).flat();
-    //             toastr.options = {
-    //                 progressBar: true,
-    //                 closeButton: true,
-    //             };
-    //             for (let i = 0; i < errorMessages.length; i++) {
-    //                 toastr.error(errorMessages[i], "Error");
-    //             }
-    //         },
-    //     });
-    // });
+        $.ajax({
+            url: "/custom_options/image/delete/" + dataAttributeId,
+            type: "DELETE",
+            data: {
+                _token: token,
+            },
+            success: function (response) {
+                $("#deleteOptionLayerModal").modal("hide");
+                toastr.options = {
+                    progressBar: true,
+                    closeButton: true,
+                    timeOut: 2000,
+                };
+                if (response.status == true) {
+                    toastr.success(response.message, "Success");
+                    setTimeout(function () {
+                        location.reload();
+                    }, 2000);
+                } else {
+                    toastr.error(response.message, "Error");
+                }
+            },
+            error: function (xhr) {
+                const errorMessages = Object.values(
+                    errors?.responseJSON?.errors
+                ).flat();
+                toastr.options = {
+                    progressBar: true,
+                    closeButton: true,
+                };
+                for (let i = 0; i < errorMessages.length; i++) {
+                    toastr.error(errorMessages[i], "Error");
+                }
+            },
+        });
+    });
 });
