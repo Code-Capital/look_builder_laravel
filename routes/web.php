@@ -143,7 +143,7 @@ Route::middleware('role:admin', 'auth')->group(function () {
         Route::post('image/add', [CustomProductsOptionController::class, 'addCustomOptionImage'])->name('add.custom.option.image');
         Route::get('image/{option_uuid}', [CustomProductsOptionController::class, 'custom_option_images'])->name('custom.option.images');
         Route::get('image/edit/{id}', [CustomProductsOptionController::class, 'editCustomOptionImage']);
-        Route::post('image/update', [CustomProductsOptionController::class, 'updateCustomOptionImage']);
+        Route::post('image/update/{id}', [CustomProductsOptionController::class, 'updateCustomOptionImage']);
         Route::delete('image/delete/{id}', [CustomProductsOptionController::class, 'deleteCustomOptionImage']);
     });
 

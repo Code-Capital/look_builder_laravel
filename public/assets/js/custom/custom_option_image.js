@@ -54,7 +54,7 @@ $(function () {
             url: "/custom_options/image/edit/" + editItemId,
             type: "GET",
             success: function (response) {
-                console.log(response);
+                console.log(editItemId);
                 $("#editOptionImageModal").modal("show");
                 $("#editOptionImageModal select[name='fabric_id']").val(
                     response.fabric_id
@@ -69,7 +69,7 @@ $(function () {
         event.preventDefault();
         var formData = new FormData(this);
         $.ajax({
-            url: "/custom_options/image/update",
+            url: "/custom_options/image/update/" + editItemId,
             data: formData,
             type: "POST",
             processData: false, // Important: Don't process the data

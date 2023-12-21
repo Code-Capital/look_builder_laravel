@@ -12,7 +12,7 @@
                     <input type="hidden" value="{{ $option->id }}" name="option_id">
                     <div class="mb-3">
                         <label for="message-text" class="col-form-label">Image:</label>
-                        <input type="file" class="form-control" id="layer_image" name="layer_image">
+                        <input type="file" class="form-control" id="image" name="image">
                     </div>
                     <div class="mb-3">
                         <select class="form-select" name="fabric_id">

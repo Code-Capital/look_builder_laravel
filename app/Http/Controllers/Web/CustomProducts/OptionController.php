@@ -153,13 +153,13 @@ class OptionController extends Controller
             ]);
         }
     }
-    public function updateCustomOptionImage(Request $request)
+    public function updateCustomOptionImage(Request $request, $id)
     {
         try {
             DB::beginTransaction();
-            $customOptionImage = CustomOptionImage::findorfail($request->option_id);
+            $customOptionImage = CustomOptionImage::findorfail($id);
             $layer_image_name = $customOptionImage->layer_image;
-            if ($request->hasFile('layer_image')) {
+            if ($request->hasFile('image')) {
 
                 if (isset($layer_image_name)) {
                     $filePathToDeleteLayer = public_path('images/custom_products/options/images/' . $layer_image_name);
@@ -169,16 +169,17 @@ class OptionController extends Controller
                     }
                 }
 
-                $layer_image = $request->file('layer_image');
+                $layer_image = $request->file('image');
                 $layer_image_name = time() . '_' . Str::random(15) . '.' . $layer_image->getClientOriginalExtension();
                 $layer_image->storeAs('images/custom_products/options/images', $layer_image_name);
             }
-
             $customOptionImage->update([
                 'id' => $customOptionImage->id,
                 'fabric_id' => $request->fabric_id,
                 'layer_image' => $layer_image_name,
+                'custom_option_id' => $request->option_id,
             ]);
+
             DB::commit();
             return response()->json([
                 'status' => true,
@@ -186,6 +187,7 @@ class OptionController extends Controller
             ]);
         } catch (\Throwable $th) {
             DB::rollBack();
+            dd($th->getMessage());
             return response()->json([
                 'status' => false,
                 'message' => 'Something went wrong',
