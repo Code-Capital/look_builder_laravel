@@ -12,6 +12,7 @@ class CustomOption extends Model
         'uuid',
         'name',
         'description',
+        'price',
         'image',
         'custom_attribute_id',
         'fabric_id',

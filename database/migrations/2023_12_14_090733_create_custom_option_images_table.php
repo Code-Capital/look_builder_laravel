@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('custom_option_images', function (Blueprint $table) {
             $table->id();
+            $table->integer('sequence_no');
             $table->string('layer_image');
             $table->unsignedBigInteger('custom_option_id')->nullable();
             $table->foreign('custom_option_id')->references('id')->on('custom_options')->onUpdate('cascade')->onDelete('cascade');

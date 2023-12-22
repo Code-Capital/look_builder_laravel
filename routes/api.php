@@ -59,6 +59,7 @@ Route::get('initial_look', [ShopController::class, 'initialLook']);
 
 
 
+
 Route::middleware(['auth:sanctum'])->group(function () {
 
     Route::prefix('saved_item')->group(function () {
@@ -70,6 +71,11 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('update_profile', [ShopController::class, 'updateProfile']);
     Route::post('change_password', [ShopController::class, 'changePassword']);
     Route::get('shop_look/{productIds}', [ShopController::class, 'shopLook']);
+
+    Route::post('custom_addToCart', [ShopController::class, 'custom_addToCart']);
+
+
+
 
     Route::post('cart', [ShopController::class, 'myCart']);
     Route::post('add_size', [ShopController::class, 'addSize']);

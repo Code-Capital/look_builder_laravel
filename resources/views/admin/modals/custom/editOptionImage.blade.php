@@ -15,6 +15,10 @@
                         <input type="file" class="form-control" id="image" name="image">
                     </div>
                     <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Sequence:</label>
+                        <input type="number" class="form-control" id="sequence" name="sequence">
+                    </div>
+                    <div class="mb-3">
                         <select class="form-select" name="fabric_id">
                             <option selected>Select Fabric</option>
                             @foreach ($fabrics as $fabric)

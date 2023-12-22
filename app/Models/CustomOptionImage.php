@@ -9,6 +9,7 @@ class CustomOptionImage extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'sequence_no',
         'fabric_id',
         'custom_option_id',
         'layer_image',

@@ -11,6 +11,7 @@ class CartProductOption extends Model
     protected $fillable = [
         'cart_product_id',
         'custom_option_id',
+        'custom_product_id',
     ];
     public function cartProduct()
     {

@@ -10,6 +10,7 @@ class CartProduct extends Model
     use HasFactory;
     protected $fillable = [
         'look_builder_product_id',
+        'custom_product_id',
         'cart_id',
         'quantity',
         'size',
@@ -21,7 +22,7 @@ class CartProduct extends Model
     }
     public function customProduct()
     {
-        return $this->belongsTo(LookBuilderProduct::class, 'custom_product_id');
+        return $this->belongsTo(CustomProduct::class, 'custom_product_id');
     }
     public function cart()
     {

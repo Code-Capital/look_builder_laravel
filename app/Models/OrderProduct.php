@@ -11,6 +11,7 @@ class OrderProduct extends Model
     protected $fillable = [
         'order_id',
         'look_builder_product_id',
+        'custom_product_id',
         'size',
         'quantity',
     ];
@@ -20,6 +21,14 @@ class OrderProduct extends Model
     }
     public function lookBuilderProduct()
     {
-        return $this->belongsTo(LookBuilderProduct::class);
+        return $this->belongsTo(LookBuilderProduct::class, 'look_builder_product_id');
+    }
+    public function customProduct()
+    {
+        return $this->belongsTo(CustomProduct::class, 'custom_product_id');
+    }
+    public function orderProductOptions()
+    {
+        return $this->hasMany(OrderProductOption::class);
     }
 }

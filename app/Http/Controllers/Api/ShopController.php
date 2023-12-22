@@ -12,12 +12,16 @@ use App\Http\Resources\SuitResource;
 use App\Mail\OrderPlaceMail;
 use App\Models\Cart;
 use App\Models\CartProduct;
+use App\Models\CartProductOption;
 use App\Models\Category;
+use App\Models\CustomOption;
+use App\Models\CustomProduct;
 use App\Models\Fabric;
 use App\Models\LookBuilderModel;
 use App\Models\LookBuilderProduct;
 use App\Models\Order;
 use App\Models\OrderProduct;
+use App\Models\OrderProductOption;
 use App\Models\Suit;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -106,9 +110,7 @@ class ShopController extends Controller
         try {
             DB::beginTransaction();
             $cart = Auth::user()->cart ?? Cart::create(['user_id' => Auth::user()->id]);
-            // $productIdsInCart = explode(',', $request->productId);
 
-            // foreach ($productIdsInCart as $productUuid) {
             $productForCart = LookBuilderProduct::where('uuid', $request->productId)->first();
             $existingCartProduct = CartProduct::where('look_builder_product_id', $productForCart->id)
                 ->where('size', $request->size)
@@ -144,6 +146,50 @@ class ShopController extends Controller
                 'status' => 500,
                 'message' => $th->getMessage(),
             ]);
+        }
+    }
+    public function custom_addToCart(Request $request)
+    {
+        try {
+            DB::beginTransaction();
+            $price = 0;
+            $cart = Auth::user()->cart ?? Cart::create(['user_id' => Auth::user()->id]);
+            $product = CustomProduct::where('uuid', $request->product_uuid)->first();
+            $fabric = Fabric::where('uuid', $request->fabric_uuid)->first();
+            $cartProduct = CartProduct::create([
+                'custom_product_id' => $product->id,
+                'cart_id' => $cart->id,
+                'total_price' => 0,
+                'size' => $request->size,
+
+            ]);
+            $cartProduct->load('customProduct');
+            $optionsIdsInCart = explode(',', $request->optionIds);
+
+            foreach ($optionsIdsInCart as $option_id) {
+                CartProductOption::create([
+                    'cart_product_id' => $cartProduct->id,
+                    'custom_option_id' => $option_id,
+                    'custom_product_id' => $product->id,
+                ]);
+                $custom_option = CustomOption::findorfail($option_id);
+                $price += $custom_option->price;
+            }
+
+            $price += $fabric->price;
+
+            $cartProduct->update([
+                'id' => $cartProduct->id,
+                'total_price' => $price,
+            ]);
+            DB::commit();
+            return response()->json([
+                'status' => 200,
+                'message' => 'Added successfully'
+            ]);
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            dd($th->getMessage());
         }
     }
     public function addSize(Request $request)
@@ -250,7 +296,20 @@ class ShopController extends Controller
             ]);
             if ($request->country != null and $request->state != null and $request->postcode != null and $request->city != null and $request->phone != null and $request->address != null) {
                 if ($cart != null) {
-                    $cartProducts = $cart->cartProducts;
+                    // $cartProducts = $cart->cartProducts;
+
+
+                    // Assuming $cart is an instance of the Cart model
+                    $cartProducts = $cart->cartProducts()
+                        ->with(['lookBuilderProduct', 'customProduct', 'cartProductOptions'])
+                        ->get();
+
+                    $lookBuilderProducts = $cartProducts->pluck('lookBuilderProduct');
+                    $customProducts = $cartProducts->pluck('customProduct');
+
+                    $cartProductOptions = CartProductOption::all();
+
+
                     $amount = $cartProducts->sum('total_price');
                     if ($cartProducts->count() > 0) {
                         $order = Order::create([
@@ -259,13 +318,30 @@ class ShopController extends Controller
                             'amount' => $amount,
                         ]);
                         foreach ($cartProducts as $cartProduct) {
-                            OrderProduct::create([
+                            $orderProduct = OrderProduct::create([
                                 'order_id' => $order->id,
                                 'look_builder_product_id' => $cartProduct->look_builder_product_id,
                                 'size' => $cartProduct->size,
-                                'quantity' => $cartProduct->quantity,
+                                'quantity' => $cartProduct->quantity ?? 1,
+                                'custom_product_id' => $cartProduct->custom_product_id,
                             ]);
+
+                            // Check if there are options for the current $cartProduct
+                            if ($cartProductOptions->count() > 0) {
+                                // Filter $cartProductOptions based on the current $cartProduct
+                                $optionsForCurrentProduct = $cartProductOptions->where('custom_product_id', $cartProduct->custom_product_id);
+
+                                // Iterate over options for the current $cartProduct
+                                foreach ($optionsForCurrentProduct as $cartProductOption) {
+                                    OrderProductOption::create([
+                                        'order_product_id' => $orderProduct->id,
+                                        'custom_option_id' => $cartProductOption->custom_option_id,
+                                        'custom_product_id' => $orderProduct->custom_product_id,
+                                    ]);
+                                }
+                            }
                         }
+
                         DB::commit();
                         $cart->delete();
                         DB::commit();

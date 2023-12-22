@@ -56,6 +56,8 @@ $(function () {
             success: function (response) {
                 console.log(editItemId);
                 $("#editOptionImageModal").modal("show");
+                $("#editOptionImageModal #sequence").val(response.sequence_no);
+
                 $("#editOptionImageModal select[name='fabric_id']").val(
                     response.fabric_id
                 );

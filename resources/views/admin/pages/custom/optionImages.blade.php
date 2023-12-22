@@ -13,21 +13,19 @@
                 <div class="col-12">
                     <div class="py-3 text-end">
                     </div>
-
                     <button type="button" class="btn btn-primary btn-sm addOption"
                         data-bs-attribute="{{ $option->uuid }}">Add
                         Layer Image</button>
                     <div class="card mt-3">
                         <div class="card-body">
-
                             <table id="selection-datatable"
                                 class="lookBuilderTable table table-striped dt-responsive nowrap w-100 align-middle">
-
                                 <thead>
                                     <tr>
                                         <th>Option</th>
                                         <th>Fabric</th>
                                         <th>Layer Image</th>
+                                        <th>Sequence</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -41,6 +39,7 @@
                                                     src="{{ asset('images/custom_products/options/images/' . $customImage->layer_image) }}"
                                                     alt="no-image">
                                             </td>
+                                            <td>{{ $customImage->sequence_no }}</td>
                                             <td class="table-action">
                                                 <a class="action-icon editOptionImage"
                                                     data-image-id="{{ $customImage->id }}">

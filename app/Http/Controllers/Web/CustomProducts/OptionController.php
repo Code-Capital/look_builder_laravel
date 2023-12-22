@@ -128,6 +128,7 @@ class OptionController extends Controller
                 'fabric_id' => $request->fabric_id,
                 'custom_option_id' => $request->option_id,
                 'layer_image' => $imageName,
+                'sequence_no' => $request->sequence,
             ]);
             DB::commit();
             return response()->json([
@@ -178,6 +179,7 @@ class OptionController extends Controller
                 'fabric_id' => $request->fabric_id,
                 'layer_image' => $layer_image_name,
                 'custom_option_id' => $request->option_id,
+                'sequence_no' => $request->sequence
             ]);
 
             DB::commit();
