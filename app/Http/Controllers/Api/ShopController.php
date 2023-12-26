@@ -476,7 +476,7 @@ class ShopController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 500,
-                'message' => 'Something went wrong',
+                'message' => $th->getMessage(),
             ]);
         }
     }

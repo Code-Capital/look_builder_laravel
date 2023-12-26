@@ -15,17 +15,16 @@ class FabricResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' =>$this->id,
+            'id' => $this->id,
             'uuid' => $this->uuid,
             'name' => $this->name,
             'price' => $this->price,
-            'image'=> 'images/fabrics/',$this->image,
-            'composition'=>$this->composition,
+            'image' => 'images/fabrics/' . $this->image,
+            'composition' => $this->composition,
             'wight' => $this->weight,
             'season' => $this->season,
-            'woven_by'=>$this->woven_by,
-            'fabric_code' => $this->fabric_code,
-
-        ]
+            'woven_by' => $this->woven_by,
+            'fabric_code' => $this->fabric_code
+        ];
     }
 }
