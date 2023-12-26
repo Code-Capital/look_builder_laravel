@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\Custom\ProductLayerResource;
 use App\Http\Resources\Custom\ProductResource;
+use App\Http\Resources\CustomOptionLayerResource;
 use App\Http\Resources\CustomProductResource;
 use App\Models\CustomOption;
 use App\Models\CustomOptionImage;
@@ -55,7 +56,7 @@ class CustomProductController extends Controller
                 'data' => new ProductLayerResource($productLayerImage),
             ]);
         } catch (\Throwable $th) {
-            //throw $th;
+            dd($th->getMessage());
         }
     }
     public function getOptionById($option_uuid, $fabric_uuid)
@@ -70,7 +71,7 @@ class CustomProductController extends Controller
             return response()->json([
                 'status' => 200,
                 'message' => 'Layer Image',
-                'data' => $layer_image,
+                'data' => new CustomOptionLayerResource($layer_image),
             ]);
         } catch (\Throwable $th) {
             //throw $th;
