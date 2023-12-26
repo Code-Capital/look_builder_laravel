@@ -16,7 +16,10 @@
                         <label for="message-text" class="col-form-label">Description:</label>
                         <input type="text" class="form-control" id="description" name="description">
                     </div>
-
+                    <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Price:</label>
+                        <input type="text" class="form-control" id="price" name="price">
+                    </div>
                     <div class="mb-3">
                         <label for="message-text" class="col-form-label">Image:</label>
                         <input type="file" class="form-control" id="image" name="image">

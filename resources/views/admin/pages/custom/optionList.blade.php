@@ -32,6 +32,7 @@
                                     <tr>
                                         <th>Name</th>
                                         <th>Description</th>
+                                        <th>Price</th>
                                         <th>Image</th>
                                         <th>Layer Images</th>
                                         <th>Attribute</th>
@@ -43,6 +44,7 @@
                                         <tr>
                                             <td>{{ $option->name }}</td>
                                             <td>{{ $option->description }}</td>
+                                            <td>{{ $option->price }}</td>
                                             <td>
                                                 <img width="80" height="60"
                                                     src="{{ asset('images/custom_products/options/' . $option->image) }}"

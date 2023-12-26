@@ -19,6 +19,7 @@ class OptionResource extends JsonResource
             'uuid' => $this->uuid,
             'name' => $this->name,
             'description' => $this->description,
+            'price' => $this->price,
             'attribute' => $this->customAttribute->name,
             'images' =>  '/images/custom_products/options/' . $this->image,
         ];

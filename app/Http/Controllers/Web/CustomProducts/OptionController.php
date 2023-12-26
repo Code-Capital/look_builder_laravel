@@ -31,6 +31,7 @@ class OptionController extends Controller
                 'image' => $imageName,
                 'custom_attribute_id' => $attribute->id,
                 'fabric_id' => $request->fabric_id,
+                'price' => $request->price,
             ]);
             DB::commit();
             return response()->json(['status' => true, 'message' => 'Created Successfully']);
@@ -78,6 +79,7 @@ class OptionController extends Controller
                 'name' => $request->name,
                 'description' => $request->description,
                 'image' => $imageName,
+                'price' => $request->price,
             ]);
             DB::commit();
             return response()->json(['status' => true, 'message' => 'Updated Successfully']);

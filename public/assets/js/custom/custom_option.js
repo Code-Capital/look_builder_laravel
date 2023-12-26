@@ -59,6 +59,7 @@ $(function () {
                 $("#editOptionModal").modal("show");
                 $("#editOptionModal #name").val(response.name);
                 $("#editOptionModal #description").val(response.description);
+                $("#editOptionModal #price").val(response.price);
             },
             error: function (xhr) {
                 toastr.error(response.message, "Error");
