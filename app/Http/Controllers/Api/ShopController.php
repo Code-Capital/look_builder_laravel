@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CartResource;
 use App\Http\Resources\CategoryResource;
+use App\Http\Resources\FabricResource;
 use App\Http\Resources\LookBuilderProductResource;
 use App\Http\Resources\ProductResource;
 use App\Http\Resources\SizeResource;
@@ -470,7 +471,7 @@ class ShopController extends Controller
             return response()->json([
                 'status' => 200,
                 'message' => 'All Fabrics',
-                'data' => $fabrics,
+                'data' => FabricResource::collection($fabrics),
             ]);
         } catch (\Throwable $th) {
             return response()->json([
