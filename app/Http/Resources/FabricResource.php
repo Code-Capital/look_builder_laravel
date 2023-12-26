@@ -21,7 +21,7 @@ class FabricResource extends JsonResource
             'price' => $this->price,
             'image' => 'images/fabrics/' . $this->image,
             'composition' => $this->composition,
-            'wight' => $this->weight,
+            'weight' => $this->weight,
             'season' => $this->season,
             'woven_by' => $this->woven_by,
             'fabric_code' => $this->fabric_code
