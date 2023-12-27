@@ -35,7 +35,7 @@ class CartResource extends JsonResource
             } else if ($cartProduct->customProduct) {
                 return [
                     // dd($cartProduct->cartProductOptions),
-                    'customProduct' => new CustomProductResource($cartProduct->customProduct),
+                    'lookbuilderproduct' => new CustomProductResource($cartProduct->customProduct),
                     'id' => $cartProduct->id,
                     'cart_id' => $cartProduct->cart_id,
                     'quantity' => $cartProduct->quantity,
