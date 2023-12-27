@@ -21,8 +21,8 @@ class CustomProductResource extends JsonResource
             'id' => $this->id,
             'uuid' => $this->uuid,
             'title' => $this->title,
-            'attributes' => AttributeResource::collection($this->customAttributes),
-            'sizes' => SizeResource::collection($this->attributes),
+            // 'attributes' => AttributeResource::collection($this->customAttributes),
+            // 'sizes' => SizeResource::collection($this->attributes),
         ];
     }
 }

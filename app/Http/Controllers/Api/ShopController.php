@@ -152,6 +152,7 @@ class ShopController extends Controller
     public function custom_addToCart(Request $request)
     {
         try {
+            // dd($request);
             DB::beginTransaction();
             $price = 0;
             $cart = Auth::user()->cart ?? Cart::create(['user_id' => Auth::user()->id]);
@@ -160,9 +161,8 @@ class ShopController extends Controller
             $cartProduct = CartProduct::create([
                 'custom_product_id' => $product->id,
                 'cart_id' => $cart->id,
-                'total_price' => 0,
+                'total_price' => $request->total_price,
                 'size' => $request->size,
-
             ]);
             $cartProduct->load('customProduct');
             $optionsIdsInCart = explode(',', $request->optionIds);
@@ -173,16 +173,17 @@ class ShopController extends Controller
                     'custom_option_id' => $option_id,
                     'custom_product_id' => $product->id,
                 ]);
-                $custom_option = CustomOption::findorfail($option_id);
-                $price += $custom_option->price;
             }
+            //     $custom_option = CustomOption::findorfail($option_id);
+            //     $price += $custom_option->price;
+            // }
 
-            $price += $fabric->price;
+            // $price += $fabric->price;
 
-            $cartProduct->update([
-                'id' => $cartProduct->id,
-                'total_price' => $price,
-            ]);
+            // $cartProduct->update([
+            //     'id' => $cartProduct->id,
+            //     'total_price' => $price,
+            // ]);
             DB::commit();
             return response()->json([
                 'status' => 200,
@@ -255,6 +256,7 @@ class ShopController extends Controller
             $cart = Auth::user()->cart;
             if ($cart != null) {
                 $cartWithProducts = $cart->load('cartProducts');
+                // dd($cartWithProducts);
                 if ($cartWithProducts->count() > 0) {
                     return response()->json([
                         'status' => 200,
@@ -276,7 +278,7 @@ class ShopController extends Controller
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => 500,
-                'message' => 'Internal server error',
+                'message' => $th->getMessage(),
             ]);
         }
     }

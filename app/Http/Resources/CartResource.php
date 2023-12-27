@@ -23,15 +23,27 @@ class CartResource extends JsonResource
     protected function transformCartProducts($cartProducts)
     {
         return $cartProducts->map(function ($cartProduct) {
-            return [
-                'lookbuilderproduct' => new LookBuilderProductResource($cartProduct->lookbuilderproduct),
-                'id' => $cartProduct->id,
-                'cart_id' => $cartProduct->cart_id,
-                'quantity' => $cartProduct->quantity,
-                'size' => $cartProduct->size,
-                'total_price' => $cartProduct->total_price,
-
-            ];
+            if ($cartProduct->lookBuilderProduct) {
+                return [
+                    'lookbuilderproduct' => new LookBuilderProductResource($cartProduct->lookbuilderproduct),
+                    'id' => $cartProduct->id,
+                    'cart_id' => $cartProduct->cart_id,
+                    'quantity' => $cartProduct->quantity,
+                    'size' => $cartProduct->size,
+                    'total_price' => $cartProduct->total_price,
+                ];
+            } else if ($cartProduct->customProduct) {
+                return [
+                    // dd($cartProduct->cartProductOptions),
+                    'customProduct' => new CustomProductResource($cartProduct->customProduct),
+                    'id' => $cartProduct->id,
+                    'cart_id' => $cartProduct->cart_id,
+                    'quantity' => $cartProduct->quantity,
+                    'size' => $cartProduct->size,
+                    'total_price' => $cartProduct->total_price,
+                    'options' => $cartProduct->cartProductOptions,
+                ];
+            }
         });
     }
 }
