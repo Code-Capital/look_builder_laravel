@@ -27,6 +27,7 @@ class AttributeController extends Controller
         try {
             DB::beginTransaction();
             $productId = $request->input('look_builder_product_id');
+            $lookBuilderProduct = LookBuilderProduct::findorfail($productId);
             $nameArray = $request->input('name', []);
             $descriptionArray = $request->input('description', []);
 
@@ -39,7 +40,8 @@ class AttributeController extends Controller
                     'uuid' => Str::uuid(),
                     'name' => $nameArray[$i],
                     'description' => $descriptionArray[$i],
-                    'look_builder_product_id' => $productId
+                    'look_builder_product_id' => $productId,
+                    'category_id' => $lookBuilderProduct->category_id,
                 ]);
             }
 
