@@ -17,6 +17,7 @@ return new class extends Migration
             $table->unsignedBigInteger('look_builder_product_id')->nullable();
             $table->unsignedBigInteger('custom_product_id')->nullable();
             $table->string('size');
+            $table->float('price')->nullable();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('look_builder_product_id')->references('id')->on('look_builder_products')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('custom_product_id')->references('id')->on('custom_products')->onDelete('cascade')->onUpdate('cascade');

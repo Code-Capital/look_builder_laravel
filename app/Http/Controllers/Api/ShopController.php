@@ -331,14 +331,12 @@ class ShopController extends Controller
                                 'quantity' => $cartProduct->quantity ?? 1,
                                 'custom_product_id' => $cartProduct->custom_product_id,
                                 'fabric_id' => $cartProduct->fabric_id,
+                                'price' => $cartProduct->total_price,
                             ]);
 
-                            // Check if there are options for the current $cartProduct
                             if ($cartProductOptions->count() > 0) {
-                                // Filter $cartProductOptions based on the current $cartProduct
                                 $optionsForCurrentProduct = $cartProductOptions->where('custom_product_id', $cartProduct->custom_product_id);
 
-                                // Iterate over options for the current $cartProduct
                                 foreach ($optionsForCurrentProduct as $cartProductOption) {
                                     OrderProductOption::create([
                                         'order_product_id' => $orderProduct->id,
