@@ -13,7 +13,7 @@ class CustomProduct extends Model
         'title',
         'layer_image',
         'category_id',
-        'fabric_id'
+        'fabric_id',
     ];
     public function customAttributes()
     {

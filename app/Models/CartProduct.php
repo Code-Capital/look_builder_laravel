@@ -15,6 +15,7 @@ class CartProduct extends Model
         'quantity',
         'size',
         'total_price',
+        'fabric_id',
     ];
     public function lookBuilderProduct()
     {
@@ -31,5 +32,9 @@ class CartProduct extends Model
     public function cartProductOptions()
     {
         return $this->hasMany(CartProductOption::class);
+    }
+    public function fabric()
+    {
+        return $this->belongsTo(Fabric::class);
     }
 }

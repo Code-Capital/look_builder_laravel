@@ -99,6 +99,8 @@
                                         <th>Color</th>
                                         <th>Price</th>
                                         <th>Desc</th>
+                                        <th>Sizes</th>
+
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -119,6 +121,10 @@
                                             <td>{{ $product->color }}</td>
                                             <td>{{ $product->price }}</td>
                                             <td>{{ $product->description }}</td>
+                                            <td>
+                                                <a href="{{ route('attributesByProduct', $product->uuid) }}"
+                                                    class="btn btn-primary btn-sm">View Sizes</a>
+                                            </td>
                                             <td class="table-action">
                                                 <a class="action-icon editProduct" data-product-id="{{ $product->uuid }}">
                                                     <i class="mdi mdi-pencil"></i>

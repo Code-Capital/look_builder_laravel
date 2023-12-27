@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('total_price', 8, 2);
             $table->string('size');
 
+
             $table->foreign('look_builder_product_id')->references('id')->on('look_builder_products')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('custom_product_id')->references('id')->on('custom_products')->onDelete('cascade')->onUpdate('cascade');
             $table->foreign('cart_id')->references('id')->on('carts')->onDelete('cascade')->onUpdate('cascade');

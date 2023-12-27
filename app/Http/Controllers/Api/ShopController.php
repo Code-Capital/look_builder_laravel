@@ -158,11 +158,14 @@ class ShopController extends Controller
             $cart = Auth::user()->cart ?? Cart::create(['user_id' => Auth::user()->id]);
             $product = CustomProduct::where('uuid', $request->product_uuid)->first();
             $fabric = Fabric::where('uuid', $request->fabric_uuid)->first();
+            // dd($fabric);
+
             $cartProduct = CartProduct::create([
                 'custom_product_id' => $product->id,
                 'cart_id' => $cart->id,
                 'total_price' => $request->total_price,
                 'size' => $request->size,
+                'fabric_id' => $fabric->id,
             ]);
             $cartProduct->load('customProduct');
             $optionsIdsInCart = explode(',', $request->optionIds);
@@ -327,6 +330,7 @@ class ShopController extends Controller
                                 'size' => $cartProduct->size,
                                 'quantity' => $cartProduct->quantity ?? 1,
                                 'custom_product_id' => $cartProduct->custom_product_id,
+                                'fabric_id' => $cartProduct->fabric_id,
                             ]);
 
                             // Check if there are options for the current $cartProduct

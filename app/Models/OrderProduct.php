@@ -14,6 +14,7 @@ class OrderProduct extends Model
         'custom_product_id',
         'size',
         'quantity',
+        'fabric_id',
     ];
     public function order()
     {

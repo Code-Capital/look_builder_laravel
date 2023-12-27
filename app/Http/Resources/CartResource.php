@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Models\ProductLayerImage;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -36,12 +37,15 @@ class CartResource extends JsonResource
                 return [
                     // dd($cartProduct->cartProductOptions),
                     'lookbuilderproduct' => new CustomProductResource($cartProduct->customProduct),
+                    'layer_image' => 'images/custom_products/layer_images/' . ProductLayerImage::where('fabric_id', $cartProduct->fabric_id)->where('custom_product_id', $cartProduct->customProduct->id)->first()->image,
+
                     'id' => $cartProduct->id,
                     'cart_id' => $cartProduct->cart_id,
                     'quantity' => $cartProduct->quantity,
                     'size' => $cartProduct->size,
                     'total_price' => $cartProduct->total_price,
-                    'options' => $cartProduct->cartProductOptions,
+                    'fabric' => $cartProduct->fabric->name,
+                    'options' => CartProductOptionsResource::collection($cartProduct->cartProductOptions),
                 ];
             }
         });
