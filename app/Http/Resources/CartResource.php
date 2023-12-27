@@ -35,9 +35,8 @@ class CartResource extends JsonResource
                 ];
             } else if ($cartProduct->customProduct) {
                 return [
-                    'lookbuilderproduct' => new CustomProductResource($cartProduct->customProduct),
+                    'lookbuilderproduct' => new CustomCartProductResource($cartProduct->customProduct),
                     'layer_image' => 'images/custom_products/layer_images/' . ProductLayerImage::where('fabric_id', $cartProduct->fabric_id)->where('custom_product_id', $cartProduct->customProduct->id)->first()->image,
-
                     'id' => $cartProduct->id,
                     'cart_id' => $cartProduct->cart_id,
                     'quantity' => $cartProduct->quantity,
