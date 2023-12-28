@@ -11,7 +11,7 @@ use Illuminate\Support\Str;
 
 class FabricController extends Controller
 {
-    public function store(AddRequest $request)
+    public function store(Request $request)
     {
         try {
             DB::beginTransaction();
