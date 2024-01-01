@@ -68,13 +68,24 @@ class CustomProductController extends Controller
             $layer_image = CustomOptionImage::where('custom_option_id', $customOption->id)
                 ->where('fabric_id', $fabric->id)
                 ->first();
-            return response()->json([
-                'status' => 200,
-                'message' => 'Layer Image',
-                'data' => new CustomOptionLayerResource($layer_image),
-            ]);
+
+            if ($layer_image) {
+                return response()->json([
+                    'status' => 200,
+                    'message' => 'Layer Image',
+                    'data' => new CustomOptionLayerResource($layer_image),
+                ]);
+            } else {
+                return response()->json([
+                    'status' => 204,
+                    'message' => 'Empty Layer',
+                ]);
+            }
         } catch (\Throwable $th) {
-            //throw $th;
+            return response()->json([
+                'status' => 500,
+                'message' => 'Internal Server Error',
+            ]);
         }
     }
 }
