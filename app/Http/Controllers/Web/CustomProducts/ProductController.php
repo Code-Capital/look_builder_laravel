@@ -39,8 +39,6 @@ class ProductController extends Controller
             CustomProduct::create([
                 'uuid' => Str::uuid(),
                 'title' => $request->title,
-                'layer_image' => $layer_image_name,
-                'category_id' => $request->category_id,
             ]);
             DB::commit();
             return response()->json(['status' => true, 'message' => 'Product added successfully']);
@@ -64,23 +62,23 @@ class ProductController extends Controller
         try {
             DB::beginTransaction();
             $customProduct = CustomProduct::where('uuid', $product_uuid)->first();
-            $layer_image_name = $customProduct->layer_image;
-            $product_image_name = $customProduct->product_image;
+            // $layer_image_name = $customProduct->layer_image;
+            // $product_image_name = $customProduct->product_image;
 
-            if (isset($layer_image_name)) {
-                $filePathToDeleteLayer = public_path('images/custom_products/layer_images/' . $layer_image_name);
+            // if (isset($layer_image_name)) {
+            //     $filePathToDeleteLayer = public_path('images/custom_products/layer_images/' . $layer_image_name);
 
-                if (file_exists($filePathToDeleteLayer)) {
-                    unlink($filePathToDeleteLayer);
-                }
-            }
-            if (isset($product_image_name)) {
-                $filePathToDeleteProduct = public_path('images/custom_products/product_images/' . $product_image_name);
+            //     if (file_exists($filePathToDeleteLayer)) {
+            //         unlink($filePathToDeleteLayer);
+            //     }
+            // }
+            // if (isset($product_image_name)) {
+            //     $filePathToDeleteProduct = public_path('images/custom_products/product_images/' . $product_image_name);
 
-                if (file_exists($filePathToDeleteProduct)) {
-                    unlink($filePathToDeleteProduct);
-                }
-            }
+            //     if (file_exists($filePathToDeleteProduct)) {
+            //         unlink($filePathToDeleteProduct);
+            //     }
+            // }
             $customProduct->delete();
             DB::commit();
             return response()->json(['status' => true, 'message' => 'Deleted Successfully']);
@@ -104,26 +102,26 @@ class ProductController extends Controller
         try {
             DB::beginTransaction();
             $customProduct = CustomProduct::where('uuid', $product_uuid)->first();
-            $layer_image_name = $customProduct->layer_image;
+            // $layer_image_name = $customProduct->layer_image;
 
-            if ($request->hasFile('layer_image')) {
+            // if ($request->hasFile('layer_image')) {
 
-                if (isset($layer_image_name)) {
-                    $filePathToDeleteLayer = public_path('images/custom_products/layer_images/' . $layer_image_name);
+            //     if (isset($layer_image_name)) {
+            //         $filePathToDeleteLayer = public_path('images/custom_products/layer_images/' . $layer_image_name);
 
-                    if (file_exists($filePathToDeleteLayer)) {
-                        unlink($filePathToDeleteLayer);
-                    }
-                }
+            //         if (file_exists($filePathToDeleteLayer)) {
+            //             unlink($filePathToDeleteLayer);
+            //         }
+            //     }
 
-                $layer_image = $request->file('layer_image');
-                $layer_image_name = time() . '_' . Str::random(15) . '.' . $layer_image->getClientOriginalExtension();
-                $layer_image->storeAs('images/custom_products/layer_images', $layer_image_name);
-            }
+            //     $layer_image = $request->file('layer_image');
+            //     $layer_image_name = time() . '_' . Str::random(15) . '.' . $layer_image->getClientOriginalExtension();
+            //     $layer_image->storeAs('images/custom_products/layer_images', $layer_image_name);
+            // }
 
             $customProduct->update([
                 'title' => $request->title,
-                'layer_image' => $layer_image_name,
+                // 'layer_image' => $layer_image_name,
             ]);
             DB::commit();
             return response()->json(['status' => true, 'message' => 'Product updated successfully']);

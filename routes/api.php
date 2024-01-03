@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\ResetPasswordController;
 use App\Http\Controllers\Api\SavedItemController;
 use App\Http\Controllers\Api\ShopController;
 use App\Http\Controllers\Api\VerificationController;
+use App\Http\Controllers\Web\Custom\SuitController;
 use Illuminate\Support\Facades\Auth;
 /*
 |--------------------------------------------------------------------------
@@ -42,11 +43,11 @@ Route::get('suit/{suit_uuid}', [ShopController::class, 'suitById']);
 
 
 Route::get('fabrics', [ShopController::class, 'fabrics']);
+Route::get('custom_suit/{uuid}', [SuitController::class, 'getSuitById']);
 Route::prefix('custom_products')->group(function () {
     Route::get('', [CustomProductController::class, 'getAllCustomProducts']);
     Route::get('{product_uuid}', [CustomProductController::class, 'getProductById']);
     Route::get('getLayerImage/{product_uuid}/{fabric_uuid}', [CustomProductController::class, 'getLayerImageByFabric']);
-
     Route::get('option_by_id/{option_uuid}/{fabric_uuid}', [CustomProductController::class, 'getOptionById']);
 });
 

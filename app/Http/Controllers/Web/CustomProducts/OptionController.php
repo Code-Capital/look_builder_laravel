@@ -30,7 +30,7 @@ class OptionController extends Controller
                 'description' => $request->description,
                 'image' => $imageName,
                 'custom_attribute_id' => $attribute->id,
-                'fabric_id' => $request->fabric_id,
+                // 'fabric_id' => $request->fabric_id,
                 'price' => $request->price,
             ]);
             DB::commit();

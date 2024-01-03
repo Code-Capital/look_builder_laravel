@@ -13,11 +13,6 @@
                             <label for="recipient-name" class="col-form-label">Title:</label>
                             <input type="text" class="form-control" id="title" name="title">
                         </div>
-                        <div class="col">
-                            <label for="recipient-name" class="col-form-label">Image:</label>
-                            <input type="file" class="form-control" id="layer_image" name="layer_image">
-                        </div>
-
                     </div>
                 </div>
                 <div class="modal-footer">

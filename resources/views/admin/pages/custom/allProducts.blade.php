@@ -49,11 +49,11 @@
                                                             placeholder="Title">
                                                     </div>
                                                 </div>
-                                                <div class="col-lg-4">
+                                                {{-- <div class="col-lg-4">
                                                     <div class="mb-3">
                                                         <input name="layer_image" type="file" class="form-control">
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                                 <div class="col-lg-12">
                                                     <div class="mt-3 text-center ">
                                                         <button class="btn btn-primary btn-sm"
