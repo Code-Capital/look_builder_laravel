@@ -44,6 +44,7 @@ Route::get('suit/{suit_uuid}', [ShopController::class, 'suitById']);
 
 Route::get('fabrics', [ShopController::class, 'fabrics']);
 Route::get('custom_suit/{uuid}', [SuitController::class, 'getSuitById']);
+Route::get('custom_suits', [SuitController::class, 'customSuits']);
 Route::prefix('custom_products')->group(function () {
     Route::get('', [CustomProductController::class, 'getAllCustomProducts']);
     Route::get('{product_uuid}', [CustomProductController::class, 'getProductById']);

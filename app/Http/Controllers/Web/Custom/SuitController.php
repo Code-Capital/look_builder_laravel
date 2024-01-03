@@ -22,4 +22,17 @@ class SuitController extends Controller
             //throw $th;
         }
     }
+    public function customSuits()
+    {
+        try {
+            $suits  = CustomSuit::all();
+            return  response()->json([
+                'status' => 200,
+                'message' => 'All Suits',
+                'data' => $suits,
+            ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
 }
