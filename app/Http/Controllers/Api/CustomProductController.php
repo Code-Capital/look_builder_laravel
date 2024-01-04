@@ -45,8 +45,25 @@ class CustomProductController extends Controller
     public function getLayerImageByFabric($product_uuid, $fabric_uuid)
     {
         try {
-            $product = CustomProduct::where('uuid', $product_uuid)->first();
             $fabric = Fabric::where('uuid', $fabric_uuid)->first();
+            $product = CustomProduct::where('uuid', $product_uuid)->first();
+            $attributes = $product->customAttributes;
+            $layerImages = [];
+            foreach ($attributes as $attribute) {
+                $options = $attribute->customOptions;
+
+                foreach ($options as $option) {
+                    $customOptionImage = CustomOptionImage::where('custom_option_id', $option->id)->where('fabric_id', $fabric->id)->first();
+                    if ($customOptionImage) {
+
+                        $layerImages[] = [
+                            'option_id' => $option->id,
+                            'image_path' => 'images/custom_products/options/images.' . $customOptionImage->layer_image, // Adjust this based on your actual field names
+                        ];
+                    }
+                }
+            }
+            // dd($layerImages);
             $productLayerImage = ProductLayerImage::where('custom_product_id', $product->id)
                 ->where('fabric_id', $fabric->id)
                 ->first();
@@ -54,6 +71,7 @@ class CustomProductController extends Controller
                 'status' => 200,
                 'message' => 'Layer Image',
                 'data' => new ProductLayerResource($productLayerImage),
+                'initial' => $layerImages,
             ]);
         } catch (\Throwable $th) {
             dd($th->getMessage());

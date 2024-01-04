@@ -52,15 +52,11 @@ Route::prefix('custom_products')->group(function () {
     Route::get('option_by_id/{option_uuid}/{fabric_uuid}', [CustomProductController::class, 'getOptionById']);
 });
 
-
 Route::get('newest_first', [ShopController::class, 'newestFirst']);
 Route::get('price_low_to_high', [ShopController::class, 'lowToHigh']);
 Route::get('price_high_to_low', [ShopController::class, 'highToLow']);
 Route::get('products_by_color', [ShopController::class, 'byColor']);
 Route::get('initial_look', [ShopController::class, 'initialLook']);
-
-
-
 
 Route::middleware(['auth:sanctum'])->group(function () {
 
@@ -75,9 +71,6 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('shop_look/{productIds}', [ShopController::class, 'shopLook']);
 
     Route::post('custom_addToCart', [ShopController::class, 'custom_addToCart']);
-
-
-
 
     Route::post('cart', [ShopController::class, 'myCart']);
     Route::post('add_size', [ShopController::class, 'addSize']);
