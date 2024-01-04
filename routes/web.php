@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Web\AttributeController;
 use App\Http\Controllers\Web\CategoryController;
+use App\Http\Controllers\Web\Custom\SuitController as CustomSuitController;
 use App\Http\Controllers\Web\CustomProducts\AttributeController as CustomProductsAttributeController;
 use App\Http\Controllers\Web\CustomProducts\OptionController as CustomProductsOptionController;
 use App\Http\Controllers\Web\CustomProducts\ProductController;
@@ -39,7 +40,6 @@ Route::get('register', function () {
 });
 Route::post('logout', [DashboardController::class, 'logout'])->name('logout');
 
-
 Route::middleware('role:admin', 'auth')->group(function () {
     Route::get('my_profile', [UserController::class, 'myProfile'])->name('profile');
     Route::post('create_user', [UserController::class, 'store'])->name('user.create');
@@ -70,6 +70,11 @@ Route::middleware('role:admin', 'auth')->group(function () {
         Route::delete('/{suit_uuid}', [SuitController::class, 'delete'])->name('suit.delete');
         Route::get('/{suit_uuid}', [SuitController::class, 'edit'])->name('suit.edit');
         Route::post('/{suit_uuid}', [SuitController::class, 'update'])->name('suit.update');
+    });
+    Route::prefix('custom_suits')->group(function () {
+        Route::get('', [CustomSuitController::class, 'list'])->name('customSuit.list');
+        Route::post('add', [CustomSuitController::class, 'store'])->name('customSuit.store');
+        Route::delete('dlete/{uuid}', [CustomSuitController::class, 'delete'])->name('customSuit.delete');
     });
 
     Route::prefix('custom_products')->group(function () {

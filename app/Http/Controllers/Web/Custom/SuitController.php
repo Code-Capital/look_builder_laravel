@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web\Custom;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\CustomSuitResource;
+use App\Models\CustomProduct;
 use App\Models\CustomSuit;
 use Illuminate\Http\Request;
 
@@ -31,6 +32,16 @@ class SuitController extends Controller
                 'message' => 'All Suits',
                 'data' => $suits,
             ]);
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
+    }
+    public function list()
+    {
+        try {
+            $suits = CustomSuit::all();
+            $customProducts = CustomProduct::all();
+            return view('admin.pages.custom.allSuits', compact('suits', 'customProducts'));
         } catch (\Throwable $th) {
             //throw $th;
         }
