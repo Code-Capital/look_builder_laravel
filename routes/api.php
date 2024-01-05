@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\Custom\SortingController;
 use App\Http\Controllers\Api\CustomProductController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\ResetPasswordController;
@@ -58,8 +59,12 @@ Route::get('price_high_to_low', [ShopController::class, 'highToLow']);
 Route::get('products_by_color', [ShopController::class, 'byColor']);
 Route::get('initial_look', [ShopController::class, 'initialLook']);
 
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::get('fabric_newest_first', [SortingController::class, 'newest_first']);
+Route::get('fabric_search/{keyword}', [SortingController::class, 'search']);
+Route::get('fabric_price_low_to_high', [SortingController::class, 'lowToHigh']);
+Route::get('fabric_price_high_to_low', [SortingController::class, 'highToLow']);
 
+Route::middleware(['auth:sanctum'])->group(function () {
     Route::prefix('saved_item')->group(function () {
         Route::post('add', [SavedItemController::class, 'add']);
         Route::get('', [SavedItemController::class, 'getSavedItems']);
