@@ -76,6 +76,7 @@ Route::middleware(['auth:sanctum'])->group(function () {
     Route::get('shop_look/{productIds}', [ShopController::class, 'shopLook']);
 
     Route::post('custom_addToCart', [ShopController::class, 'custom_addToCart']);
+    Route::post('custom_removeFromCart/{product_id}', [ShopController::class, 'custom_removeFromCart']);
 
     Route::post('cart', [ShopController::class, 'myCart']);
     Route::post('add_size', [ShopController::class, 'addSize']);

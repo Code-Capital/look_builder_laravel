@@ -693,4 +693,34 @@ class ShopController extends Controller
             ]);
         }
     }
+    public function custom_removeFromCart($product_id)
+    {
+        try {
+            DB::beginTransaction();
+            $removeProduct = CustomProduct::where('uuid', $product_id)->first();
+            $cart = Auth::user()->cart;
+            $cartProducts = $cart->cartProducts;
+            if ($cartProducts->count() > 0) {
+                foreach ($cartProducts as $cartProduct) {
+
+                    if ($cartProduct->custom_product_id == $removeProduct->id) {
+                        $cartProduct->delete();
+                        DB::commit();
+                        return response()->json([
+                            'status' => 200,
+                            'message' => 'Removed from cart'
+                        ]);
+                        break;
+                    }
+                }
+            } else {
+                return response()->json([
+                    'status' => 204,
+                    'message' => 'Item is not in your cart'
+                ]);
+            }
+        } catch (\Throwable $th) {
+            DB::rollBack();
+        }
+    }
 }
